@@ -17,7 +17,7 @@ def get_component(id):
 
 
 @api.route("/components/", methods=["POST"])
-def new_Component():
+def new_component():
     component = Component()
     component.import_data(request.json)
     db.session.add(component)
