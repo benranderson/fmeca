@@ -1,8 +1,8 @@
 .jumbotron {
-    font-family: 'Source Sans Pro', sans-serif;
-    padding: 20 !important;
+    /* font-family: 'Source Sans Pro', sans-serif; */
+    /* padding: 20 !important; */
     color: #FFFFFF;
-    background-color: #607D8B;
+    background-color: #009901;
     text-align: center;
 }
 
@@ -10,37 +10,41 @@
 /* footer */
 
 footer {
-    margin-top: 45px;
-    padding-top: 5px;
-    border-top: 1px solid #eaeaea;
-    color: #999999;
-  }
-  
-  footer a {
-    color: #999999;
-  }
-  
-  footer p {
-    float: right;
-    margin-right: 25px;
-  }
-  
-  footer ul {
-    list-style: none;
-  }
-  
-  footer ul li {
-    float: left;
-    margin-left: 10px;
-  }
-  
-  footer .company {
-    float: left;
-    margin-left: 25px;
-  }
-  
-  footer .footer-nav {
-    float: right;
-    margin-right: 25px;
-    list-style: none;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #999999;
+}
+
+footer a {
+  color: #999999;
+}
+
+footer p {
+  float: right;
+  margin-right: 25px;
+}
+
+footer ul {
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 10px;
+}
+
+footer .company {
+  float: left;
+  margin-left: 25px;
+}
+
+footer .footer-nav {
+  float: right;
+  margin-right: 25px;
+  list-style: none;
 }
