@@ -1,4 +1,5 @@
 from flask import url_for
+from flask_admin.contrib.sqla import ModelView
 from . import db
 from .exceptions import ValidationError
 
@@ -61,3 +62,7 @@ class SubComponent(db.Model):
         except KeyError as e:
             raise ValidationError('Invalid valve: missing ' + e.args[0])
         return self
+
+
+admin.add_view(ModelView(Component, db.session))
+admin.add_view(ModelView(SubComponent, db.session))
