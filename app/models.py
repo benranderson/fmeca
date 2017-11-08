@@ -1,6 +1,6 @@
 from flask import url_for
 from flask_admin.contrib.sqla import ModelView
-from . import db
+from . import db, admin
 from .exceptions import ValidationError
 
 
