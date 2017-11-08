@@ -9,6 +9,7 @@ Jinja2==2.9.6
 Mako==1.0.7
 MarkupSafe==1.0
 numpy==1.13.3
+pandas==0.21.0
 SQLAlchemy==1.1.15
 WTForms==2.1
 Werkzeug==0.12.2
