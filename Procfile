@@ -1,1 +1,1 @@
-web: gunicorn manage:app
+web: bokeh serve gunicorn manage:app
