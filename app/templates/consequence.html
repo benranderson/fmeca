@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Consequence{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <h1>Consequences</h1>
+        <h2>Global Consequence</h2>
+        <table class="table table-hover">
+            <thead><tr><th>Active Time</th></tr></thead>    
+            {% for vessel_trip in consequence.vessel_trips %}
+                <tr>
+                    <td>{{ vessel_trip.active_time }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="{{ url_for('.vessel_trip_add', component_id=component_id, consequence_id=consequence.id) }}"><button type="button" class="btn btn-success">Add a new Vessel Trip</button></a>        
+    </div>
+{%- endblock %}

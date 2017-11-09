@@ -8,11 +8,14 @@
         <h1>{{ component.ident }}</h1>
         <h2>Global Consequences</h2>
         <table class="table table-hover">
-            <thead><tr><th>Name</th><th>Hydrocarbon Release [Barrels]</th><th></th></tr></thead>    
+            <thead><tr><th>Name</th><th>Hydrocarbon Release [Barrels]</th><th>Vessel</th></tr></thead>    
             {% for consequence in component.consequences %}
                 <tr>
-                    <td>{{ consequence.name }}</td>
+                    <td><a href="{{ url_for('.consequence', component_id=component.id, consequence_id=consequence.id) }}"><button type="button" class="btn btn-primary">{{ consequence.name }}</button></a></td>    
                     <td>{{ consequence.hydro_release }}</td>
+                    {% for vessel_trip in consequence.vessel_trips %}
+                        <td>{{ vessel_trip.active_time }}</td>
+                    {% endfor %}
                     <td></td>
                 </tr>
             {% endfor %}

@@ -28,7 +28,6 @@ class ConsequenceForm(FlaskForm):
                        ('planned', 'Planned Intervention'),
                        ])
     hydro_release = DecimalField('Hydrocarbon Release [Barrels]')
-    vessels = SelectField('Vessel')
     submit = SubmitField('Submit')
 
 
@@ -37,4 +36,10 @@ class VesselForm(FlaskForm):
     abbr = StringField('Abbreviation', validators=[Required()])
     rate = IntegerField('Day Rate [$/day]', validators=[Required()])
     mob_time = DecimalField('Mobilisation Time [days]')
+    submit = SubmitField('Submit')
+
+
+class VesselTripForm(FlaskForm):
+    active_time = DecimalField('Active Time', validators=[Required()])
+    vessel_id = SelectField('Vessel', coerce=int)
     submit = SubmitField('Submit')
