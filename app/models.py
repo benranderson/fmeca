@@ -67,5 +67,40 @@ class SubComponent(db.Model):
         return self
 
 
+consequence_vessels = db.Table('consequence_vessels',
+                               db.Column('consequence_id', db.Integer,
+                                         db.ForeignKey('consequences.id')),
+                               db.Column('vessel_id', db.Integer,
+                                         db.ForeignKey('vessels.id'))
+                               )
+
+
+class Consequence(db.Model):
+
+    __tablename__ = 'consequences'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+    hydro_release = db.Column(db.Float)
+    vessels = db.relationship('Vessel',
+                              secondary=consequence_vessels,
+                              backref=db.backref(
+                                  'consequences', lazy='dynamic'),
+                              lazy='dynamic')
+
+
+class Vessel(db.Model):
+
+    __tablename__ = 'vessels'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), unique=True)
+    abbr = db.Column(db.String(64), unique=True)
+    rate = db.Column(db.Integer)
+    mob_time = db.Column(db.Float)
+
+
 admin.add_view(ModelView(Component, db.session))
 admin.add_view(ModelView(SubComponent, db.session))
+admin.add_view(ModelView(Consequence, db.session))
+admin.add_view(ModelView(Vessel, db.session))
