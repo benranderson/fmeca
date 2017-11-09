@@ -16,7 +16,8 @@ import matplotlib.pyplot as plt
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    components = Component.query.all()
+    return render_template('index.html', components=components)
 
 
 @main.route('/component/<int:id>/chart')
@@ -39,15 +40,11 @@ def fig(id):
 
 
 def draw_figure(ident, risk, interval):
-
     x = [0, interval, interval]
     y = [0, risk, 0]
-
     fig = plt.figure()
-
     # left, bottom, width, height (range 0 to 1)
     axes = fig.add_axes([0.1, 0.1, 0.8, 0.8])
-
     axes.plot([0, interval], [risk, risk], color='r', label='Risk')
     axes.plot(x, y, color='g', ls='--', label='RBI')
     axes.set_xlim([0, interval + 0.1 * interval])
@@ -57,48 +54,4 @@ def draw_figure(ident, risk, interval):
     axes.set_xlabel('Inspection Interval [yrs]')
     axes.set_ylabel('Commercial Risk [£]')
     axes.set_title(ident)
-
     return fig
-
-
-# @main.route('/component/<int:id>/chart', methods=['GET'])
-# def chart(id):
-#     component = Component.query.get_or_404(id)
-#     ident = component.ident
-#     annual_risk = component.annual_risk
-#     inspect_int = component.inspect_int
-#     x = [0, inspect_int, inspect_int]
-#     y = [0, annual_risk, 0]
-#     hover = create_hover_tool()
-#     plot = create_rbi_chart(x, y, hover)
-#     script, div = components(plot)
-
-#     return render_template("chart.html", ident=ident, the_div=div,
-#                            the_script=script)
-
-
-# def create_hover_tool():
-#     """Generates the HTML for the Bokeh's hover data tool on our graph."""
-#     hover_html = """
-#         <div>
-#             <span class="hover-tooltip">Annual Risk: £@y{0.00}</span>
-#         </div>
-#         <div>
-#             <span class="hover-tooltip">Inspection Interval: @x yrs</span>
-#         </div>
-#     """
-#     return HoverTool(tooltips=hover_html)
-
-
-# def create_rbi_chart(x, y, hover_tool=None):
-
-#     tools = []
-#     if hover_tool:
-#         tools = [hover_tool, ]
-
-#     p = figure(plot_width=400, plot_height=400, tools=tools)
-#     p.line(x, y, line_width=2)
-#     p.xaxis.axis_label = 'Inspection Interval [yrs]'
-#     p.yaxis.axis_label = 'Annual Risk [£]'
-
-#     return p

@@ -6,6 +6,17 @@
         <h1>FMECA <i class="mdi mdi-chart-line"></i></h1>
     </div>
     <div class="container">
-        <p><a href="{{ url_for('main.chart', id=1) }}"><button type="button" class="btn btn-default">Chart</button></a></p>      
+        <h1>Components</h1>
+        <table class="table table-hover">
+            <thead><tr><th>Ident</th><th>Annual Risk</th><th>Inspection Interval</th><th></th></tr></thead>
+            {% for component in components %}
+                <tr>
+                    <td><a href="{{ url_for('.chart', id=component.id) }}"><button type="button" class="btn btn-primary">{{ component.ident }}</button></a></td>    
+                    <td>{{ component.annual_risk }}</td>
+                    <td>{{ component.inspect_int }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 {%- endblock %}
