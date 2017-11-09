@@ -5,8 +5,10 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from . import main
 from app import db
-from ..models import Component, Vessel, Consequence, VesselTrip
-from .forms import VesselForm, ComponentForm, ConsequenceForm, VesselTripForm
+from ..models import Component, SubComponent, Vessel, Consequence, VesselTrip, \
+    FailureMode
+from .forms import VesselForm, ComponentForm, SubComponentForm, \
+    ConsequenceForm, VesselTripForm, FailureModeForm
 
 
 @main.route('/', methods=['GET'])
@@ -91,23 +93,45 @@ def vessel_trip_add(component_id, consequence_id):
     return render_template('form.html', form=form, heading=heading)
 
 
-# @main.route('/component/<int:id>/subcomponent/add', methods=['GET', 'POST'])
-# def consequence_add(id):
-#     component = Component.query.get_or_404(id)
-#     form = ConsequenceForm()
-#     form.vessel.choices = [(vessel.id, vessel.name)
-#                            for vessel in Vessel.query.order_by('name')]
-#     if form.validate_on_submit():
-#         consequence = Consequence(name=form.name.data,
-#                                   hydro_release=form.hydro_release.data)
-#         vessel = Vessel.query.get_or_404(form.vessel.data)
-#         consequence.vessel.append(vessel)
-#         consequence.component_id = component.id
-#         db.session.add(consequence)
-#         flash('Global Consequence added.')
-#         return redirect(url_for('.component', id=component.id))
-#     heading = "Add a new Global Consequence"
-#     return render_template('form.html', form=form, heading=heading)
+@main.route('/component/<int:component_id>/subcomponent/<int:subcomponent_id>', methods=['GET', 'POST'])
+def subcomponent(component_id, subcomponent_id):
+    subcomponent = SubComponent.query.get_or_404(subcomponent_id)
+    return render_template("subcomponent.html", subcomponent=subcomponent,
+                           component_id=component_id)
+
+
+@main.route('/component/<int:id>/subcomponent/add', methods=['GET', 'POST'])
+def subcomponent_add(id):
+    component = Component.query.get_or_404(id)
+    form = SubComponentForm()
+    if form.validate_on_submit():
+        subcomponent = SubComponent(ident=form.ident.data,
+                                    category=form.category.data)
+        subcomponent.component_id = component.id
+        db.session.add(subcomponent)
+        flash('Sub-Component added.')
+        return redirect(url_for('.component', id=component.id))
+    heading = "Add a new Sub-Component"
+    return render_template('form.html', form=form, heading=heading)
+
+
+@main.route('/component/<int:component_id>/subcomponent/<int:subcomponent_id>/failure_mode/add', methods=['GET', 'POST'])
+def failure_mode_add(component_id, subcomponent_id):
+    subcomponent = SubComponent.query.get_or_404(subcomponent_id)
+    form = FailureModeForm()
+    form.consequence_id.choices = [(consequence.id, consequence.name)
+                                   for consequence in Consequence.query.order_by('name')]
+    if form.validate_on_submit():
+        failure_mode = FailureMode(description=form.description.data,
+                                   mttf=form.mttf.data,
+                                   consequence_id=form.consequence_id.data)
+        failure_mode.subcomponent_id = subcomponent.id
+        db.session.add(failure_mode)
+        flash('Failure Mode added.')
+        return redirect(url_for('.subcomponent', component_id=component_id,
+                                subcomponent_id=subcomponent.id))
+    heading = "Add a new Failure Mode"
+    return render_template('form.html', form=form, heading=heading)
 
 
 @main.route('/component/<int:id>/fig', methods=['GET'])

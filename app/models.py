@@ -48,6 +48,8 @@ class SubComponent(db.Model):
     category = db.Column(db.String(64))
     component_id = db.Column(
         db.Integer, db.ForeignKey('components.id'), index=True)
+    failure_modes = db.relationship('FailureMode', backref='subcomponent',
+                                    lazy='dynamic')
 
     def __repr__(self):
         return '<SubComponent {}>'.format(self.ident)
@@ -81,6 +83,8 @@ class Consequence(db.Model):
     vessel_trips = db.relationship('VesselTrip', backref='consequence',
                                    lazy='dynamic',
                                    cascade='all, delete-orphan')
+    failure_modes = db.relationship('FailureMode', backref='consequence',
+                                    lazy='dynamic')
     component_id = db.Column(
         db.Integer, db.ForeignKey('components.id'), index=True)
 
@@ -122,8 +126,9 @@ class FailureMode(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(128))
-    failure_prob = db.Column(db.Float)
-    cost = db.Column(db.Integer)
+    mttf = db.Column(db.Float)
+    consequence_id = db.Column(
+        db.Integer, db.ForeignKey('consequences.id'), index=True)
     subcomponent_id = db.Column(
         db.Integer, db.ForeignKey('subcomponents.id'), index=True)
 
@@ -133,3 +138,4 @@ admin.add_view(ModelView(SubComponent, db.session))
 admin.add_view(ModelView(Consequence, db.session))
 admin.add_view(ModelView(Vessel, db.session))
 admin.add_view(ModelView(VesselTrip, db.session))
+admin.add_view(ModelView(FailureMode, db.session))

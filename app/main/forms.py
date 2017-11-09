@@ -19,6 +19,13 @@ class SubComponentForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
+class FailureModeForm(FlaskForm):
+    description = StringField('Description', validators=[Required()])
+    mttf = DecimalField('Mean Time to Failure (MTTF) [yrs]')
+    consequence_id = SelectField('Global Consequence', coerce=int)
+    submit = SubmitField('Submit')
+
+
 class ConsequenceForm(FlaskForm):
     name = SelectField('Name', validators=[Required()], choices=[
                        ('change', 'Change in operation'),
