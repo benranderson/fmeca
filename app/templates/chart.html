@@ -1,20 +1,11 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block styles -%}
-    {{super()}}
-    <link href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.css" rel="stylesheet">
-    <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.0.min.css" rel="stylesheet">
-{% endblock %}
-
-{% block title %}FMECA - Chart{% endblock %}
+{% block title %}{{ component.ident }} - Chart{% endblock %}
 
 {% block page_content %}
     <div class="container">
-        <h1>{{ ident }} Chart</h1>
-        {{ the_div|safe }}
-        <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
-        <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"></script>
-        {{ the_script|safe }}
+        <h1>{{ component.ident }} Chart</h1>
+        <img src="{{ url_for('main.fig', id=component.id) }}" alt="Image Placeholder">
     </div>
 {%- endblock %}
