@@ -22,10 +22,10 @@ def index():
     return render_template('index.html', components=components)
 
 
-@main.route('/component/<int:id>/chart')
-def chart(id):
+@main.route('/component/<int:id>')
+def component(id):
     component = Component.query.get_or_404(id)
-    return render_template("chart.html", component=component)
+    return render_template("component.html", component=component)
 
 
 @main.route('/component/<int:id>/fig', methods=['GET'])

@@ -11,7 +11,7 @@
             <thead><tr><th>Ident</th><th>Annual Risk</th><th>Inspection Interval</th><th></th></tr></thead>
             {% for component in components %}
                 <tr>
-                    <td><a href="{{ url_for('.chart', id=component.id) }}"><button type="button" class="btn btn-primary">{{ component.ident }}</button></a></td>    
+                    <td><a href="{{ url_for('.component', id=component.id) }}"><button type="button" class="btn btn-primary">{{ component.ident }}</button></a></td>    
                     <td>{{ component.annual_risk }}</td>
                     <td>{{ component.inspect_int }}</td>
                     <td></td>
