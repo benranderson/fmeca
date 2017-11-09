@@ -1,19 +1,12 @@
-import numpy as np
-from bokeh.models import (HoverTool, FactorRange, Plot, LinearAxis, Grid,
-                          Range1d)
-from bokeh.models.glyphs import VBar
-from bokeh.plotting import figure
-from bokeh.charts import Line
-from bokeh.embed import components
-from bokeh.models.sources import ColumnDataSource
-from flask import Flask, render_template, send_file
-from . import main
-from ..models import Component
-
+from flask import Flask, render_template, send_file, url_for, redirect, flash
 from io import BytesIO
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from . import main
+from app import db
+from ..models import Component, Vessel, Consequence
+from .forms import ComponentForm, ConsequenceForm
 
 
 @main.route('/')
@@ -22,10 +15,41 @@ def index():
     return render_template('index.html', components=components)
 
 
-@main.route('/component/<int:id>')
+@main.route('/component/<int:id>', methods=['GET', 'POST'])
 def component(id):
     component = Component.query.get_or_404(id)
     return render_template("component.html", component=component)
+
+
+@main.route('/component/add', methods=['GET', 'POST'])
+def component_add():
+    form = ComponentForm()
+    if form.validate_on_submit():
+        component = Component(ident=form.ident.data,
+                              annual_risk=form.annual_risk.data,
+                              inspect_int=form.inspect_int.data)
+        db.session.add(component)
+        flash('Component added.')
+        return redirect(url_for('.index'))
+    heading = "Add a new Component"
+    return render_template('form.html', form=form, heading=heading)
+
+
+@main.route('/component/<int:id>/consequence/add', methods=['GET', 'POST'])
+def consequence_add(id):
+    component = Component.query.get_or_404(id)
+    form = ConsequenceForm()
+    form.vessels.choices = [(vessel.id, vessel.name)
+                            for vessel in Vessel.query.order_by('name')]
+    if form.validate_on_submit():
+        consequence = Consequence(tag=form.name.data, size=form.hydro_release.data,
+                                  vessel=form.vessel.data)
+        consequence.component_id = component.id
+        db.session.add(consequence)
+        flash('Global Consequence added.')
+        return redirect(url_for('.component', id=component.id))
+    heading = "Add a new Global Consequence"
+    return render_template('form.html', form=form, heading=heading)
 
 
 @main.route('/component/<int:id>/fig', methods=['GET'])

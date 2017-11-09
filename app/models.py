@@ -14,6 +14,9 @@ class Component(db.Model):
     inspect_int = db.Column(db.Float)
     subcomponents = db.relationship('SubComponent', backref='component',
                                     lazy='dynamic')
+    consequences = db.relationship(
+        'Consequence', backref='component', lazy='dynamic',
+        cascade='all, delete-orphan')
 
     def __repr__(self):
         return '<Component {}>'.format(self.ident)
@@ -87,6 +90,8 @@ class Consequence(db.Model):
                               backref=db.backref(
                                   'consequences', lazy='dynamic'),
                               lazy='dynamic')
+    component_id = db.Column(
+        db.Integer, db.ForeignKey('components.id'), index=True)
 
 
 class Vessel(db.Model):

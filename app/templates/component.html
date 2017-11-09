@@ -6,6 +6,18 @@
 {% block page_content %}
     <div class="container">
         <h1>{{ component.ident }}</h1>
+        <h2>Global Consequences</h2>
+        <table class="table table-hover">
+            <thead><tr><th>Name</th><th>Hydrocarbon Release [Barrels]</th><th></th></tr></thead>    
+            {% for consequence in component.consequences %}
+                <tr>
+                    <td>{{ consequence.name }}</td>
+                    <td>{{ consequence.hydro_release }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="{{ url_for('.consequence_add', id=component.id) }}"><button type="button" class="btn btn-success">Add a new Global Consequence</button></a>        
         <h2>Subcomponents</h2>
         <table class="table table-hover">
             <thead><tr><th>Ident</th><th>Category</th><th></th></tr></thead>    
