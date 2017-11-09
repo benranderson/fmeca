@@ -11,6 +11,8 @@ from . import main
 from ..models import Component
 
 from io import BytesIO
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 
