@@ -24,7 +24,9 @@ class Facility(db.Model):
     def export_data(self):
         return {
             'self_url': self.get_url(),
-            'name': self.name
+            'name': self.name,
+            'areas_url': url_for('api.get_facility_areas', id=self.id,
+                                 _external=True)
         }
 
     def import_data(self, data):
@@ -46,6 +48,30 @@ class Area(db.Model):
     components = db.relationship('Component', backref='area',
                                  lazy='dynamic',
                                  cascade='all, delete-orphan')
+
+    def __repr__(self):
+        return '<Area {}>'.format(self.name)
+
+    def get_url(self):
+        return url_for('api.get_area', id=self.id, _external=True)
+
+    def export_data(self):
+        return {
+            'self_url': self.get_url(),
+            'facility_url': self.facility.get_url(),
+            'name': self.name,
+            'remaining_life': self.remaining_life,
+            'equity_share': self.equity_share,
+        }
+
+    def import_data(self, data):
+        try:
+            self.name = data['name']
+            self.remaining_life = data['remaining_life']
+            self.equity_share = data['equity_share']
+        except KeyError as e:
+            raise ValidationError('Invalid facility: missing ' + e.args[0])
+        return self
 
 
 class Component(db.Model):

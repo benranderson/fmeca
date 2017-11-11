@@ -55,6 +55,119 @@ class TestAPI(unittest.TestCase):
         self.assertTrue(rv.status_code == 200)
         self.assertTrue(len(json['facilities']) == 0)
 
+    def test_areas(self):
+        # define a facility
+        rv, json = self.client.post('/api/facilities/',
+                                    data={'name': 'Foinaven'})
+        self.assertTrue(rv.status_code == 201)
+        facility = rv.headers['Location']
+        rv, json = self.client.get(facility)
+        areas_url = json['areas_url']
+        rv, json = self.client.get(areas_url)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(json['areas'] == [])
+
+        # # define two areas
+        # rv, json = self.client.post('/api/areas/',
+        #                             data={'name': 'DC1',
+        #                                   'remaining_life': 7,
+        #                                   'equity_share': 0.72})
+        # self.assertTrue(rv.status_code == 201)
+        # area1 = rv.headers['Location']
+        # rv, json = self.client.post('/api/areas/',
+        #                             data={'name': 'DC2A',
+        #                                   'remaining_life': 7,
+        #                                   'equity_share': 0.42})
+        # self.assertTrue(rv.status_code == 201)
+        # area2 = rv.headers['Location']
+
+        # create an area
+        rv, json = self.client.post(areas_url,
+                                    data={'name': 'DC1',
+                                          'remaining_life': 7,
+                                          'equity_share': 0.72})
+        self.assertTrue(rv.status_code == 201)
+        area = rv.headers['Location']
+        rv, json = self.client.get(area)
+        # items_url = json['items_url']
+        # rv, json = self.client.get(items_url)
+        # self.assertTrue(rv.status_code == 200)
+        # self.assertTrue(json['items'] == [])
+        rv, json = self.client.get('/api/areas/')
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(len(json['areas']) == 1)
+        self.assertTrue(area in json['areas'])
+
+        # edit the area
+        rv, json = self.client.put(area,
+                                   data={'name': 'DC2A',
+                                         'remaining_life': 5,
+                                         'equity_share': 0.42})
+        self.assertTrue(rv.status_code == 200)
+        rv, json = self.client.get(area)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(json['name'] == 'DC2A')
+        self.assertTrue(json['remaining_life'] == 5)
+        self.assertTrue(json['equity_share'] == 0.42)
+
+        # delete area
+        rv, json = self.client.delete(area)
+        self.assertTrue(rv.status_code == 200)
+        rv, json = self.client.get('/api/areas/')
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(len(json['areas']) == 0)
+
+        # # add two items to order
+        # rv, json = self.client.post(items_url, data={'product_url': prod1,
+        #                                              'quantity': 2})
+        # self.assertTrue(rv.status_code == 201)
+        # item1 = rv.headers['Location']
+        # rv, json = self.client.post(items_url, data={'product_url': prod2,
+        #                                              'quantity': 1})
+        # self.assertTrue(rv.status_code == 201)
+        # item2 = rv.headers['Location']
+        # rv, json = self.client.get(items_url)
+        # self.assertTrue(rv.status_code == 200)
+        # self.assertTrue(len(json['items']) == 2)
+        # self.assertTrue(item1 in json['items'])
+        # self.assertTrue(item2 in json['items'])
+        # rv, json = self.client.get(item1)
+        # self.assertTrue(rv.status_code == 200)
+        # self.assertTrue(json['product_url'] == prod1)
+        # self.assertTrue(json['quantity'] == 2)
+        # self.assertTrue(json['order_url'] == order)
+        # rv, json = self.client.get(item2)
+        # self.assertTrue(rv.status_code == 200)
+        # self.assertTrue(json['product_url'] == prod2)
+        # self.assertTrue(json['quantity'] == 1)
+        # self.assertTrue(json['order_url'] == order)
+
+        # # edit the second item
+        # rv, json = self.client.put(item2, data={'product_url': prod2,
+        #                                         'quantity': 3})
+        # self.assertTrue(rv.status_code == 200)
+        # rv, json = self.client.get(item2)
+        # self.assertTrue(rv.status_code == 200)
+        # self.assertTrue(json['product_url'] == prod2)
+        # self.assertTrue(json['quantity'] == 3)
+        # self.assertTrue(json['order_url'] == order)
+
+        # # delete first item
+        # rv, json = self.client.delete(item1)
+        # self.assertTrue(rv.status_code == 200)
+        # rv, json = self.client.get(items_url)
+        # self.assertFalse(item1 in json['items'])
+        # self.assertTrue(item2 in json['items'])
+
+        # # delete order
+        # rv, json = self.client.delete(order)
+        # self.assertTrue(rv.status_code == 200)
+        # with self.assertRaises(NotFound):
+        #     rv, json = self.client.get(item2)
+        # rv, json = self.client.get('/api/v1/orders/')
+        # self.assertTrue(rv.status_code == 200)
+        # self.assertTrue(len(json['orders']) == 0)
+
     def test_components(self):
         # get list of components
         rv, json = self.client.get('/api/components/')
