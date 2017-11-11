@@ -21,6 +21,8 @@
             {% endfor %}
         </table>
         <a href="{{ url_for('.consequence_add', id=component.id) }}"><button type="button" class="btn btn-success">Add a new Global Consequence</button></a>        
+        <br>
+        <br>
         <h2>Sub-Components</h2>
         <table class="table table-hover">
             <thead><tr><th>Ident</th><th>Category</th><th></th></tr></thead>    
@@ -33,6 +35,8 @@
             {% endfor %}
         </table>
         <a href="{{ url_for('.subcomponent_add', id=component.id) }}"><button type="button" class="btn btn-success">Add a new Sub-Component</button></a>                
+        <br>
+        <br>`
         <h2>Chart</h2>
         <img src="{{ url_for('main.fig', id=component.id) }}" alt="Image Placeholder">
     </div>

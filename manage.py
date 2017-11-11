@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 import os
 
-from app import create_app, db
 from flask_script import Manager, Shell, Server
 from flask_migrate import Migrate, MigrateCommand
+
+from app import create_app, db
+from app.models import Component, Vessel
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
@@ -13,6 +15,7 @@ migrate = Migrate(app, db)
 HERE = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.join(HERE, os.pardir)
 TEST_PATH = os.path.join(PROJECT_ROOT, 'tests')
+
 
 def make_shell_context():
     return dict(app=app, db=db)
@@ -24,14 +27,38 @@ manager.add_command('runserver', Server(host='0.0.0.0', port=8080))
 
 
 @manager.command
-def test(cov=False):
+def seed_db():
+    """Seeds the database."""
+    db.session.add(Component(ident='M1', annual_risk=100000, inspect_int=4))
+    db.session.add(Component(ident='SUT1', annual_risk=20000, inspect_int=8))
+    db.session.add(Vessel(name='Heavy Lift Vessel',
+                          abbr='HLV', rate=300000, mob_time=7))
+    db.session.add(Vessel(name='Dive Support Vessel',
+                          abbr='DSV', rate=100000, mob_time=7))
+    db.session.commit()
+
+
+@manager.command
+def test():
     """Run the unit tests."""
-    import pytest
-    if cov:
-        pytest.main(['--cov-report', 'term', '--cov-report',
-                     'html:tmp/cov/', '--cov=app', TEST_PATH])
-    else:
-        pytest.main([TEST_PATH])
+    import coverage
+    COV = coverage.coverage(branch=True, include='app/*')
+    COV.start()
+
+    import unittest
+    from tests import suite
+    unittest.TextTestRunner(verbosity=2).run(suite)
+
+    COV.stop()
+    COV.report()
+
+
+@manager.command
+def recreate_db():
+    """Recreates a database."""
+    db.drop_all()
+    db.create_all()
+    db.session.commit()
 
 
 @manager.command
