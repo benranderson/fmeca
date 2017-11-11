@@ -5,7 +5,7 @@ from flask_script import Manager, Shell, Server
 from flask_migrate import Migrate, MigrateCommand
 
 from app import create_app, db
-from app.models import Component, Vessel
+from app.models import Facility, Component, Vessel
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
@@ -29,6 +29,7 @@ manager.add_command('runserver', Server(host='0.0.0.0', port=8080))
 @manager.command
 def seed_db():
     """Seeds the database."""
+    db.session.add(Facility(name='Foinaven'))
     db.session.add(Component(ident='M1', annual_risk=100000, inspect_int=4))
     db.session.add(Component(ident='SUT1', annual_risk=20000, inspect_int=8))
     db.session.add(Vessel(name='Heavy Lift Vessel',
@@ -44,13 +45,15 @@ def test():
     import coverage
     COV = coverage.coverage(branch=True, include='app/*')
     COV.start()
-
     import unittest
     from tests import suite
     unittest.TextTestRunner(verbosity=2).run(suite)
-
     COV.stop()
     COV.report()
+    covdir = os.path.join(HERE, 'tmp/coverage')
+    COV.html_report(directory=covdir)
+    print('HTML version: file://%s/index.html' % covdir)
+    COV.erase()
 
 
 @manager.command
