@@ -6,32 +6,19 @@
         <h1>FMECA <i class="mdi mdi-chart-line"></i></h1>
     </div>
     <div class="container">
-        <h1>Vessels</h1>
-        <table class="table table-hover">
-            <thead><tr><th>Name</th><th>Abbreviation</th><th>Day Rate [£/day]</th><th>Mobilisation Time [days]</th><th></th></tr></thead>
-            {% for vessel in vessels %}
-                <tr>
-                    <td>{{ vessel.name }}</td>    
-                    <td>{{ vessel.abbr }}</td>
-                    <td>{{ vessel.rate }}</td>
-                    <td>{{ vessel.mob_time }}</td>
-                    <td></td>
-                </tr>
-            {% endfor %}
-        </table>
-        <a href="{{ url_for('.vessel_add') }}"><button type="button" class="btn btn-success">Add a new Vessel</button></a>                
-        <h1>Components</h1>
-        <table class="table table-hover">
-            <thead><tr><th>Ident</th><th>Annual Risk</th><th>Inspection Interval</th><th></th></tr></thead>
-            {% for component in components %}
-                <tr>
-                    <td><a href="{{ url_for('.component', id=component.id) }}"><button type="button" class="btn btn-primary">{{ component.ident }}</button></a></td>    
-                    <td>{{ component.annual_risk }}</td>
-                    <td>{{ component.inspect_int }}</td>
-                    <td></td>
-                </tr>
-            {% endfor %}
-        </table>
-        <a href="{{ url_for('.component_add') }}"><button type="button" class="btn btn-success">Add a new Component</button></a>                
+        <h1>Facilities</h1>
+        <h3>Add a new facility</h3>
+        <div>{{ wtf.quick_form(form) }}</div>
+        <br>
+        {% if facilities %}
+            <table class="table table-hover">
+                <thead><tr><th>Facility</th></tr></thead>
+                {% for facility in facilities %}
+                    <tr>
+                        <td>{{ facility.name }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}           
     </div>
 {%- endblock %}
