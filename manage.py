@@ -31,12 +31,20 @@ def seed_db():
     """Seeds the database."""
     facility = Facility(name='Foinaven')
     db.session.add(facility)
-    db.session.add(Area(name='DC1', remaining_life=7,
-                        equity_share=0.72, facility=facility))
-    db.session.add(Area(name='DC2A', remaining_life=7,
-                        equity_share=0.42, facility=facility))
-    db.session.add(Component(ident='M1', annual_risk=100000, inspect_int=4))
-    db.session.add(Component(ident='SUT1', annual_risk=20000, inspect_int=8))
+    area1 = Area(name='DC1', remaining_life=7,
+                 equity_share=0.72, facility=facility)
+    db.session.add(area1)
+    area2 = Area(name='DC2A', remaining_life=7,
+                 equity_share=0.42, facility=facility)
+    db.session.add(area2)
+
+    component1 = Component(ident='M1', annual_risk=100000,
+                           inspect_int=4, area=area1)
+    component2 = Component(ident='SUT1', annual_risk=20000,
+                           inspect_int=8, area=area1)
+    db.session.add(component1)
+    db.session.add(component2)
+
     db.session.add(Vessel(name='Heavy Lift Vessel',
                           abbr='HLV', rate=300000, mob_time=7))
     db.session.add(Vessel(name='Dive Support Vessel',

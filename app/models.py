@@ -62,6 +62,8 @@ class Area(db.Model):
             'name': self.name,
             'remaining_life': self.remaining_life,
             'equity_share': self.equity_share,
+            'components_url': url_for('api.get_area_components', id=self.id,
+                                      _external=True)
         }
 
     def import_data(self, data):
@@ -77,7 +79,7 @@ class Area(db.Model):
 class Component(db.Model):
     __tablename__ = 'components'
     id = db.Column(db.Integer, primary_key=True)
-    ident = db.Column(db.String(64), unique=True)
+    ident = db.Column(db.String(64), unique=True, nullable=False)
     annual_risk = db.Column(db.Integer)
     inspect_int = db.Column(db.Float)
     area_id = db.Column(db.Integer, db.ForeignKey('areas.id'), index=True)
@@ -97,6 +99,7 @@ class Component(db.Model):
     def export_data(self):
         return {
             'self_url': self.get_url(),
+            'area_url': self.area.get_url(),
             'ident': self.ident,
         }
 
