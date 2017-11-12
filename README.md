@@ -9,15 +9,15 @@ Clone, install requirements and run the server:
 
 ```sh
 $ git clone https://github.com/benranderson/fmeca.git
-cd fmeca
-pip install -r requirements/dev.txt
-python manage.py runserver
+$ cd fmeca
+$ pip install -r requirements/dev.txt
+$ python manage.py runserver
 ```
 
 Run tests:
 
 ```sh
-python manage.py test
+$ python manage.py test
 ```
 
 ## Release History
