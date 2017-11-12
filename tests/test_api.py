@@ -141,36 +141,68 @@ class TestAPI(unittest.TestCase):
         self.assertTrue(rv.status_code == 200)
         self.assertTrue(len(json['areas']) == 0)
 
-    # def test_components(self):
-    #     # get list of components
-    #     rv, json = self.client.get('/api/components/')
-    #     self.assertTrue(rv.status_code == 200)
-    #     self.assertTrue(json['components'] == [])
+    def test_subcomponents(self):
+        # define a facility
+        rv, json = self.client.post('/api/facilities/',
+                                    data={'name': 'Foinaven'})
+        facility = rv.headers['Location']
+        rv, json = self.client.get(facility)
+        areas_url = json['areas_url']
+        rv, json = self.client.get(areas_url)
 
-    #     # add a component
-    #     rv, json = self.client.post('/api/components/',
-    #                                 data={'ident': 'M1'})
-    #     self.assertTrue(rv.status_code == 201)
-    #     location = rv.headers['Location']
-    #     rv, json = self.client.get(location)
-    #     self.assertTrue(rv.status_code == 200)
-    #     self.assertTrue(json['ident'] == 'M1')
-    #     rv, json = self.client.get('/api/components/')
-    #     self.assertTrue(rv.status_code == 200)
-    #     self.assertTrue(json['components'] == [location])
+        # create an area
+        rv, json = self.client.post(areas_url,
+                                    data={'name': 'DC1',
+                                          'remaining_life': 7,
+                                          'equity_share': 0.72})
+        area = rv.headers['Location']
+        rv, json = self.client.get(area)
+        components_url = json['components_url']
 
-    #     # edit the component
-    #     rv, json = self.client.put(location, data={'ident': 'M2'})
-    #     self.assertTrue(rv.status_code == 200)
-    #     rv, json = self.client.get(location)
-    #     self.assertTrue(rv.status_code == 200)
-    #     self.assertTrue(json['ident'] == 'M2')
+        # create a component
+        rv, json = self.client.post(components_url, data={'ident': 'M1'})
+        component = rv.headers['Location']
+        rv, json = self.client.get(component)
+        subcomponents_url = json['subcomponents_url']
 
-    #     # delete the component
-    #     rv, json = self.client.delete(location)
-    #     self.assertTrue(rv.status_code == 200)
-    #     with self.assertRaises(NotFound):
-    #         rv, json = self.client.get(location)
-    #     rv, json = self.client.get('/api/components/')
-    #     self.assertTrue(rv.status_code == 200)
-    #     self.assertTrue(len(json['components']) == 0)
+        # add two subcomponents to component
+        rv, json = self.client.post(subcomponents_url, data={'ident': 'D1',
+                                                             'category': 'cat1'})
+        self.assertTrue(rv.status_code == 201)
+        subcomponent1 = rv.headers['Location']
+        rv, json = self.client.post(subcomponents_url, data={'ident': 'D2',
+                                                             'category': 'cat2'})
+        self.assertTrue(rv.status_code == 201)
+        subcomponent2 = rv.headers['Location']
+        rv, json = self.client.get(subcomponents_url)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(len(json['subcomponents']) == 2)
+        self.assertTrue(subcomponent1 in json['subcomponents'])
+        self.assertTrue(subcomponent2 in json['subcomponents'])
+        rv, json = self.client.get(subcomponent1)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(json['ident'] == 'D1')
+        self.assertTrue(json['category'] == 'cat1')
+        self.assertTrue(json['component_url'] == component)
+        rv, json = self.client.get(subcomponent2)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(json['ident'] == 'D2')
+        self.assertTrue(json['category'] == 'cat2')
+        self.assertTrue(json['component_url'] == component)
+
+        # edit the second subcomponent
+        rv, json = self.client.put(subcomponent2, data={'ident': 'C1',
+                                                        'category': 'cat3'})
+        self.assertTrue(rv.status_code == 200)
+        rv, json = self.client.get(subcomponent2)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(json['ident'] == 'C1')
+        self.assertTrue(json['category'] == 'cat3')
+        self.assertTrue(json['component_url'] == component)
+
+        # delete first subcomponent
+        rv, json = self.client.delete(subcomponent1)
+        self.assertTrue(rv.status_code == 200)
+        rv, json = self.client.get(subcomponents_url)
+        self.assertFalse(subcomponent1 in json['subcomponents'])
+        self.assertTrue(subcomponent2 in json['subcomponents'])

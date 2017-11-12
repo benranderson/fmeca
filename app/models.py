@@ -26,7 +26,7 @@ class Facility(db.Model):
             'self_url': self.get_url(),
             'name': self.name,
             'areas_url': url_for('api.get_facility_areas', id=self.id,
-                                 _external=True)
+                                 _external=True),
         }
 
     def import_data(self, data):
@@ -63,7 +63,7 @@ class Area(db.Model):
             'remaining_life': self.remaining_life,
             'equity_share': self.equity_share,
             'components_url': url_for('api.get_area_components', id=self.id,
-                                      _external=True)
+                                      _external=True),
         }
 
     def import_data(self, data):
@@ -101,6 +101,8 @@ class Component(db.Model):
             'self_url': self.get_url(),
             'area_url': self.area.get_url(),
             'ident': self.ident,
+            'subcomponents_url': url_for('api.get_component_subcomponents',
+                                         id=self.id, _external=True),
         }
 
     def import_data(self, data):
@@ -130,6 +132,7 @@ class SubComponent(db.Model):
     def export_data(self):
         return {
             'self_url': self.get_url(),
+            'component_url': self.component.get_url(),
             'ident': self.ident,
             'category': self.category,
         }
@@ -200,6 +203,6 @@ class FailureMode(db.Model):
 admin.add_view(ModelView(Component, db.session))
 admin.add_view(ModelView(SubComponent, db.session))
 admin.add_view(ModelView(Consequence, db.session))
-# admin.add_view(ModelView(Vessel, db.session))
+admin.add_view(ModelView(Vessel, db.session))
 admin.add_view(ModelView(VesselTrip, db.session))
 admin.add_view(ModelView(FailureMode, db.session))

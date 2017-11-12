@@ -21,32 +21,36 @@ def get_facility_areas(id):
 
 
 @api.route('/areas/<int:id>', methods=['GET'])
+@json
 def get_area(id):
-    return jsonify(Area.query.get_or_404(id).export_data())
+    return Area.query.get_or_404(id)
 
 
 @api.route('/facilities/<int:id>/areas/', methods=['POST'])
+@json
 def new_facility_area(id):
     facility = Facility.query.get_or_404(id)
     area = Area(facility=facility)
     area.import_data(request.json)
     db.session.add(area)
     db.session.commit()
-    return jsonify({}), 201, {'Location': area.get_url()}
+    return {}, 201, {'Location': area.get_url()}
 
 
 @api.route('/areas/<int:id>', methods=['PUT'])
+@json
 def edit_area(id):
     area = Area.query.get_or_404(id)
     area.import_data(request.json)
     db.session.add(area)
     db.session.commit()
-    return jsonify({})
+    return {}
 
 
 @api.route('/areas/<int:id>', methods=['DELETE'])
+@json
 def delete_area(id):
     area = Area.query.get_or_404(id)
     db.session.delete(area)
     db.session.commit()
-    return jsonify({})
+    return {}
