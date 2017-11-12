@@ -2,18 +2,20 @@ from flask import jsonify, request
 from . import api
 from .. import db
 from ..models import Facility
+from ..decorators import json, paginate
 
 
 @api.route("/facilities/", methods=['GET'])
+@json
+@paginate('facilities')
 def get_facilities():
-    return jsonify({
-        'facilities': [facility.get_url() for facility in Facility.query.all()]
-    })
+    return Facility.query
 
 
 @api.route("/facilities/<int:id>", methods=['GET'])
+@json
 def get_facility(id):
-    return jsonify(Facility.query.get_or_404(id).export_data())
+    return Facility.query.get_or_404(id)
 
 
 @api.route("/facilities/", methods=["POST"])

@@ -29,21 +29,18 @@ manager.add_command('runserver', Server(host='0.0.0.0', port=8080))
 @manager.command
 def seed_db():
     """Seeds the database."""
-    facility = Facility(name='Foinaven')
-    db.session.add(facility)
-    area1 = Area(name='DC1', remaining_life=7,
-                 equity_share=0.72, facility=facility)
-    db.session.add(area1)
-    area2 = Area(name='DC2A', remaining_life=7,
-                 equity_share=0.42, facility=facility)
-    db.session.add(area2)
-
-    component1 = Component(ident='M1', annual_risk=100000,
-                           inspect_int=4, area=area1)
-    component2 = Component(ident='SUT1', annual_risk=20000,
-                           inspect_int=8, area=area1)
-    db.session.add(component1)
-    db.session.add(component2)
+    for i in range(5):
+        f = Facility(name='facility{}'.format(i))
+        db.session.add(f)
+        for j in range(5):
+            a = Area(name='area{}-{}'.format(j, i), remaining_life=7,
+                     equity_share=0.72, facility=f)
+            db.session.add(a)
+            for k in range(100):
+                c = Component(ident='component{}-{}-{}'.format(k, j, i),
+                              annual_risk=100000, inspect_int=4, area=a)
+                db.session.add(c)
+    db.session.commit()
 
     db.session.add(Vessel(name='Heavy Lift Vessel',
                           abbr='HLV', rate=300000, mob_time=7))

@@ -1,15 +1,16 @@
 from flask import jsonify, request
 from . import api
-from ..models import Area, Component
 from .. import db
+from ..models import Area, Component
+from ..decorators import json, paginate
 
 
 @api.route("/areas/<int:id>/components/", methods=['GET'])
+@json
+@paginate('components')
 def get_area_components(id):
     area = Area.query.get_or_404(id)
-    return jsonify({
-        'components': [component.get_url() for component in area.components.all()]
-    })
+    return area.components
 
 
 @api.route("/components/<int:id>", methods=['GET'])

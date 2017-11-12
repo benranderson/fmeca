@@ -33,6 +33,7 @@ def vessel_add():
                         rate=form.rate.data,
                         mob_time=form.mob_time.data)
         db.session.add(vessel)
+        db.session.commit()
         flash('Vessel added.')
         return redirect(url_for('.index'))
     heading = "Add a new Vessel"
@@ -53,6 +54,7 @@ def component_add():
                               annual_risk=form.annual_risk.data,
                               inspect_int=form.inspect_int.data)
         db.session.add(component)
+        db.session.commit()
         flash('Component added.')
         return redirect(url_for('.index'))
     heading = "Add a new Component"
