@@ -15,7 +15,7 @@ class TestClient():
         url = urlunsplit(('', '', url_parsed.path, url_parsed.query,
                           url_parsed.fragment))
 
-        # append the autnentication headers to all requests
+        # append the authentication headers to all requests
         headers = headers.copy()
         headers['Authorization'] = self.auth
         headers['Content-Type'] = 'application/json'

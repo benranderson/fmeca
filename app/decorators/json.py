@@ -12,7 +12,7 @@ def json(f):
 
         # the wrapped function can return the dictionary alone,
         # or can also include a status code and/or headers.
-        # here we separate all these items
+        # all these items are separated here.
         status = None
         headers = None
         if isinstance(rv, tuple):

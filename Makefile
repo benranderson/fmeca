@@ -24,6 +24,6 @@ deploy:
 	heroku restart
 	heroku maintenance:off
 
-db_reset:
-	python manage.py recreate_db
-	python manage.py seed_db
+resetdb:
+	python manage.py createdb -d
+	python manage.py seeddb

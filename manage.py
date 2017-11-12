@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import os
+import subprocess
+import sys
 
 from flask_script import Manager, Shell, Server
 from flask_migrate import Migrate, MigrateCommand
@@ -27,7 +29,7 @@ manager.add_command('runserver', Server(host='0.0.0.0', port=8080))
 
 
 @manager.command
-def seed_db():
+def seeddb():
     """Seeds the database."""
     for i in range(5):
         f = Facility(name='facility{}'.format(i))
@@ -50,28 +52,38 @@ def seed_db():
 
 
 @manager.command
-def test():
+def test(html=False):
     """Run the unit tests."""
+
+    # start coverage engine
     import coverage
-    COV = coverage.coverage(branch=True, include='app/*')
-    COV.start()
+    cov = coverage.coverage(branch=True, include='app/*')
+    cov.start()
+
+    # run tests
     import unittest
     from tests import suite
     unittest.TextTestRunner(verbosity=2).run(suite)
-    COV.stop()
-    COV.report()
-    covdir = os.path.join(HERE, 'tmp/coverage')
-    COV.html_report(directory=covdir)
-    print('HTML version: file://%s/index.html' % covdir)
-    COV.erase()
+
+    # print coverage report
+    cov.stop()
+    cov.report()
+    print('')
+
+    if html:
+        # create html coverage report
+        covdir = os.path.join(HERE, 'tmp/coverage')
+        cov.html_report(directory=covdir)
+        print('HTML version: file://%s/index.html' % covdir)
+        cov.erase()
 
 
 @manager.command
-def recreate_db():
-    """Recreates a database."""
-    db.drop_all()
+def createdb(drop_first=False):
+    """Creates a database."""
+    if drop_first:
+        db.drop_all()
     db.create_all()
-    db.session.commit()
 
 
 @manager.command
