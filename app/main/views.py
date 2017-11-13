@@ -5,17 +5,23 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from . import main
 from app import db
-from ..models import Component, SubComponent, Vessel, Consequence, VesselTrip, \
-    FailureMode
-from .forms import VesselForm, ComponentForm, SubComponentForm, \
+from ..models import Facility, Component, SubComponent, Vessel, Consequence, \
+    VesselTrip, FailureMode
+from .forms import FacilityForm, VesselForm, ComponentForm, SubComponentForm, \
     ConsequenceForm, VesselTripForm, FailureModeForm
 
 
-@main.route('/', methods=['GET'])
+@main.route('/', methods=['GET', 'POST'])
 def index():
-    components = Component.query.all()
-    vessels = Vessel.query.all()
-    return render_template('index.html', components=components, vessels=vessels)
+    form = FacilityForm()
+    if form.validate_on_submit():
+        facility = Facility(name=form.name.data)
+        db.session.add(facility)
+        db.session.commit()
+        flash('Facility added.')
+        return redirect(url_for('.index'))
+    facilities = Facility.query.all()
+    return render_template('index.html', form=form, facilities=facilities)
 
 
 @main.route('/vessel/add', methods=['GET', 'POST'])
@@ -27,6 +33,7 @@ def vessel_add():
                         rate=form.rate.data,
                         mob_time=form.mob_time.data)
         db.session.add(vessel)
+        db.session.commit()
         flash('Vessel added.')
         return redirect(url_for('.index'))
     heading = "Add a new Vessel"
@@ -47,6 +54,7 @@ def component_add():
                               annual_risk=form.annual_risk.data,
                               inspect_int=form.inspect_int.data)
         db.session.add(component)
+        db.session.commit()
         flash('Component added.')
         return redirect(url_for('.index'))
     heading = "Add a new Component"

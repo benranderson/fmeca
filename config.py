@@ -2,25 +2,36 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
-class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
-    SSL_DISABLE = True
-    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+class BaseConfig:
+    """Base configuration"""
+    DEBUG = False
+    TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
 
     @staticmethod
     def init_app(app):
         pass
 
 
-class DevelopmentConfig(Config):
+class DevelopmentConfig(BaseConfig):
+    """Development configuration"""
     DEBUG = True
     IGNORE_AUTH = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 
 
-class ProductionConfig(Config):
+class TestingConfig(BaseConfig):
+    """Testing configuration"""
+    DEBUG = True
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_TEST_URL') or \
+        'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
+
+
+class ProductionConfig(BaseConfig):
+    """Production configuration"""
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 
@@ -46,7 +57,8 @@ class HerokuConfig(ProductionConfig):
 
 config = {
     'development': DevelopmentConfig,
+    'testing': TestingConfig,
     'production': ProductionConfig,
     'heroku': HerokuConfig,
-    'default': DevelopmentConfig
+    'default': DevelopmentConfig,
 }

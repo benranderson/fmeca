@@ -23,3 +23,7 @@ deploy:
 	heroku run python manage.py deploy
 	heroku restart
 	heroku maintenance:off
+
+resetdb:
+	python manage.py createdb -d
+	python manage.py seeddb

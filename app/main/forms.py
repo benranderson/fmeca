@@ -1,9 +1,12 @@
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, DecimalField, IntegerField, \
     SelectField
-# DateTimeField, \
-# SelectField,
 from wtforms.validators import Required
+
+
+class FacilityForm(FlaskForm):
+    name = StringField('Name', validators=[Required()])
+    submit = SubmitField('Submit')
 
 
 class ComponentForm(FlaskForm):
