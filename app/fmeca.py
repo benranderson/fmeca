@@ -2,12 +2,16 @@
 
 import json
 
-lists = json.loads(open('lists.json', 'r').read())
+class fmeca():
 
-system_type = ''
-service_type = ''
-unique_id = ''
-total_number_of_failure_modes = ''
+    lists = json.loads(open('lists.json', 'r').read())
 
-def fmecaGenerate(component):
-    pass
+    components = []
+
+    def __init__(self, components):
+        self.components = components
+        
+    def run_fmeca(self):
+        for c in components:
+            for s in c.subcomponents:
+                
