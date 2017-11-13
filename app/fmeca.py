@@ -14,4 +14,6 @@ class fmeca():
     def run_fmeca(self):
         for c in components:
             for s in c.subcomponents:
+                for f in s.failure_modes:
+                    # This is basically each row in the FMECA table
                 
