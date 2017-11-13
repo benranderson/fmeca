@@ -196,6 +196,20 @@ class FailureMode(db.Model):
     subcomponent_id = db.Column(
         db.Integer, db.ForeignKey('subcomponents.id'), index=True)
 
+    def __init__(self, c):
+        self.failure_causes = []
+        self.local_consequences = []
+        self.global_consequences = []
+        self.failure_rate = c["Failure Rate (fpmh)"]
+        self.prevention_barriers = c["Prevention barriers"]
+        self.maintainance = c["Do maintenance repair/modify op procedure"]
+        self.spare_part_replacement = c["Spare part replacement"]
+        self.whole_system_replacement = c["Whole system replacement"]
+        self.oreda_ref = c["OREDA tag/OREDA Volume/page"]
+        self.prevention_barriers = c["Possible Prevention Barriers"]
+        self.mitigation_barriers = c["Possible Mitigation Barriers"]
+        self.failure_mode_bowtie = c["Bow Tie as per failure mode"]
+        self.bow_tie_threat = c["Bow tie threat/branch"]
 
 admin.add_view(ModelView(Component, db.session))
 admin.add_view(ModelView(SubComponent, db.session))

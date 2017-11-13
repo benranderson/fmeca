@@ -1,19 +1,27 @@
 # -*- coding: utf-8 -*-
 
 import json
+import models
 
 class fmeca():
 
-    lists = json.loads(open('lists.json', 'r').read())
-
-    components = []
-
-    def __init__(self, components):
-        self.components = components
+    def __init__(self, subcomponents, inspection_type):
+        self.lists = json.loads(open('lists.json', 'r').read())
+        self.components = _interpret_components()
+        self.subcomponents = subcomponents
+        self.inspection_type = inspection_type
         
     def run_fmeca(self):
-        for c in components:
-            for s in c.subcomponents:
-                for f in s.failure_modes:
-                    # This is basically each row in the FMECA table
+        for s in self.subcomponents:
+            failure_modes = self.components[s]['Failure Modes']
+            print(failure_modes)
+    
+    def _interpret_components(self):
+        c_data = json.loads(open('components.json', 'r').read())
+        self.c = []
+        for comp in c_data:
+            
                 
+if __name__ == '__main__':
+    f = fmeca(["Actuated Process Valve"], 'ROV')
+    f.run_fmeca()

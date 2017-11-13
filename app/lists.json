@@ -82,9 +82,8 @@
                           "Loss of redundancy",
                           "Major Intervention",
                           "Minor Intervention",
-                          "Planned Intervention" ]
-}
-{ "Control System Dynamic Umbilical": [ "Bend restrictor",
+                          "Planned Intervention" ],
+  "Control System Dynamic Umbilical": [ "Bend restrictor",
                                         "Bend Stiffener",
                                         "Dynamic Hydraulic/Chemical Core",
                                         "J/I-tube seal",
@@ -332,9 +331,8 @@
                                      "Subsea Data Processing Unit",
                                      "Hydraulic Power Unit (HPU)",
                                      "Topside Umbilical Termination Unit (TUTU)",
-                                     "Electric Power Unit" ]
-}
-{ "FMCC Components List": [ "Acoustic Sand Detector",
+                                     "Electric Power Unit" ],
+  "FMCC Components List": [ "Acoustic Sand Detector",
                             "Actuated Process Valve",
                             "Actuator",
                             "Bend restrictor",
