@@ -20,7 +20,7 @@ TEST_PATH = os.path.join(PROJECT_ROOT, 'tests')
 
 
 def make_shell_context():
-    return dict(app=app, db=db)
+    return dict(app=app, db=db, Facility=Facility)
 
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
