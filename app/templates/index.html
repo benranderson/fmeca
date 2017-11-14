@@ -3,9 +3,10 @@
 
 {% block page_content %}
     <div class="jumbotron">
-        <h1>FMECA <i class="mdi mdi-chart-line"></i></h1>
-    </div>
+        <h1>FMECA <i class="fa fa-table" aria-hidden="true"></i></h1>
+    </div>            
     <div class="container">
+        <a href="{{ url_for('api.index') }}"><button type="button" class="btn btn-default">API</button></a>
         <h1>Facilities</h1>
         <h3>Add a new facility</h3>
         <div>{{ wtf.quick_form(form) }}</div>

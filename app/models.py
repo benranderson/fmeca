@@ -1,4 +1,5 @@
 from flask import url_for
+from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from . import db, admin
 from .exceptions import ValidationError
@@ -16,7 +17,7 @@ class Facility(db.Model):
                               cascade='all, delete-orphan')
 
     def __repr__(self):
-        return '<Facility {}>'.format(self.name)
+        return f'<{self.__class__.__name__} {self.name}>'
 
     def get_url(self):
         return url_for('api.get_facility', id=self.id, _external=True)
@@ -26,7 +27,7 @@ class Facility(db.Model):
             'self_url': self.get_url(),
             'name': self.name,
             'areas_url': url_for('api.get_facility_areas', id=self.id,
-                                 _external=True)
+                                 _external=True),
         }
 
     def import_data(self, data):
@@ -50,7 +51,7 @@ class Area(db.Model):
                                  cascade='all, delete-orphan')
 
     def __repr__(self):
-        return '<Area {}>'.format(self.name)
+        return f'<{self.__class__.__name__} {self.name}>'
 
     def get_url(self):
         return url_for('api.get_area', id=self.id, _external=True)
@@ -63,7 +64,7 @@ class Area(db.Model):
             'remaining_life': self.remaining_life,
             'equity_share': self.equity_share,
             'components_url': url_for('api.get_area_components', id=self.id,
-                                      _external=True)
+                                      _external=True),
         }
 
     def import_data(self, data):
@@ -72,7 +73,7 @@ class Area(db.Model):
             self.remaining_life = data['remaining_life']
             self.equity_share = data['equity_share']
         except KeyError as e:
-            raise ValidationError('Invalid facility: missing ' + e.args[0])
+            raise ValidationError('Invalid area: missing ' + e.args[0])
         return self
 
 
@@ -91,7 +92,7 @@ class Component(db.Model):
         cascade='all, delete-orphan')
 
     def __repr__(self):
-        return '<Component {}>'.format(self.ident)
+        return f'<{self.__class__.__name__} {self.ident}>'
 
     def get_url(self):
         return url_for('api.get_component', id=self.id, _external=True)
@@ -101,14 +102,20 @@ class Component(db.Model):
             'self_url': self.get_url(),
             'area_url': self.area.get_url(),
             'ident': self.ident,
+            'subcomponents_url': url_for('api.get_component_subcomponents',
+                                         id=self.id, _external=True),
         }
 
     def import_data(self, data):
         try:
             self.ident = data['ident']
         except KeyError as e:
-            raise ValidationError('Invalid valve: missing ' + e.args[0])
+            raise ValidationError('Invalid component: missing ' + e.args[0])
         return self
+
+    @property
+    def commercial_risk(self):
+        pass
 
 
 class SubComponent(db.Model):
@@ -122,7 +129,7 @@ class SubComponent(db.Model):
                                     lazy='dynamic')
 
     def __repr__(self):
-        return '<SubComponent {}>'.format(self.ident)
+        return f'<{self.__class__.__name__} {self.ident}>'
 
     def get_url(self):
         return url_for('api.get_subcomponent', id=self.id, _external=True)
@@ -130,8 +137,11 @@ class SubComponent(db.Model):
     def export_data(self):
         return {
             'self_url': self.get_url(),
+            'component_url': self.component.get_url(),
             'ident': self.ident,
             'category': self.category,
+            'failure_modes_url': url_for('api.get_subcomponent_failure_modes',
+                                         id=self.id, _external=True),
         }
 
     def import_data(self, data):
@@ -139,7 +149,8 @@ class SubComponent(db.Model):
             self.ident = data['ident']
             self.category = data['category']
         except KeyError as e:
-            raise ValidationError('Invalid valve: missing ' + e.args[0])
+            raise ValidationError(
+                'Invalid sub-component: missing ' + e.args[0])
         return self
 
 
@@ -156,6 +167,9 @@ class Consequence(db.Model):
     component_id = db.Column(
         db.Integer, db.ForeignKey('components.id'), index=True)
 
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.name}>'
+
 
 class Vessel(db.Model):
     __tablename__ = 'vessels'
@@ -170,6 +184,9 @@ class Vessel(db.Model):
                                    lazy='dynamic',
                                    cascade='all, delete-orphan')
 
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.abbr}>'
+
 
 class VesselTrip(db.Model):
     __tablename__ = 'vessel_trip'
@@ -179,6 +196,9 @@ class VesselTrip(db.Model):
         db.Integer, db.ForeignKey('vessels.id'), index=True)
     consequence_id = db.Column(
         db.Integer, db.ForeignKey('consequences.id'), index=True)
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.active_time}>'
 
     @property
     def total_time(self):
@@ -191,10 +211,33 @@ class FailureMode(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(128))
     mttf = db.Column(db.Float)
-    consequence_id = db.Column(
-        db.Integer, db.ForeignKey('consequences.id'), index=True)
     subcomponent_id = db.Column(
         db.Integer, db.ForeignKey('subcomponents.id'), index=True)
+    consequence_id = db.Column(
+        db.Integer, db.ForeignKey('consequences.id'), index=True)
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.description}>'
+
+    def get_url(self):
+        return url_for('api.get_failure_mode', id=self.id, _external=True)
+
+    def export_data(self):
+        return {
+            'self_url': self.get_url(),
+            'subcomponent_id': self.subcomponent.get_url(),
+            'consequence_id': self.consequence.get_url(),
+            'description': self.description,
+            'mttf': self.mttf,
+        }
+
+    def import_data(self, data):
+        try:
+            self.description = data['description']
+            self.mttf = data['mttf']
+        except KeyError as e:
+            raise ValidationError('Invalid failure mode: missing ' + e.args[0])
+        return self
 
     def __init__(self, c):
         self.failure_causes = []
@@ -211,9 +254,21 @@ class FailureMode(db.Model):
         self.failure_mode_bowtie = c["Bow Tie as per failure mode"]
         self.bow_tie_threat = c["Bow tie threat/branch"]
 
+
+class MyView(BaseView):
+    @expose('/')
+    def index(self):
+        return 'Hello World!'
+
+
+admin.add_view(ModelView(Facility, db.session))
+admin.add_view(ModelView(Area, db.session))
 admin.add_view(ModelView(Component, db.session))
 admin.add_view(ModelView(SubComponent, db.session))
-admin.add_view(ModelView(Consequence, db.session))
-# admin.add_view(ModelView(Vessel, db.session))
-admin.add_view(ModelView(VesselTrip, db.session))
 admin.add_view(ModelView(FailureMode, db.session))
+admin.add_view(ModelView(Consequence, db.session))
+admin.add_view(ModelView(Vessel, db.session))
+admin.add_view(ModelView(VesselTrip, db.session))
+
+admin.add_view(MyView(name='Test View', menu_icon_type='glyph',
+                      menu_icon_value='glyphicon-home'))

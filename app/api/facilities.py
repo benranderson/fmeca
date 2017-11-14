@@ -19,26 +19,33 @@ def get_facility(id):
 
 
 @api.route("/facilities/", methods=["POST"])
+@json
 def new_facility():
     facility = Facility()
     facility.import_data(request.json)
     db.session.add(facility)
     db.session.commit()
-    return jsonify({}), 201, {'Location': facility.get_url()}
+    response_object = {
+        'status': 'success',
+        'message': f'{facility.name} was added!'
+    }
+    return response_object, 201, {'Location': facility.get_url()}
 
 
 @api.route("/facilities/<int:id>", methods=["PUT"])
+@json
 def edit_facility(id):
     facility = Facility.query.get_or_404(id)
     facility.import_data(request.json)
     db.session.add(facility)
     db.session.commit()
-    return jsonify({})
+    return {}
 
 
 @api.route("/facilities/<int:id>", methods=["DELETE"])
+@json
 def facility_delete(id):
     facility = Facility.query.get_or_404(id)
     db.session.delete(facility)
     db.session.commit()
-    return jsonify({})
+    return {}
