@@ -32,4 +32,4 @@ def internal_server_error(e):
     response = jsonify({'status': 500, 'error': 'internal server error',
                         'message': e.args[0]})
     response.status_code = 500
-return response
+    return response

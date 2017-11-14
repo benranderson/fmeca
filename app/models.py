@@ -116,13 +116,18 @@ class Component(db.Model):
     @property
     def commercial_risk(self):
         pass
-        # if self.subcomponents:
-        #     risk = 0
-        #     for subcomponent in self.subcomponents:
-        #         risk += subcomponent.risk
-        #     return risk
-        # else:
-        #     return None
+
+
+<< << << < HEAD
+# if self.subcomponents:
+#     risk = 0
+#     for subcomponent in self.subcomponents:
+#         risk += subcomponent.risk
+#     return risk
+# else:
+#     return None
+== == == =
+>>>>>> > master
 
 
 class SubComponent(db.Model):
@@ -245,6 +250,21 @@ class FailureMode(db.Model):
         except KeyError as e:
             raise ValidationError('Invalid failure mode: missing ' + e.args[0])
         return self
+
+    def __init__(self, c):
+        self.failure_causes = []
+        self.local_consequences = []
+        self.global_consequences = []
+        self.failure_rate = c["Failure Rate (fpmh)"]
+        self.prevention_barriers = c["Prevention barriers"]
+        self.maintainance = c["Do maintenance repair/modify op procedure"]
+        self.spare_part_replacement = c["Spare part replacement"]
+        self.whole_system_replacement = c["Whole system replacement"]
+        self.oreda_ref = c["OREDA tag/OREDA Volume/page"]
+        self.prevention_barriers = c["Possible Prevention Barriers"]
+        self.mitigation_barriers = c["Possible Mitigation Barriers"]
+        self.failure_mode_bowtie = c["Bow Tie as per failure mode"]
+        self.bow_tie_threat = c["Bow tie threat/branch"]
 
 
 class MyView(BaseView):
