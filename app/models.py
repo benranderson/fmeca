@@ -104,6 +104,8 @@ class Component(db.Model):
             'ident': self.ident,
             'subcomponents_url': url_for('api.get_component_subcomponents',
                                          id=self.id, _external=True),
+            'consequences_url': url_for('api.get_component_consequences',
+                                        id=self.id, _external=True),
         }
 
     def import_data(self, data):
@@ -116,18 +118,6 @@ class Component(db.Model):
     @property
     def commercial_risk(self):
         pass
-
-
-<< << << < HEAD
-# if self.subcomponents:
-#     risk = 0
-#     for subcomponent in self.subcomponents:
-#         risk += subcomponent.risk
-#     return risk
-# else:
-#     return None
-== == == =
->>>>>> > master
 
 
 class SubComponent(db.Model):
@@ -182,6 +172,26 @@ class Consequence(db.Model):
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.name}>'
 
+    def get_url(self):
+        return url_for('api.get_consequence', id=self.id, _external=True)
+
+    def export_data(self):
+        return {
+            'self_url': self.get_url(),
+            'component_url': self.component.get_url(),
+            'name': self.name,
+            'hydro_release': self.hydro_release,
+        }
+
+    def import_data(self, data):
+        try:
+            self.name = data['name']
+            self.hydro_release = data['hydro_release']
+        except KeyError as e:
+            raise ValidationError(
+                'Invalid consequence: missing ' + e.args[0])
+        return self
+
 
 class Vessel(db.Model):
     __tablename__ = 'vessels'
@@ -218,6 +228,14 @@ class VesselTrip(db.Model):
         return self.active_time + vessel.mob_time
 
 
+failure_mode_consequences = db.Table('failure_mode_consequences',
+                                     db.Column('failure_mode_id', db.Integer, db.ForeignKey(
+                                         'failure_modes.id')),
+                                     db.Column('consequences_id', db.Integer, db.ForeignKey(
+                                         'consequences.id'))
+                                     )
+
+
 class FailureMode(db.Model):
     __tablename__ = 'failure_modes'
     id = db.Column(db.Integer, primary_key=True)
@@ -250,21 +268,6 @@ class FailureMode(db.Model):
         except KeyError as e:
             raise ValidationError('Invalid failure mode: missing ' + e.args[0])
         return self
-
-    def __init__(self, c):
-        self.failure_causes = []
-        self.local_consequences = []
-        self.global_consequences = []
-        self.failure_rate = c["Failure Rate (fpmh)"]
-        self.prevention_barriers = c["Prevention barriers"]
-        self.maintainance = c["Do maintenance repair/modify op procedure"]
-        self.spare_part_replacement = c["Spare part replacement"]
-        self.whole_system_replacement = c["Whole system replacement"]
-        self.oreda_ref = c["OREDA tag/OREDA Volume/page"]
-        self.prevention_barriers = c["Possible Prevention Barriers"]
-        self.mitigation_barriers = c["Possible Mitigation Barriers"]
-        self.failure_mode_bowtie = c["Bow Tie as per failure mode"]
-        self.bow_tie_threat = c["Bow tie threat/branch"]
 
 
 class MyView(BaseView):

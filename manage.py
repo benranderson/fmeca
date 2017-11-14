@@ -7,7 +7,7 @@ from flask_script import Manager, Shell, Server
 from flask_migrate import Migrate, MigrateCommand
 
 from app import create_app, db
-from app.models import Facility, Area, Component, Vessel
+from app.models import Facility, Area, Component, SubComponent, Vessel
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
@@ -32,16 +32,19 @@ manager.add_command('runserver', Server(host='0.0.0.0', port=8080))
 def seeddb():
     """Seeds the database."""
     for i in range(5):
-        f = Facility(name='facility{}'.format(i))
+        f = Facility(name='facility-{}'.format(i))
         db.session.add(f)
         for j in range(5):
-            a = Area(name='area{}-{}'.format(j, i), remaining_life=7,
+            a = Area(name='area-{}-{}'.format(j, i), remaining_life=7,
                      equity_share=0.72, facility=f)
             db.session.add(a)
-            for k in range(100):
-                c = Component(ident='component{}-{}-{}'.format(k, j, i),
+            for k in range(10):
+                c = Component(ident='component-{}-{}-{}'.format(k, j, i),
                               annual_risk=100000, inspect_int=4, area=a)
                 db.session.add(c)
+                for m in range(5):
+                    sc = SubComponent(ident='sc-{}-{}-{}-{}'.format(m, k, j, i),
+                                      category=100000, component=c)
     db.session.commit()
 
     db.session.add(Vessel(name='Heavy Lift Vessel',

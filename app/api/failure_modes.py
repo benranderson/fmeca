@@ -19,7 +19,7 @@ def get_failure_mode(id):
     return FailureMode.query.get_or_404(id)
 
 
-@api.route('/components/<int:id>/subcomponents/', methods=['POST'])
+@api.route('/subcomponents/<int:id>/failure_modes/', methods=['POST'])
 @json
 def new_subcomponent_failure_mode(id):
     subcomponent = SubComponent.query.get_or_404(id)

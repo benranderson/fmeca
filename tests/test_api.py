@@ -141,7 +141,9 @@ class TestAPI(unittest.TestCase):
         self.assertTrue(rv.status_code == 200)
         self.assertTrue(len(json['areas']) == 0)
 
-    def test_subcomponents(self):
+    def create_component(self):
+        """ Helper function to return a component. """
+
         # define a facility
         rv, json = self.client.post('/api/facilities/',
                                     data={'name': 'Foinaven'})
@@ -162,6 +164,11 @@ class TestAPI(unittest.TestCase):
         # create a component
         rv, json = self.client.post(components_url, data={'ident': 'M1'})
         component = rv.headers['Location']
+
+        return component
+
+    def test_subcomponents(self):
+        component = self.create_component()
         rv, json = self.client.get(component)
         subcomponents_url = json['subcomponents_url']
 
@@ -206,3 +213,111 @@ class TestAPI(unittest.TestCase):
         rv, json = self.client.get(subcomponents_url)
         self.assertFalse(subcomponent1 in json['subcomponents'])
         self.assertTrue(subcomponent2 in json['subcomponents'])
+
+    def test_consequences(self):
+        component = self.create_component()
+        rv, json = self.client.get(component)
+        consequences_url = json['consequences_url']
+
+        # add two consequences to component
+        rv, json = self.client.post(consequences_url, data={'name': 'major',
+                                                            'hydro_release': 1000})
+        self.assertTrue(rv.status_code == 201)
+        consequence1 = rv.headers['Location']
+        rv, json = self.client.post(consequences_url, data={'name': 'minor',
+                                                            'hydro_release': 4000})
+        self.assertTrue(rv.status_code == 201)
+        consequence2 = rv.headers['Location']
+        rv, json = self.client.get(consequences_url)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(len(json['consequences']) == 2)
+        self.assertTrue(consequence1 in json['consequences'])
+        self.assertTrue(consequence2 in json['consequences'])
+        rv, json = self.client.get(consequence1)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(json['name'] == 'major')
+        self.assertTrue(json['hydro_release'] == 1000)
+        self.assertTrue(json['component_url'] == component)
+        rv, json = self.client.get(consequence2)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(json['name'] == 'minor')
+        self.assertTrue(json['hydro_release'] == 4000)
+        self.assertTrue(json['component_url'] == component)
+
+        # edit the second consequence
+        rv, json = self.client.put(consequence2, data={'name': 'change',
+                                                       'hydro_release': 2000})
+        self.assertTrue(rv.status_code == 200)
+        rv, json = self.client.get(consequence2)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(json['name'] == 'change')
+        self.assertTrue(json['hydro_release'] == 2000)
+        self.assertTrue(json['component_url'] == component)
+
+        # delete first consequence
+        rv, json = self.client.delete(consequence1)
+        self.assertTrue(rv.status_code == 200)
+        rv, json = self.client.get(consequences_url)
+        self.assertFalse(consequence1 in json['consequences'])
+        self.assertTrue(consequence2 in json['consequences'])
+
+    def test_failure_modes(self):
+        component = self.create_component()
+        rv, json = self.client.get(component)
+        consequences_url = json['consequences_url']
+        subcomponents_url = json['subcomponents_url']
+
+        # add consequence to component
+        rv, json = self.client.post(consequences_url, data={'name': 'major',
+                                                            'hydro_release': 1000})
+        consequence = rv.headers['Location']
+        rv, json = self.client.get(consequence)
+
+        # add subcomponent to component
+        rv, json = self.client.post(subcomponents_url, data={'ident': 'D1',
+                                                             'category': 'cat1'})
+        subcomponent = rv.headers['Location']
+        rv, json = self.client.get(subcomponent)
+        failure_modes_url = json['failure_modes_url']
+
+        # add two failure modes to subcomponent
+        rv, json = self.client.post(failure_modes_url, data={'description': 'burst',
+                                                             'mttf': 100})
+        self.assertTrue(rv.status_code == 201)
+        fm1 = rv.headers['Location']
+        rv, json = self.client.post(failure_modes_url, data={'description': 'corrosion',
+                                                             'mttf': 200})
+        self.assertTrue(rv.status_code == 201)
+        fm2 = rv.headers['Location']
+        rv, json = self.client.get(failure_modes_url)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(len(json['failure_modes']) == 2)
+        self.assertTrue(fm1 in json['failure_modes'])
+        self.assertTrue(fm2 in json['failure_modes'])
+        rv, json = self.client.get(fm1)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(json['description'] == 'burst')
+        self.assertTrue(json['mttf'] == 100)
+        self.assertTrue(json['subcomponent_url'] == subcomponent)
+        rv, json = self.client.get(fm2)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(json['description'] == 'corrosion')
+        self.assertTrue(json['mttf'] == 200)
+        self.assertTrue(json['subcomponent_url'] == subcomponent)
+
+        # edit the second consequence
+        rv, json = self.client.put(fm2, data={'description': 'fatigue',
+                                              'mttf': 2000})
+        self.assertTrue(rv.status_code == 200)
+        rv, json = self.client.get(fm2)
+        self.assertTrue(rv.status_code == 200)
+        self.assertTrue(json['description'] == 'fatigue')
+        self.assertTrue(json['mttf'] == 2000)
+        self.assertTrue(json['subcomponent_url'] == subcomponent)
+
+        # delete first consequence
+        rv, json = self.client.delete(fm1)
+        self.assertTrue(rv.status_code == 200)
+        rv, json = self.client.get(failure_modes_url)
+        self.assertFalse(fm1 in json['failure_modes'])
+        self.assertTrue(fm2 in json['failure_modes'])
