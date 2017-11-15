@@ -34,8 +34,7 @@ class Facility():
     def read_vessels(self, json_filename):
         with open('facility_assumptions.json', 'r') as j:
             d = json.load(j)
-            for v in d:
-                vessels
+            self.vessels = d["Vessels"]
 
 class Area:
     

@@ -5,14 +5,11 @@ Created on Wed Nov 15 22:15:35 2017
 @author: Stuart
 """
 
-v = {}
+vessels = {}
 
 import json
 with open('facility_assumptions.json', 'r') as j:
-    d = json.load(j) 
-    for l in d:
-        v[l] = { "Vessel Abbreviation": l["Vessel Abbreviation"],
-                 "Gross Cost (£/day)": l["Gross Cost (£/day)"],
-                 "Mobilisation Time (days)": l["Mobilisation Time (days)"]}
+    d = json.load(j)
+    vessels = d["Vessels"]
         
-print(v)
+print(vessels)
