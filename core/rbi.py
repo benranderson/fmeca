@@ -74,27 +74,26 @@ class SubComponent:
         # run calculation if first time
         if len(self._failures) == 0:
             for failure_mode in self.failure_modes:
-                f = Failure(failure_mode, self.failure_modes, self.description,
-                            self.consequences)
+                f = Failure(failure_mode, self.description, self.consequences)
                 self._failures.append(f)
         return self._failures
 
 
 class Failure:
-    def __init__(self, description, failure_modes, subcomponent, consequences=None):
+    def __init__(self, description, subcomponent, consequences=None):
         self.description = description
         self.consequences = consequences
-        self.consequence = failure_modes[self.description]['Global Consequences']
+        self.consequence = FAILURE_MODES[subcomponent]['Failure Modes'][self.description]['Global Consequences']
         self.cost = self.consequences[self.consequence]
-        self.mttf = failure_modes[self.description]['BP Ored MTTF']
+        self.mttf = FAILURE_MODES[subcomponent]['Failure Modes'][self.description]['BP Ored MTTF']
 
-        if failure_modes[self.description]['Random/Time Dependant'] == 'T.D.':
+        if FAILURE_MODES[subcomponent]['Failure Modes'][self.description]['Random/Time Dependant'] == 'T.D.':
             self.time_dependant = True
         else:
             self.time_dependant = False
 
-        self.detectable = failure_modes[self.description]['Detectable by Inspection']
-        self.inspection_type = failure_modes[self.description]['Type of Inspection']
+        self.detectable = FAILURE_MODES[subcomponent]['Failure Modes'][self.description]['Detectable by Inspection']
+        self.inspection_type = FAILURE_MODES[subcomponent]['Failure Modes'][self.description]['Type of Inspection']
 
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.description}>'
