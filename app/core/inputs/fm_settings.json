@@ -1,0 +1,1095 @@
+{
+    "fm_settings": {
+        "Chemical Injection Piping": "Containment & transport of chemicals",
+            {"Loss of containment due to Design/Material/Manufacturing defects":}
+        {
+
+        }
+    }
+}
+
+
+{
+    "result": [
+      [
+        "Sub-component", 
+        "Component Function", 
+        "Failure Mode & Mechanism", 
+        "Failure Cause", 
+        "Random / Time dependent", 
+        "BP Oreda MTTF (Y)", 
+        "Detectable by Inspection?", 
+        "Type of Inspection"
+      ], 
+      [
+        "Chemical Injection Piping", 
+        "Containment & transport of chemicals", 
+        "Loss of containment due to Design/Material/Manufacturing defects", 
+        "Support Failure; Design, material, construction defects; Weld failure", 
+        "R.", 
+        3077.4, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Chemical Injection Piping", 
+        "Containment & transport of chemicals", 
+        "Loss of Containment due to External Corrosion", 
+        "Coating Damage; CP System Failure", 
+        "R.", 
+        3077.4, 
+        "Leading", 
+        "ROV Inspection"
+      ], 
+      [
+        "Chemical Injection Piping", 
+        "Containment & transport of chemicals", 
+        "Loss of Containment due to Structural Failure", 
+        "Excessive relative soil/structure displacement; Inadequate Design; Excessive loading; Fatigue", 
+        "R.", 
+        3077.4, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Chemical Injection Piping", 
+        "Containment & transport of chemicals", 
+        "Loss of Function due to Blockage", 
+        "Fluid contamination", 
+        "R.", 
+        3077.4, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Check Valve", 
+        "Allows fluid flow in only one direction", 
+        "Loss of Function due to Failure to Open on Demand", 
+        "Valve blocked by debris; Valve stuck; Internal mechanism failure; Incorrect Operation", 
+        "R.", 
+        2360, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Check Valve", 
+        "Allows fluid flow in only one direction", 
+        "Loss of Function due to Failure to Close on Demand", 
+        "Valve blocked by debris; Valve stuck; Internal mechanism failure; Fatigue; Impact", 
+        "R.", 
+        2360, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Check Valve", 
+        "Allows fluid flow in only one direction", 
+        "Loss of Containment due to Seal failure", 
+        "Operation outside design Temperature/Pressure; Fatigue; Erosion; Material Defect", 
+        "R.", 
+        2360, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Chemical Injection Coupling", 
+        "Connection between chemical injection sections", 
+        "Loss of Containment due to Leakage across couplers", 
+        "Debris (sand, calcium carbonate); Hydro Quad connectors misaligned/damaged; Corrosion; Structural damage", 
+        "R.", 
+        8426, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Chemical Injection Coupling", 
+        "Connection between chemical injection sections", 
+        "Loss of Containment due to Structural Failure", 
+        "Excessive relative soil/structure displacement; Inadequate Design; Excessive loading; Fatigue", 
+        "R.", 
+        8426, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Hydraulic Coupling", 
+        "Connection between hydraulic sections", 
+        "Loss of Containment due to Leakage across couplers", 
+        "Debris (sand, calcium carbonate); Hydro Quad connectors misaligned/damaged; Corrosion; Structural damage", 
+        "R.", 
+        8426, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Actuated Process Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Function due to Failure to Open on demand", 
+        "Valve blocked by debris; Valve stuck; Internal mechanism failure; Incorrect Operation", 
+        "R.", 
+        1193.6, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Actuated Process Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Function due to Failure to Close on demand", 
+        "Valve blocked by debris; Valve stuck; Internal mechanism failure; Fatigue; Impact", 
+        "R.", 
+        1193.6, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Actuated Process Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Function due to Blockage", 
+        "Build up of debris; Hydrate formation; Wax formation; Fluid contamination", 
+        "R.", 
+        149.2, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Actuated Process Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Containment due to Internal Leakage", 
+        "Internal failure; Stem broken; Galling; Loss of hydraulic pressure", 
+        "R.", 
+        596.8, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Actuated Process Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Containment due to External Leakage", 
+        "Failure of bonnet; Stem seals assembly; Failure of Body; Bonnet connection gasket; Flange failure (bolted connection); External impact; Material failure", 
+        "R.", 
+        16558, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Actuated Process Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Function due to Mechanical Failure", 
+        "Mechanical failure of ROV drive/interface", 
+        "R.", 
+        16558, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Hot Stab", 
+        "ROV Connector for Hydraulic and Chemical lines and for Monitoring Systems", 
+        "Loss of Function due to Corrosion", 
+        "Pitting", 
+        "R.", 
+        2708.2, 
+        "Leading", 
+        "ROV Inspection"
+      ], 
+      [
+        "Hot Stab", 
+        "ROV Connector for Hydraulic and Chemical lines and for Monitoring Systems", 
+        "Loss of Containment due to Seal failure", 
+        "Cracking", 
+        "R.", 
+        2708.2, 
+        "Leading", 
+        "ROV Inspection"
+      ], 
+      [
+        "Hot Stab", 
+        "ROV Connector for Hydraulic and Chemical lines and for Monitoring Systems", 
+        "Loss of Containment due to Impact", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage; Seabed Movement; ROV Impact", 
+        "R.", 
+        2708.2, 
+        "Leading", 
+        "ROV Inspection"
+      ], 
+      [
+        "ROV Activated Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Function due to Failure to Open on demand", 
+        "Valve blocked by debris; Valve stuck; Internal mechanism failure; Incorrect Operation", 
+        "R.", 
+        11434, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "ROV Activated Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Function due to Failure to Close on demand", 
+        "Valve blocked by debris; Valve stuck; Internal mechanism failure; Fatigue; Impact", 
+        "R.", 
+        11434, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "ROV Activated Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Function due to Blockage", 
+        "Build up of debris; Hydrate formation; Wax formation; Fluid contamination", 
+        "R.", 
+        11434, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "ROV Activated Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Function due to Failure of ROV drive/interface", 
+        "Mechanical failure of ROV drive", 
+        "R.", 
+        11434, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "ROV Activated Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Function due to Internal Failure", 
+        "Material failure; Erosion/Corrosion", 
+        "R.", 
+        11434, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "ROV Activated Valve", 
+        "Flow control (on/off) ", 
+        "Loss of Containment due to External Failure", 
+        "Failure of bonnet; Flange failure (Bolted connection)", 
+        "R.", 
+        11434, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Hydraulic piping", 
+        "Transports hydraulic fluid", 
+        "Loss of Containment due to Impact", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage; Seabed Movement; ROV Impact", 
+        "R.", 
+        3077.4, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Hydraulic piping", 
+        "Transports hydraulic fluid", 
+        "Loss of Containment due to External Corrosion", 
+        "Coating Damage; CP System Failure", 
+        "R.", 
+        3077.4, 
+        "Leading", 
+        "ROV Inspection"
+      ], 
+      [
+        "Hydraulic piping", 
+        "Transports hydraulic fluid", 
+        "Loss of Containment due to Design/Material/Manufacturing Defects", 
+        "Support Failure; Design, material, construction defects; Weld failure", 
+        "R.", 
+        3077.4, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Hydraulic piping", 
+        "Transports hydraulic fluid", 
+        "Loss of Function due to Blockage", 
+        "Build up of debris; Fluid contamination", 
+        "R.", 
+        3077.4, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Subsea Distribution Module", 
+        "Distribute Hydraulic, Chemicals, Electrics and Comms to the trees", 
+        "Loss of Containment due to Leakage", 
+        "Fitting Failure; Component Failure", 
+        "R.", 
+        786, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Subsea Distribution Module", 
+        "Distribute Hydraulic, Chemicals, Electrics and Comms to the trees", 
+        "Loss of Containment due to Blockage", 
+        "Water Ingress; Connector Failure", 
+        "R.", 
+        786, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Static Hydraulic Core", 
+        "Containment and transport of hydraulic fluids along an umbilical", 
+        "Loss of Containment due to Leakage", 
+        "Seal Failure", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Hydraulic Core", 
+        "Containment and transport of hydraulic fluids along an umbilical", 
+        "Loss of Containment due to External Corrosion", 
+        "Coating Damage; CP System Failure", 
+        "T.D.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Hydraulic Core", 
+        "Containment and transport of hydraulic fluids along an umbilical", 
+        "Loss of Containment due to Impact ", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage; Seabed Movement; ROV Impact", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Hydraulic Core", 
+        "Containment and transport of hydraulic fluids along an umbilical", 
+        "Loss of Containment due to Blockage", 
+        "Fluid Contamination", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Hydraulic Core", 
+        "Containment and transport of hydraulic fluids along an umbilical", 
+        "Loss of Containment due to Fatigue", 
+        "Vibrations (VIV) & other causes of fatigue; Excessive relative soil/structure displacement", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Hydraulic Core", 
+        "Containment and transport of hydraulic fluids along an umbilical", 
+        "Loss of Containment due to Design/Material/Manufacturing defects", 
+        "Design, material, construction defects", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Hydraulic Core", 
+        "Containment and transport of hydraulic fluids along an umbilical", 
+        "Loss of Containment due to Excessive  Loading", 
+        "Over-pressure; Fatigue; Manufacturing defect; Physical Damage", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Power/Signal Coupling", 
+        "Connection between sections of power/signal cabling", 
+        "Loss of Containment due to Leakage across couplers", 
+        "Debris (sand, calcium carbonate); Hydro Quad connectors misaligned/damaged; Corrosion; Structural damage", 
+        "R.", 
+        8426, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Shuttle Valve", 
+        "Allows fluid flow from one of two sources", 
+        "Loss of Function due to Valve Sticking", 
+        "Corrosion; Fatigue", 
+        "R.", 
+        286.3, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Shuttle Valve", 
+        "Allows fluid flow from one of two sources", 
+        "Loss of Containment due to Seal failure", 
+        "Seal Failure", 
+        "R.", 
+        286.3, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Shuttle Valve", 
+        "Allows fluid flow from one of two sources", 
+        "Loss of Function due to Blockage", 
+        "Build up of debris; Hydrate formation; Wax formation; Fluid contamination", 
+        "R.", 
+        286.3, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Shuttle Valve", 
+        "Allows fluid flow from one of two sources", 
+        "Loss of Function due to Fitting Failure", 
+        "Fatigue", 
+        "R.", 
+        286.3, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Shuttle Valve", 
+        "Allows fluid flow from one of two sources", 
+        "Loss of Function due to Tubing Failure", 
+        "Fatigue", 
+        "R.", 
+        286.3, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Subsea Control Module (SCM)", 
+        "Control of operations / signal feedback to Topside", 
+        "Loss of Function due to SEM Failure", 
+        "Communication error; Modem lock; Reset communication; Inadequate Design; Manufacturing Defect; Software issue", 
+        "R.", 
+        101296, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Subsea Control Module (SCM)", 
+        "Control of operations / signal feedback to Topside", 
+        "Loss of Function due to Leaks", 
+        "Seal failure; Excessive leakage from DCVs; Leakage in control lines; Inadequate Design; Manufacturing Defect; Installation Error", 
+        "R.", 
+        691.3, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Subsea Control Module (SCM)", 
+        "Control of operations / signal feedback to Topside", 
+        "Loss of Function due to Blockage", 
+        "Build up of debris; Fluid contamination", 
+        "R.", 
+        691.3, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Subsea Control Module (SCM)", 
+        "Control of operations / signal feedback to Topside", 
+        "Loss of Function due to Mechanical Failure", 
+        "Valve failure; Coupler failure; Accumulator failure", 
+        "R.", 
+        27.3, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Subsea Control Module (SCM)", 
+        "Control of operations / signal feedback to Topside", 
+        "Loss of Function due to Hardware Failure", 
+        "Analogue Interface Board failure; RAM Chip Failure; Low IR; Sensor failure; Communication Board failure; Component failure", 
+        "R.", 
+        691.3, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Subsea Control Module (SCM)", 
+        "Control of operations / signal feedback to Topside", 
+        "Loss of Function due to Electrical Failure", 
+        "Water Ingress; Connector Failure", 
+        "R.", 
+        296.3, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Static Electric Core", 
+        "Containment and transport of electrical power along an umbilical", 
+        "Loss of Function due to Low Insulation Resistance (IR)", 
+        "Fatigue; Sea water ingress", 
+        "R.", 
+        1533.3, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Static Electric Core", 
+        "Containment and transport of electrical power along an umbilical", 
+        "Loss of Function due to Impact", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage; Seabed Movement; ROV Impact", 
+        "R.", 
+        1533.3, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Electric Core", 
+        "Containment and transport of electrical power along an umbilical", 
+        "Loss of Function due to Fatigue Failure", 
+        "Vibration; Operational Loading; Environmental Loading; Excessive Cylic Loading", 
+        "R.", 
+        1533.3, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Static Electric Core", 
+        "Containment and transport of electrical power along an umbilical", 
+        "Loss of Function due to Excessive Loading", 
+        "Operating outside design Temperature/Pressure; Excessive External Loading (e.g. environmental)", 
+        "R.", 
+        1533.3, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Static Electric Core", 
+        "Containment and transport of electrical power along an umbilical", 
+        "Loss of Function due Design/Material/Manufacturing Defect", 
+        "Manufacturing/Design defect; Physical damage", 
+        "R.", 
+        1533.3, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Electric Flying Lead", 
+        "Electric power & signal communication", 
+        "Loss of Function due to Material defect/external interaction", 
+        "Mechanical damage; Material deterioration", 
+        "R.", 
+        102.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Electric Flying Lead", 
+        "Electric power & signal communication", 
+        "Loss of Function due to Water ingress/short-circuit", 
+        "Damage from excessive voltage/current stream/insulation degradation", 
+        "R.", 
+        102.7, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Subsea Accumulator", 
+        "Stores hydraulic fluid, so that adequate pressure is available to the subsea system", 
+        "Loss of Function due to Bladder Failure", 
+        "Bladder permeation", 
+        "R.", 
+        53.7, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Subsea Accumulator", 
+        "Stores hydraulic fluid, so that adequate pressure is available to the subsea system", 
+        "Loss of Function due to Connection Leakage", 
+        "Seal degradation", 
+        "R.", 
+        53.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Flowmeter", 
+        "Flowrate monitoring", 
+        "Loss of Function due to Impact", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage; Seabed Movement; ROV Impact", 
+        "R.", 
+        187.5, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "PTT (Hardware Integrity)", 
+        "Monitors systems pressure and/or temperature at a given point", 
+        "Loss of Containment due to Seal failure", 
+        "Weld/Material Defect; Misaligned Components; Vibration; Erosion; Operation outside design Temperature/Pressure", 
+        "R.", 
+        4147.5, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "PTT (Hardware Integrity)", 
+        "Monitors systems pressure and/or temperature at a given point", 
+        "Loss of Containment due to External Corrosion", 
+        "Coating Damage; CP System Failure", 
+        "T.D.", 
+        4147.5, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "PTT (Hardware Integrity)", 
+        "Monitors systems pressure and/or temperature at a given point", 
+        "Loss of Containment due to Impact", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage; Seabed Movement; ROV Impact", 
+        "R.", 
+        4147.5, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "ZT Position Indicator", 
+        "Proximity switch on valves. Indicates if valve is open or closed. Signal sent to DCS", 
+        "Loss of accuracy due to incorrect reporting data", 
+        "Magnetic position failure on switch (indicates wrong position); Out of calibration", 
+        "R.", 
+        1018.48, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "ZT Position Indicator", 
+        "Proximity switch on valves. Indicates if valve is open or closed. Signal sent to DCS", 
+        "Loss of function due to Signal Failure", 
+        "Loss of signal; Communication port failure; Out of Calibration; Faulty Installation; Damage during Commissioning", 
+        "R.", 
+        1018.48, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Acoustic Sand Detector", 
+        "Detect solid particles within well fluids; Used to determine erosion rate", 
+        "Loss of Function due to Impact", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage; Seabed Movement; ROV Impact", 
+        "R.", 
+        183.034, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Chemical Core", 
+        "Containment and transport of chemical fluids along an umbilical", 
+        "Loss of Containment due to External Corrosion", 
+        "Coating Damage; CP System Failure", 
+        "T.D.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Chemical Core", 
+        "Containment and transport of chemical fluids along an umbilical", 
+        "Loss of Containment due to Impact ", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage; Seabed Movement; ROV Impact", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Chemical Core", 
+        "Containment and transport of chemical fluids along an umbilical", 
+        "Loss of Containment due to Blockage", 
+        "Fluid Contamination", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Chemical Core", 
+        "Containment and transport of chemical fluids along an umbilical", 
+        "Loss of Containment due to Design/Material/Manufacturing defects", 
+        "Support Failure; Design, material, construction defects; Weld failure", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Chemical Core", 
+        "Containment and transport of chemical fluids along an umbilical", 
+        "Loss of Containment due to Fatigue Failure", 
+        "Vibration; Operational Loading; Environmental Loading; Excessive Cylic Loading", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Chemical Core", 
+        "Containment and transport of chemical fluids along an umbilical", 
+        "Loss of Containment due to Fitting Failure", 
+        "Excessive Loading; Fatigue", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Static Chemical Core", 
+        "Containment and transport of chemical fluids along an umbilical", 
+        "Loss of Containment due to Excessive Loading", 
+        "Operating outside design Temperature/Pressure; Excessive External Loading (e.g. environmental)", 
+        "R.", 
+        864.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Umbilical Subsea Termination", 
+        "Subsea interface for umbilicals", 
+        "Loss of Function due to Connector Failure due to Impact", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage; Seabed Movement; ROV Impact", 
+        "R.", 
+        1235.5, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Umbilical Subsea Termination", 
+        "Subsea interface for umbilicals", 
+        "Loss of Function due to Failure of Electrical Harness", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Ordinance & Explosives; Accidental Damage; Broken Anchor Chain", 
+        "T.D.", 
+        1235.5, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Umbilical Subsea Termination", 
+        "Subsea interface for umbilicals", 
+        "Loss of Function due to Corrosion", 
+        "Coating Damage/Deterioration; CP System Failure-Inadequate/Excessive anode depletion", 
+        "R.", 
+        1235.5, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Umbilical Subsea Termination", 
+        "Subsea interface for umbilicals", 
+        "Loss of Funnction due to Excessive Loading", 
+        "Operating outside design Temperature/Pressure; Excessive External Loading (e.g. environmental)", 
+        "R.", 
+        1235.5, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Umbilical Subsea Termination", 
+        "Subsea interface for umbilicals", 
+        "Loss of Function due to Design/Material/Manufacturing Defect", 
+        "Support Failure; Design, material, construction defects; Weld failure", 
+        "T.D.", 
+        1235.5, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Umbilical Subsea Termination", 
+        "Subsea interface for umbilicals", 
+        "Loss of Function due to Fatigue", 
+        "Vibration; Operational Loading; Environmental Loading", 
+        "T.D.", 
+        1235.5, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Diver Activated Valve", 
+        "Manually Operated Flow control (on/off) ", 
+        "Loss of Function due to Failure to Open on demand", 
+        "Valve blocked by debris; Valve stuck; Internal mechanism failure; Incorrect Operation", 
+        "R.", 
+        11434, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Diver Activated Valve", 
+        "Manually Operated Flow control (on/off) ", 
+        "Loss of Function due to Failure to Close on demand", 
+        "Valve blocked by debris; Valve stuck; Internal mechanism failure; Fatigue; Impact", 
+        "R.", 
+        11434, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Diver Activated Valve", 
+        "Manually Operated Flow control (on/off) ", 
+        "Loss of Function due to Blockage", 
+        "Build up of debris; Hydrate formation; Wax formation; Fluid contamination", 
+        "R.", 
+        11434, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Diver Activated Valve", 
+        "Manually Operated Flow control (on/off) ", 
+        "Loss of Function due to Failure of diver interface", 
+        "Mechanical failure of diver interface", 
+        "R.", 
+        11434, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Diver Activated Valve", 
+        "Manually Operated Flow control (on/off) ", 
+        "Loss of Function due to Internal Failure", 
+        "Material failure; Erosion/corrosion", 
+        "R.", 
+        11434, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Diver Activated Valve", 
+        "Manually Operated Flow control (on/off) ", 
+        "Loss of Containment due to External Failure", 
+        "Failure of bonnet; Flange failure (Bolted connection)", 
+        "R.", 
+        11434, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "MPFM (Hardware Integrity)", 
+        "Measure flow rate of Gas-Liquid combinations", 
+        "Loss of Containment due to External Corrosion", 
+        "Coating Damage; CP System Failure", 
+        "T.D.", 
+        655.7, 
+        "Leading", 
+        "ROV Inspection"
+      ], 
+      [
+        "MPFM (Hardware Integrity)", 
+        "Measure flow rate of Gas-Liquid combinations", 
+        "Loss of Containment due to Internal Corrosion", 
+        "CO2 Corrosion; H2S Pitting; MIC; Crevice Corrosion; Inadequate Inhibition", 
+        "T.D.", 
+        655.7, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "MPFM (Hardware Integrity)", 
+        "Measure flow rate of Gas-Liquid combinations", 
+        "Loss of Function due to Blockage", 
+        "Build up of debris; Hydrate formation; Wax formation; Fluid contamination", 
+        "R.", 
+        655.7, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "MPFM (Hardware Integrity)", 
+        "Measure flow rate of Gas-Liquid combinations", 
+        "Loss of Containment due to Impact", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage; Seabed Movement; ROV Impact", 
+        "R.", 
+        655.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "MPFM (Hardware Integrity)", 
+        "Measure flow rate of Gas-Liquid combinations", 
+        "Loss of Containment due to Fatigue Failure", 
+        "Vibration; Erosion; Operation outside design Temperature/Pressure", 
+        "R.", 
+        655.7, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "MPFM (Functionality)", 
+        "Measure flow rate of Gas-Liquid combinations", 
+        "Loss of Function due to Electrical Failure", 
+        "Water Ingress; Connector Failure", 
+        "R.", 
+        655.7, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "MPFM (Functionality)", 
+        "Measure flow rate of Gas-Liquid combinations", 
+        "Loss of Function due to Mechanical Failure", 
+        "Seal Failure; Connection Failure", 
+        "R.", 
+        655.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "CP System", 
+        "Cathodic Protection, preventing external corrosion ", 
+        "Loss of Containment due to excessive CP", 
+        "Design error; Assembly error", 
+        "R.", 
+        18216.8, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "CP System", 
+        "Cathodic Protection, preventing external corrosion ", 
+        "Loss of function due to inactive anode", 
+        "Assembly error", 
+        "R.", 
+        18216.8, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "CP System", 
+        "Cathodic Protection, preventing external corrosion ", 
+        "Loss of Containment due to insufficient CP", 
+        "Design error; Assembly error", 
+        "T.D.", 
+        18216.8, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Protective Structure", 
+        "Protect equipment from dropped objects", 
+        "Loss of Function due to dropped object on protection covers", 
+        "Loss of ability to connect/lift open debris covers through broken or stuck latches as a result of dropped object or ROV impact", 
+        "R.", 
+        2719.8, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Support structure", 
+        "Interface between Foundation & module", 
+        "Structural Failure due to External Corrosion", 
+        "Coating Damage; CP System Failure", 
+        "T.D.", 
+        4226.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Support structure", 
+        "Interface between Foundation & module", 
+        "Structural Failure due to Overstressing", 
+        "Design, material, construction defects; Weld failure; Excessive relative soil/structure displacement", 
+        "R.", 
+        4226.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Support structure", 
+        "Interface between Foundation & module", 
+        "Structural Failure due to Impact", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage; Seabed Movement; ROV Impact", 
+        "R.", 
+        4226.7, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "SCMMB couplers", 
+        "Interface between SCM cores & hydraulic/chemical system ", 
+        "Loss of Function due to Leakage across couplers", 
+        "Debris (sand, calcium carbonate); Hydro Quad connectors misaligned/damaged; Corrosion; Structural damage", 
+        "R.", 
+        842.6, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Choke Valve", 
+        "Flow regulation", 
+        "Loss of Function due to Loss of flow control", 
+        "Erosion due to Excessive fluid velocity; Cavitation/ Erosion; Corrosion or mechanical damage", 
+        "T.D.", 
+        206, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Choke Valve", 
+        "Flow regulation", 
+        "Loss of Function due to Loss of automated control", 
+        "Actuator failure; Hydraulic leak or blockage; LVDT signal wire damaged", 
+        "R.", 
+        1854.3, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Choke Valve", 
+        "Flow regulation", 
+        "Structural Failure due to Impact", 
+        "Anchor Damage; Dropped Objects; Trawling/Fishing; Accidental Damage", 
+        "R.", 
+        1854.3, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Choke Valve", 
+        "Flow regulation", 
+        "Loss of Containment due to External Leakage", 
+        "Failure of Bonnet; Stem seals assembly; Failure of body; Insert connection gasket", 
+        "R.", 
+        1854.3, 
+        "Lagging", 
+        "ROV Inspection"
+      ], 
+      [
+        "Choke Valve", 
+        "Flow regulation", 
+        "Loss of Function due to Blockage", 
+        "Build up of debris; Hydrate formation; Wax formation; Fluid contamination", 
+        "R.", 
+        142.6, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Choke Valve", 
+        "Flow regulation", 
+        "Loss of Function due to Plug & Cage Failure", 
+        "Manufacturing Defect; Impact", 
+        "R.", 
+        206, 
+        "Not Detectable", 
+        ""
+      ], 
+      [
+        "Choke Valve", 
+        "Flow regulation", 
+        "Loss of Function due to Stuck on end stops", 
+        "Incorrect Operation", 
+        "R.", 
+        206, 
+        "Not Detectable", 
+        ""
+      ]
+    ]
+  }
