@@ -1,7 +1,7 @@
 import copy
 from collections import namedtuple
 import math
-
+import json
 # mttf
 failure_modes = {
     'Actuated Process Valve': {
@@ -19,7 +19,32 @@ failure_modes = {
                                                                                                                 'consequence': 'major'}
     }
 }
+        
+class Facility():
+    
+    def __init__(self, operator, name):
+        self.operator = operator
+        self.name = name
+        self.vessels = {}
+        self.areas = []
+        
+    def add_area(self, area):
+        self.areas.append(area)
+        
+    def read_vessels(self, json_filename):
+        with open('facility_assumptions.json', 'r') as j:
+            d = json.load(j)
+            for v in d:
+                vessels
 
+class Area:
+    
+    def __init__(self, name):
+        self.name = name
+        self.components = []
+        
+    def add_component(self, component):
+        self.components.append(component)
 
 class Component:
     def __init__(self, ident):
