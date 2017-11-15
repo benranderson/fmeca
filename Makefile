@@ -14,7 +14,9 @@ lint:
 	pylint app/
 
 test:
-	py.test tests
+	# py.test core/tests/
+	py.test --cov=core core/tests/
+	py.test --cov-report html
 
 deploy:
 	git push origin master

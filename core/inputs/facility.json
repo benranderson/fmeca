@@ -1,0 +1,18 @@
+{
+    "name": "Foinaven",
+    "client": "BP",
+    "Vessels": [
+        {
+            "name": "Heavy Lift Vessel",
+            "acronym": "HLV",
+            "day rate": 120000,
+            "mobilisation time": 7
+        },
+        {
+            "name": "ROV Support Vessel",
+            "acronym": "ROVSV",
+            "day rate": 300000,
+            "mobilisation time": 4
+        }
+    ]
+}

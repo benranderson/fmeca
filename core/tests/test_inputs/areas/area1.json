@@ -1,0 +1,38 @@
+{
+    "M1": {
+        "Equipment Class": "Manifold",
+        "Service Type": "Production",
+        "Subcomponents": [
+            {
+                "description": "Actuated Process Valve",
+                "ident": "V1"
+            },
+            {
+                "description": "Actuated Process Valve",
+                "ident": "V2"
+            },
+            {
+                "description": "Actuated Process Valve",
+                "ident": "V3"
+            }
+        ]
+    },
+    "M2": {
+        "Equipment Class": "Manifold",
+        "Service Type": "Production",
+        "Subcomponents": [
+            {
+                "description": "Actuated Process Valve",
+                "ident": "C1"
+            },
+            {
+                "description": "Actuated Process Valve",
+                "ident": "C2"
+            },
+            {
+                "description": "Actuated Process Valve",
+                "ident": "C3"
+            }
+        ]
+    }
+}
