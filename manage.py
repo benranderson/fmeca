@@ -55,6 +55,10 @@ def seeddb():
 
 
 @manager.command
+def test_obj(html=False):
+
+
+@manager.command
 def test(html=False):
     """Run the unit tests."""
 
