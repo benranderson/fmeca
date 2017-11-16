@@ -136,14 +136,11 @@ class Component:
         data['ident'] = self.ident
         data['fmeca'] = self.fmeca.export_data() if self.fmeca else None
         data['rbi'] = self.rbi.export_data() if self.rbi else None
-        data['subcomponents'] = 
-            { key: value for (key, value) in 
-             [(sc.ident, sc.export_data()) for sc in self.subcomponents]}
+        data['subcomponents'] = { k: v for k, v in 
+             [sc.ident, sc.export_data() for sc in self.subcomponents]}
         data['consequences'] = self.consequences
         data['total risk'] = self._total_risk
         return data
-        
-    where's the `masturbating furiously` emoji?
     
     def compile_rbi(self, fmeca):
         self.rbi = RBI(fmeca)
