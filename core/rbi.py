@@ -11,19 +11,19 @@ AREA = json.load(open('core/inputs/area1.json'))
 from flask import Flask, jsonify, request
 
 
-class FMECA:
+class FacilityRisk:
     def __init__(self):
         self.facilities = []
 
-    def add_facility(self, name):
-        self.facilities.append(Facility(name))
+    def add_facility(self, name, operator):
+        self.facilities.append(Facility(name, operator))
 
 
 class Facility():
 
-    def __init__(self, operator, name):
-        self.operator = operator
+    def __init__(self, name, operator):
         self.name = name
+        self.operator = operator
         self.vessels = {}
         self.areas = []
 
@@ -171,8 +171,8 @@ class Failure:
 app = Flask(__name__)
 
 
-# Instantiate the FMECA
-fmeca = FMECA()
+# Instantiate the Facility Risk Class
+fmeca = FacilityRisk()
 
 
 @app.route('/', methods=['GET'])
