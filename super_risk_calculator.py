@@ -34,6 +34,8 @@ class RiskCalculatorObject():
         '''Generate JSON representation of an object.
         
         This method iterates on the "__dict__" attribute of object attributes.
+        Any attributes beginning with an underscore (_) are assumed private
+        and not included.
         
         If the attribute is a simple value (not a list or dict) a new key is
         added to the "data" dict and given the value referenced by the
@@ -57,15 +59,16 @@ class RiskCalculatorObject():
         '''
         data = {}
         for a in self.__dict__:
-            if type(self.__dict__[a]) == type({}):
-                data[a] = {k: v for k, v in
-                    [(b, self.__dict__[a][b].export_data()) for b in 
-                          self.__dict__[a].keys()]}
-            elif type(self.__dict__[a]) == type([]):
-                data[a] = { k: v for k, v in 
-                    [(b.ident, b.export_data()) for b in self.__dict__[a]]}
-            else:
-                data[a] = self.__dict__[a]
+            if a[0] != '_':
+                if type(self.__dict__[a]) == type({}):
+                    data[a] = {k: v for k, v in
+                        [(b, self.__dict__[a][b].export_data()) for b in 
+                              self.__dict__[a].keys()]}
+                elif type(self.__dict__[a]) == type([]):
+                    data[a] = { k: v for k, v in 
+                        [(b.ident, b.export_data()) for b in self.__dict__[a]]}
+                else:
+                    data[a] = self.__dict__[a]
         return data
     
     def import_data(self, data):
@@ -136,7 +139,7 @@ class RiskCalculatorObject():
         '''
         s = s.replace('_', ' ').title().replace(' ', '')
         if s[-3:] == 'ies':
-            s = s[:-4] + 'y'
+            s = s[:-3] + 'y'
         else:
             s = s[:-1]
         return s
@@ -150,6 +153,7 @@ from flask import Flask, jsonify, request
 class RiskCalculator(RiskCalculatorObject):
     
     def __init__(self, filename=''):
+        super(type(self), self).__init__('0')
         if filename == '':
             self.facilities = []
             self.filename = ''
@@ -171,12 +175,12 @@ class RiskCalculator(RiskCalculatorObject):
 
 class Facility(RiskCalculatorObject):
 
-    def __init__(self, name, operator):
+    def __init__(self, name, operator=''):
         super(type(self), self).__init__(name)
         self.name = name
         self.operator = operator
         self.vessels = {}
-        self.areas = []
+        self.areas = {}
         # read in default lists i.e. FAILUREMODES above
 
     def add_area(self, area):
@@ -192,7 +196,7 @@ class Area(RiskCalculatorObject):
     def __init__(self, name):
         super(type(self), self).__init__(name)
         self.name = name
-        self.components = []
+        self.components = {}
         self.financial_data = {}
 
     def add_component(self, component):
@@ -210,7 +214,7 @@ class Consequence(RiskCalculatorObject):
         super(type(self), self).__init__(name)
         self.name = name
         # self.mttr = mttr
-        self.vessel_trips = []
+        self.vessel_trips = {}
 
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.name}>'
@@ -223,7 +227,7 @@ class Component(RiskCalculatorObject):
         super(type(self), self).__init__(ident)
         self.fmeca = None
         self.rbi = None
-        self.subcomponents = []
+        self.subcomponents = {}
         self.consequences = {}
         self._total_risk = None
 
@@ -241,7 +245,7 @@ class Component(RiskCalculatorObject):
     @property
     def total_risk(self):
         if self._total_risk is None:
-            return 'Run component RBI.'
+            return self.run_rbi
         else:
             return self._total_risk
 
@@ -268,12 +272,12 @@ class Component(RiskCalculatorObject):
         self.fmeca = FMECA(self.subcomponents)
 
 class Subcomponent(RiskCalculatorObject):
-    def __init__(self, description, ident, consequences=None):
+    def __init__(self, ident, description='', consequences=None):
         super(type(self), self).__init__(ident)
         self.description = description
         self.consequences = consequences
-        self._failures = []
-        self.failure_modes = FAILURE_MODES[self.description]['Failure Modes']
+        self._failures = {}
+        self.failure_modes = {} #FAILURE_MODES[self.description]['Failure Modes']
 
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.ident}>'
@@ -328,7 +332,7 @@ app = Flask(__name__)
 
 
 # Instantiate the Facility Risk Class
-fmeca = RiskCalculator()
+rc = RiskCalculator()
 
 
 @app.route('/', methods=['GET'])
@@ -346,20 +350,43 @@ def new__facility():
         return 'Missing values', 400
 
     # Create a new Facility
-    index = fmeca.add_facility(values['name'])
+    fmeca.import_data(request.get_json())
 
-    response = {'message': f'Facility will be added to FMECA {index}'}
+    response = {'message': f'Facility will be added to FMECA'}
     return jsonify(response), 201
 
 
 @app.route('/facilities/', methods=['GET'])
 def facilities():
-    response = {'facilities': []}
-    for facility in fmeca.facilities:
-        response['facilities'].append(facility.name)
-    return jsonify(response), 200
+    r = {}
+    for f in rc.facilities:
+        d[f] = f.export_data()
+    return r, 200
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
-        
+    #app.run(host='0.0.0.0', port=5000, debug=True)
+    rc = RiskCalculator()
+    f = {'facilities': { 'Fac 1': { 'name': 'Fac 1',
+                                    'operator': 'Me' },
+                         'Fac 2': { 'name': 'Fac 1',
+                                    'operator': 'You' } } }
+    rc.import_data(f)
+    for f in rc.facilities:
+        print(f.export_data())
+
+    a = { 'areas': { 'area1': {'name': 'area1'}}}
+    f = rc.facilities[0]
+    f.import_data(a)
+    print(f.export_data())
+    
+    c = { 'components': { 'comp1': {'ident': 'comp1'} } }
+    a = f.areas['area1']
+    a.import_data(c)
+    print(a.export_data())
+
+    sc = { 'subcomponents': { 'sc1': { 'description': 'test component',
+                                       'ident': 'sc1' } } }
+    c = a.components['comp1']
+    c.import_data(sc)
+    print(c.export_data())

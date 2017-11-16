@@ -37,7 +37,7 @@ class SuperFMECAType():
     def _format_class_name(self, s):
         s = s.replace('_', ' ').title().replace(' ', '')
         if s[-3:] == 'ies':
-            s = s[:-4] + 'y'
+            s = s[:-3] + 'y'
         else:
             s = s[:-1]
         return s
