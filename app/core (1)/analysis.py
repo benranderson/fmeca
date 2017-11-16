@@ -32,7 +32,7 @@ class Facility():
         self.areas.append(area)
         
     def read_vessels(self, json_filename):
-        with open('facility_assumptions.json', 'r') as j:
+        with open(json_filename, 'r') as j:
             d = json.load(j)
             self.vessels = d["Vessels"]
 
@@ -41,9 +41,21 @@ class Area:
     def __init__(self, name):
         self.name = name
         self.components = []
+        self.financial_data = {}
         
     def add_component(self, component):
         self.components.append(component)
+        
+    def read_components(self, json_filename):
+        with open(json_filename, 'r') as j:
+            # TODO: define components.json and map to component objects
+            pass
+        
+
+    def read_financial_data(self, json_filename):
+        with open(json_filename, 'r') as j:
+            self.financial_data = json.load(j)
+        
 
 class Component:
     def __init__(self, ident):
