@@ -20,7 +20,10 @@ class RiskCalculator:
             self.facilities = []
             self.filename = ''
         else:
-            self.facilities = _read_existing_rc(filename)
+            self.facilities = self._read_existing_rc(filename)
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.filename}>'
 
     def _read_existing_rc(self, filename):
         # TODO: write function to open existing json file from previous
@@ -38,6 +41,26 @@ class RiskCalculator:
         self.facilities.append(Facility(name, operator))
 
 
+class Vessel:
+
+    def __init__(self, name, abbr, day_rate, mob_time):
+        self.name = name
+        self.abbr = abbr
+        self.day_rate = day_rate
+        self.mob_time = mob_time
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.abbr}>'
+
+    def export_data(self):
+        return {
+            'name': self.name,
+            'abbr': self.abbr,
+            'day_rate': self.day_rate,
+            'mob_time': self.mob_time
+        }
+
+
 class Facility():
 
     def __init__(self, name, operator):
@@ -46,6 +69,19 @@ class Facility():
         self.vessels = {}
         self.areas = []
         # read in default lists i.e. FAILUREMODES above
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.name}>'
+
+    def export_data(self):
+        return {
+            'name': self.name,
+            'operator': self.operator,
+            'vessels': [self.vessels[vessel].export_data() for vessel in self.vessels]
+        }
+
+    def import_data(self, data):
+        pass
 
     def add_area(self, area):
         self.areas.append(area)
@@ -62,6 +98,9 @@ class Area:
         self.name = name
         self.components = []
         self.financial_data = {}
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.name}>'
 
     def add_component(self, component):
         self.components.append(component)
@@ -213,7 +252,7 @@ app = Flask(__name__)
 
 
 # Instantiate the Facility Risk Class
-fmeca = RiskCalculator()
+risk_calculator = RiskCalculator()
 
 
 @app.route('/', methods=['GET'])
@@ -222,25 +261,25 @@ def index():
 
 
 @app.route('/facilities/new', methods=['POST'])
-def new__facility():
+def new_facility():
     values = request.get_json()
 
     # Check that the required fields are in the POST'ed data
-    required = ['name']
+    required = ['name', 'operator']
     if not all(k in values for k in required):
         return 'Missing values', 400
 
     # Create a new Facility
-    index = fmeca.add_facility(values['name'])
+    index = risk_calculator.add_facility(values['name'], values['operator'])
 
-    response = {'message': f'Facility will be added to FMECA {index}'}
+    response = {'message': f'Facility will be added to Risk Calculator {index}'}
     return jsonify(response), 201
 
 
 @app.route('/facilities/', methods=['GET'])
 def facilities():
     response = {'facilities': []}
-    for facility in fmeca.facilities:
+    for facility in risk_calculator.facilities:
         response['facilities'].append(facility.name)
     return jsonify(response), 200
 

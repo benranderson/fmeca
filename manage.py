@@ -55,7 +55,10 @@ def seeddb():
 
 
 @manager.command
-def test_obj(html=False):
+def testcore(html=False):
+    """ Run unit tests on core module"""
+    import pytest
+    pytest.main(['-x', 'core/tests'])
 
 
 @manager.command
