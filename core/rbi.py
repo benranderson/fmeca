@@ -10,13 +10,12 @@ AREA = json.load(open('core/inputs/area1.json'))
 
 from flask import Flask, jsonify, request
 
-class FacilityRisk:
+class RiskCalculator:
     
     def __init__(self, filename=''):
         if filename == '':
             self.facilities = []
-            self.filename = filename
-            # read in default lists
+            self.filename = ''
         else:
             self.facilities = _read_existing_rc(filename)
         
@@ -28,7 +27,9 @@ class FacilityRisk:
     def save(self, filename=''):
         if filename == self.filename == '':
             raise ValueError('Enter valid filename for save.')
-        # TODO: write function to export object model to json file
+        else:
+            pass
+            # TODO: write function to export object model to json file
         
     def add_facility(self, name, operator):
         self.facilities.append(Facility(name, operator))
@@ -41,6 +42,7 @@ class Facility():
         self.operator = operator
         self.vessels = {}
         self.areas = []
+        # read in default lists i.e. FAILUREMODES above
 
     def add_area(self, area):
         self.areas.append(area)
@@ -187,7 +189,7 @@ app = Flask(__name__)
 
 
 # Instantiate the Facility Risk Class
-fmeca = FacilityRisk()
+fmeca = RiskCalculator()
 
 
 @app.route('/', methods=['GET'])
