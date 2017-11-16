@@ -46,9 +46,15 @@ class Component(SuperFMECAType):
     
     def __init__(self, ident):
         super(type(self), self).__init__(ident)
-        self.subcomponents = []
+        self.subcomponent_As = []
+        self.subcomponent_Bs = {}
         
-class Subcomponent(SuperFMECAType):
+class SubcomponentA(SuperFMECAType):
+    
+    def __init__(self, ident):
+        super(type(self), self).__init__(ident)
+        
+class SubcomponentB(SuperFMECAType):
     
     def __init__(self, ident):
         super(type(self), self).__init__(ident)
@@ -56,7 +62,12 @@ class Subcomponent(SuperFMECAType):
 if __name__ == '__main__':
     
     d = {'ident': 'component_1',
-         'subcomponents': {
+         'subcomponent_As': {
+                 'subcomponent_a': {'ident': 'subcomponent_a'},
+                 'subcomponent_b': {'ident': 'subcomponent_b'},
+                 'subcomponent_c': {'ident': 'subcomponent_c'}
+                 },
+         'subcomponent_Bs': {
                  'subcomponent_a': {'ident': 'subcomponent_a'},
                  'subcomponent_b': {'ident': 'subcomponent_b'},
                  'subcomponent_c': {'ident': 'subcomponent_c'}
