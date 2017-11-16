@@ -5,10 +5,56 @@ from core.rbi import RBI
 
 class RiskCalculatorObject():
     
+    '''Base class for all objects used in the Risk Calculator.
+    
+    This provides common funcctionality for all classes and should be
+    inhereted by each class using database persistance or containing 
+    attributes accessed by the REST API.
+    
+    Attributes:
+        ident (str): Alphanumeric object unique identifier.
+        
+    '''
+    
     def __init__(self, ident):
+        '''Base constructor to assign the "ident" attribute.
+        
+        I don't think there's a definite need for this constructor or the 
+        "ident" attribute because it can be assigned at the Parent class 
+        level. However, this way we're forced to assign an "ident" attribute
+        as required for the "export_data" and "import_data" methods to
+        operate correctly.
+        
+        Args:
+            ident (str): Alphanumeric object unique identifier.
+        '''
         self.ident = ident
     
     def export_data(self):
+        '''Generate JSON representation of an object.
+        
+        This method iterates on the "__dict__" attribute of object attributes.
+        
+        If the attribute is a simple value (not a list or dict) a new key is
+        added to the "data" dict and given the value referenced by the
+        attribute.
+        
+        If the the attribute refers to a dict object, a key corresponding to
+        the attribute name is added to "data" and a list comprehension is used
+        to create a new dict containing the definition of each object in the
+        attribute dict created by calling that objects "export_data" method.
+        This process continues recursively through the iterable and any nested
+        iterables.
+        
+        If the attribute refers to a list object then a similar approach is 
+        followed to a dict object to create a JSON representation of the
+        objects.
+        
+        Returns:
+            A dict object containing a representation of the object, including
+            objects contained in attributes, iterable or otherwise.
+        
+        '''
         data = {}
         for a in self.__dict__:
             if type(self.__dict__[a]) == type({}):
@@ -23,23 +69,71 @@ class RiskCalculatorObject():
         return data
     
     def import_data(self, data):
+        '''Create object model from JSON definition file.
+        
+        This is the reverse of the "export_data" method and interprets JSON
+        type data to create object model from persistent state.
+        
+        Dictionary keys are mapped to the attribute with the same name and the
+        dict value is assigned to the attribute. If the attribute is a list or
+        dict type then an appropriate object is instantiated using the dict key
+        to determine type name. That objects "import data" method is then 
+        called to define the attributes of that object. This process continues
+        reursively for each sub-object defined in the JSON sepcification.
+        
+        An object calling it's own "export_data" method and passing the
+        resulting dict into it's own "import_data" method should appear
+        identical before and after those operations.
+        
+        Args:
+            data (dict): Dictionary containing object specification.
+        
+        '''
         for a in data:
+            if a not in self.__dict__:
+                raise KeyError(f'{type(self)} does not contain attriute {a}')
             if type(data[a]) == type({}):
                 c = self._format_class_name(a)
                 if type(getattr(self, a)) == type({}):
                     for l in data[a].keys():
-                        o = eval(c)(l)
+                        try:
+                            o = eval(c)(l)
+                        except:
+                            raise KeyError(f'{a} does not map to valid class \
+                                           name.')
                         o.import_data(data[a][l])
                         getattr(self, a)[l] = o
-                else:
+                elif type(getattr(self, a)) == type([]):
                     for l in data[a]:
                         o = eval(c)(l)
                         o.import_data(data[a][l])
                         getattr(self, a).append(o)
+                else:
+                    raise TypeError(f'{type(getattr(self, a))} is not \
+                                    iterable')
             else:
                 setattr(self, a, data[a])
     
     def _format_class_name(self, s):
+        '''Determine class name from dictionary key.
+        
+        Converts an attribute name to the type name of objects contained in
+        an iterable referenced by that attribute.
+        
+        Depends on "pythonic" iterable and type names. For example, the 
+        attribute "subcomponents" contains objects of type "Subcomponent", the
+        attribute "facilities" contains objects of type "Facility" and the
+        attribute "failure_modes" conatins objects of type "FailureMode". This
+        method returns the type name accordingly.
+        
+        Args:
+            s (str): String containing attriute name to be converted to type
+            name.
+            
+        Returns:
+            String containing type name.
+        
+        '''
         s = s.replace('_', ' ').title().replace(' ', '')
         if s[-3:] == 'ies':
             s = s[:-4] + 'y'
@@ -173,7 +267,7 @@ class Component(RiskCalculatorObject):
     def compile_base_fmeca(self):
         self.fmeca = FMECA(self.subcomponents)
 
-class SubComponent(RiskCalculatorObject):
+class Subcomponent(RiskCalculatorObject):
     def __init__(self, description, ident, consequences=None):
         super(type(self), self).__init__(ident)
         self.description = description
