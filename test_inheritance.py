@@ -10,6 +10,9 @@ class SuperFMECAType():
                 data[a] = {k: v for k, v in
                     [(b, self.__dict__[a][b].export_data()) for b in 
                           self.__dict__[a].keys()]}
+            elif type(self.__dict__[a]) == type([]):
+                data[a] = { k: v for k, v in 
+                    [(b.ident, b.export_data()) for b in self.__dict__[a]]}
             else:
                 data[a] = self.__dict__[a]
         return data
@@ -18,10 +21,16 @@ class SuperFMECAType():
         for a in data:
             if type(data[a]) == type({}):
                 c = _format_class_name(a)
-                for l in data[a].keys():
-                    o = eval(c)(l)
-                    o.import_data(data[a][l])
-                    getattr(self, a)[l] = o
+                if type(getattr(self, a)) == type({}):
+                    for l in data[a].keys():
+                        o = eval(c)(l)
+                        o.import_data(data[a][l])
+                        getattr(self, a)[l] = o
+                else:
+                    for l in data[a]:
+                        o = eval(c)(l)
+                        o.import_data(data[a][l])
+                        getattr(self, a).append(o)
             else:
                 setattr(self, a, data[a])
     
@@ -37,7 +46,7 @@ class Component(SuperFMECAType):
     
     def __init__(self, ident):
         super(type(self), self).__init__(ident)
-        self.subcomponents = {}
+        self.subcomponents = []
         
 class Subcomponent(SuperFMECAType):
     
