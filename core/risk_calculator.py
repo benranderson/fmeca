@@ -4,6 +4,7 @@ from collections import namedtuple
 import math
 from exceptions import ValidationError
 from fmeca import FMECA
+from rbi import RBI
 
 # load input data
 FAILURE_MODES = json.load(open('core/inputs/failure_modes.json'))
@@ -91,6 +92,7 @@ class Component:
     def __init__(self, ident):
         self.ident = ident
         self.fmeca = None
+        self.rbi = None
         self.subcomponents = []
         self.consequences = {}
         self._total_risk = None
@@ -128,9 +130,27 @@ class Component:
                         else:
                             self._total_risk += failure.risk
         return self._total_risk
+    
+    def export_data(self):
+        data = {}
+        data['ident'] = self.ident
+        if self.fmeca:
+            data['fmeca'] = self.fmeca.export_data()
+        if self.rbi:
+            data['rbi'] = self.rbi.export_data()
+        for sc in self.subcomponents:
+            data['subcomponents'][sc.ident] = sc.export_data()
+        data['consequences'] = self.consequences
+        if self._total_risk:
+            data['total risk'] = self._total_risk
+        return data
+        
+    
+    def compile_rbi(self, fmeca):
+        self.rbi = RBI(fmeca)
 
     def compile_base_fmeca(self):
-        return FMECA(self.subcomponents)
+        self.fmeca = FMECA(self.subcomponents)
 
 class SubComponent:
     def __init__(self, description, ident, consequences=None):
