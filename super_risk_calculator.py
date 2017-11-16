@@ -155,7 +155,7 @@ class RiskCalculator(RiskCalculatorObject):
     def __init__(self, filename=''):
         super(type(self), self).__init__('0')
         if filename == '':
-            self.facilities = []
+            self.facilities = {}
             self.filename = ''
         else:
             self.facilities = self.import_data(open(filename, 'r').readlines())
@@ -330,14 +330,32 @@ class Failure(RiskCalculatorObject):
 
 app = Flask(__name__)
 
-
 # Instantiate the Facility Risk Class
 rc = RiskCalculator()
-
+f = {'facilities': { 'Fac 1': { 'name': 'Fac 1',
+                                    'operator': 'Me' },
+                         'Fac 2': { 'name': 'Fac 1',
+                                    'operator': 'You' } } }
+rc.import_data(f)
+a = { 'areas': { 'area1': {'name': 'area1'}}}
+f = rc.facilities['Fac 1']
+f.import_data(a)
+c = { 'components': { 'comp1': {'ident': 'comp1'} } }
+a = f.areas['area1']
+a.import_data(c)
+sc = { 'subcomponents': { 'sc1': { 'description': 'test component',
+                                   'ident': 'sc1' } } }
+c = a.components['comp1']
+c.import_data(sc)
+r = {}
+f = rc.facilities.keys()
+for k in f:
+    r[k] = rc.facilities[k].export_data()
+print(r)
 
 @app.route('/', methods=['GET'])
 def index():
-    return "FMECA Homepage"
+    return "FMECA Homepag se"
 
 
 @app.route('/facilities/new', methods=['POST'])
@@ -350,22 +368,27 @@ def new__facility():
         return 'Missing values', 400
 
     # Create a new Facility
-    fmeca.import_data(request.get_json())
+    rc.import_data(request.get_json())
 
     response = {'message': f'Facility will be added to FMECA'}
     return jsonify(response), 201
 
+@app.route('/riskcalculator/', methods=['GET'])
+def riskcalculators():
+    return jsonify(rc.export_data())
 
 @app.route('/facilities/', methods=['GET'])
 def facilities():
     r = {}
-    for f in rc.facilities:
-        d[f] = f.export_data()
-    return r, 200
+    f = rc.facilities.keys()
+    for k in f:
+        r[k] = rc.facilities[k].export_data()
+    print(r)
+    return jsonify(r), 200
 
 
 if __name__ == '__main__':
-    #app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
     rc = RiskCalculator()
     f = {'facilities': { 'Fac 1': { 'name': 'Fac 1',
                                     'operator': 'Me' },
