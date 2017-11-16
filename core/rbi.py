@@ -19,14 +19,41 @@ class FMECA:
         self.facilities.append(Facility(name))
 
 
-class Facility:
-    def __init__(self, name):
+class Facility():
+
+    def __init__(self, operator, name):
+        self.operator = operator
         self.name = name
+        self.vessels = {}
+        self.areas = []
+
+    def add_area(self, area):
+        self.areas.append(area)
+
+    def read_vessels(self, json_filename):
+        with open(json_filename, 'r') as j:
+            d = json.load(j)
+            self.vessels = d["Vessels"]
 
 
 class Area:
-    def __init__(self, risk_cut_off):
-        self.risk_cut_off
+
+    def __init__(self, name):
+        self.name = name
+        self.components = []
+        self.financial_data = {}
+
+    def add_component(self, component):
+        self.components.append(component)
+
+    def read_components(self, json_filename):
+        with open(json_filename, 'r') as j:
+            # TODO: define components.json and map to component objects
+            pass
+
+    def read_financial_data(self, json_filename):
+        with open(json_filename, 'r') as j:
+            self.financial_data = json.load(j)
 
 
 class Consequence:
