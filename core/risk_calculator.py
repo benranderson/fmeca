@@ -12,27 +12,28 @@ AREA = json.load(open('core/inputs/area1.json'))
 
 from flask import Flask, jsonify, request
 
+
 class RiskCalculator:
-    
+
     def __init__(self, filename=''):
         if filename == '':
             self.facilities = []
             self.filename = ''
         else:
             self.facilities = _read_existing_rc(filename)
-        
+
     def _read_existing_rc(self, filename):
         # TODO: write function to open existing json file from previous
         #       RiskCalculator and create model in memory
         pass
-    
+
     def save(self, filename=''):
         if filename == self.filename == '':
             raise ValueError('Enter valid filename for save.')
         else:
             pass
             # TODO: write function to export object model to json file
-        
+
     def add_facility(self, name, operator):
         self.facilities.append(Facility(name, operator))
 
@@ -130,7 +131,7 @@ class Component:
                         else:
                             self._total_risk += failure.risk
         return self._total_risk
-    
+
     def export_data(self):
         data = {}
         data['ident'] = self.ident
@@ -141,16 +142,15 @@ class Component:
         for sc in self.subcomponents:
             data['subcomponents'][sc.ident] = sc.export_data()
         data['consequences'] = self.consequences
-        if self._total_risk:
-            data['total risk'] = self._total_risk
+        data['total risk'] = self._total_risk
         return data
-        
-    
+
     def compile_rbi(self, fmeca):
         self.rbi = RBI(fmeca)
 
     def compile_base_fmeca(self):
         self.fmeca = FMECA(self.subcomponents)
+
 
 class SubComponent:
     def __init__(self, description, ident, consequences=None):
