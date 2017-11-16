@@ -63,13 +63,8 @@ class RiskCalculator(SuperFMECAType):
             self.facilities = []
             self.filename = ''
         else:
-            self.facilities = _read_existing_rc(filename)
-        
-    def _read_existing_rc(self, filename):
-        # TODO: write function to open existing json file from previous
-        #       RiskCalculator and create model in memory
-        pass
-    
+            self.facilities = self.import_data(open(filename, 'r').readlines())
+            
     def save(self, filename=''):
         if filename == self.filename == '':
             raise ValueError('Enter valid filename for save.')
@@ -151,7 +146,7 @@ class Component(SuperFMECAType):
         self.import_data(subcomponent.export_data())
 
     def add_consequence(self, name, cost):
-        self.import_data({consequences: {name: cost}})
+        self.import_data({ "consequences": { name: cost } })
 
     @property
     def total_risk(self):
@@ -205,7 +200,7 @@ class SubComponent(SuperFMECAType):
 
 class Failure(SuperFMECAType):
     def __init__(self, description, subcomponent, consequences=None):
-        super(type(self), self).__init__(name)
+        super(type(self), self).__init__(description)
         self.description = description
         self.consequences = consequences
         self.consequence = FAILURE_MODES[subcomponent]['Failure Modes'][self.description]['Global Consequences']
@@ -278,33 +273,3 @@ def facilities():
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
         
-    
-    
-class Component(SuperFMECAType):
-    
-    def __init__(self, ident):
-        super(type(self), self).__init__(ident)
-        self.subcomponents = {}
-        
-class Subcomponent(SuperFMECAType):
-    
-    def __init__(self, ident):
-        super(type(self), self).__init__(ident)
-
-if __name__ == '__main__':
-    
-    d = {'ident': 'component_1',
-         'subcomponents': {
-                 'subcomponent_a': {'ident': 'subcomponent_a'},
-                 'subcomponent_b': {'ident': 'subcomponent_b'},
-                 'subcomponent_c': {'ident': 'subcomponent_c'}
-                 }
-         }
-       
-    c = Component('component_a')    
-    print(c.ident)
-    
-    c.import_data(d)    
-    print(c.ident)
-    print(c.export_data())
-    
