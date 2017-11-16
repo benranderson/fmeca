@@ -3,6 +3,7 @@ import json
 from collections import namedtuple
 import math
 from exceptions import ValidationError
+from fmeca import FMECA
 
 # load input data
 FAILURE_MODES = json.load(open('core/inputs/failure_modes.json'))
@@ -89,6 +90,7 @@ class Consequence:
 class Component:
     def __init__(self, ident):
         self.ident = ident
+        self.fmeca = None
         self.subcomponents = []
         self.consequences = {}
         self._total_risk = None
@@ -127,6 +129,8 @@ class Component:
                             self._total_risk += failure.risk
         return self._total_risk
 
+    def compile_base_fmeca(self):
+        return FMECA(self.subcomponents)
 
 class SubComponent:
     def __init__(self, description, ident, consequences=None):
