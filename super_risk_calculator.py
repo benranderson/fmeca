@@ -1,12 +1,9 @@
-import copy
 import json
-from collections import namedtuple
 import math
-from app.exceptions import ValidationError
 from core.fmeca import FMECA
 from core.rbi import RBI
 
-class SuperFMECAType():
+class RiskCalculatorObject():
     
     def __init__(self, ident):
         self.ident = ident
@@ -28,7 +25,7 @@ class SuperFMECAType():
     def import_data(self, data):
         for a in data:
             if type(data[a]) == type({}):
-                c = _format_class_name(a)
+                c = self._format_class_name(a)
                 if type(getattr(self, a)) == type({}):
                     for l in data[a].keys():
                         o = eval(c)(l)
@@ -56,7 +53,7 @@ AREA = json.load(open('core/inputs/area1.json'))
 
 from flask import Flask, jsonify, request
 
-class RiskCalculator(SuperFMECAType):
+class RiskCalculator(RiskCalculatorObject):
     
     def __init__(self, filename=''):
         if filename == '':
@@ -78,7 +75,7 @@ class RiskCalculator(SuperFMECAType):
         self.import_data(Facility(name, operator).export_data())
 
 
-class Facility(SuperFMECAType):
+class Facility(RiskCalculatorObject):
 
     def __init__(self, name, operator):
         super(type(self), self).__init__(name)
@@ -96,7 +93,7 @@ class Facility(SuperFMECAType):
             d = json.load(j)
             self.vessels = d["Vessels"]
 
-class Area(SuperFMECAType):
+class Area(RiskCalculatorObject):
 
     def __init__(self, name):
         super(type(self), self).__init__(name)
@@ -111,11 +108,10 @@ class Area(SuperFMECAType):
         self.import_data(open(json_filename, 'r').readlines())
 
     def read_financial_data(self, json_filename):
-        with open(json_filename, 'r') as j:
-            self.financial_data = json.load(j)
+        self.import_data(open(json_filename, 'r').readlines())
 
 
-class Consequence(SuperFMECAType):
+class Consequence(RiskCalculatorObject):
     def __init__(self, name):
         super(type(self), self).__init__(name)
         self.name = name
@@ -128,7 +124,7 @@ class Consequence(SuperFMECAType):
     def add_vessel_trip(self, vessel_trip):
         self.import_data(vessel_trip.export_data())
 
-class Component(SuperFMECAType):
+class Component(RiskCalculatorObject):
     def __init__(self, ident):
         super(type(self), self).__init__(ident)
         self.fmeca = None
@@ -177,7 +173,7 @@ class Component(SuperFMECAType):
     def compile_base_fmeca(self):
         self.fmeca = FMECA(self.subcomponents)
 
-class SubComponent(SuperFMECAType):
+class SubComponent(RiskCalculatorObject):
     def __init__(self, description, ident, consequences=None):
         super(type(self), self).__init__(ident)
         self.description = description
@@ -198,7 +194,7 @@ class SubComponent(SuperFMECAType):
         return self._failures
 
 
-class Failure(SuperFMECAType):
+class Failure(RiskCalculatorObject):
     def __init__(self, description, subcomponent, consequences=None):
         super(type(self), self).__init__(description)
         self.description = description
