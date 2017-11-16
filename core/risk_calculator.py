@@ -30,11 +30,20 @@ class RiskCalculator:
         if filename == self.filename == '':
             raise ValueError('Enter valid filename for save.')
         else:
-            pass
-            # TODO: write function to export object model to json file
+            if not '.json' in self.filename:
+                self.filename = self.filename + '.json'
+            with open(self.filename, 'w') as o:
+                json.dump(self.export_data(), o)
         
     def add_facility(self, name, operator):
         self.facilities.append(Facility(name, operator))
+
+    def export_data(self):
+        data = {}
+        data['filename'] = self.filename
+        data['facilities'] = { k: v for k, v in 
+            [f.ident, f.export_data() for f in self.facilites]}
+        return data
 
 
 class Facility():
