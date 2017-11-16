@@ -49,7 +49,7 @@ class RiskCalculator:
 class Facility():
 
     def __init__(self, name, operator):
-        self.name = name
+        self.ident = self.name = name
         self.operator = operator
         self.vessels = {}
         self.areas = []
@@ -63,11 +63,20 @@ class Facility():
             d = json.load(j)
             self.vessels = d["Vessels"]
 
+    def export_data(self):
+        data = {}
+        data['ident'] = data['name'] = self.name
+        data['operator'] = self.operator
+        data['vessels'] = self.vessels
+        data['areas'] = { k: v for k, v in 
+            [a.ident, a.export_data() for a in self.areas]}
+        return data
+
 
 class Area:
 
     def __init__(self, name):
-        self.name = name
+        self.ident = self.name = name
         self.components = []
         self.financial_data = {}
 
@@ -83,10 +92,18 @@ class Area:
         with open(json_filename, 'r') as j:
             self.financial_data = json.load(j)
 
+    def export_data(self):
+        data = {}
+        data['ident'] = data['name'] = self.name
+        data['components'] = { k: v for k, v in 
+            [c.ident, c.export_data() for c in self.components]}
+        data['financial_data'] = self.financial_data
+        return data
+
 
 class Consequence:
     def __init__(self, name):
-        self.name = name
+        self.ident = self.name = name
         # self.mttr = mttr
         self.vessel_trips = []
 
@@ -95,6 +112,13 @@ class Consequence:
 
     def add_vessel_trip(self, vessel_trip):
         self.vessel_trips.append(vessel_trip)
+
+    def export_data(self):
+        data = {}
+        data['ident'] = data['name'] = self.name
+        data['vessel trips'] = { k: v for k, v in 
+            [vt.ident, vt.export_data() for vt in self.vessel_trips]}
+        return data
 
 
 class Component:
@@ -176,11 +200,21 @@ class SubComponent:
                 f = Failure(failure_mode, self.description, self.consequences)
                 self._failures.append(f)
         return self._failures
+    
+    def export_data(self):
+        data = {}
+        data['ident'] = self.ident
+        data['description'] = self.description
+        data['consequences'] = self.consequences if self.consequences else None
+        data['failures'] = { k: v for k, v in 
+             [f.ident, f.export_data() for f in self.failures]}
+        data['failure modes'] = self.failure_modes
+        return data
 
 
 class Failure:
     def __init__(self, description, subcomponent, consequences=None):
-        self.description = description
+        self.ident = self.description = description
         self.consequences = consequences
         self.consequence = FAILURE_MODES[subcomponent]['Failure Modes'][self.description]['Global Consequences']
         self.cost = self.consequences[self.consequence]
@@ -212,6 +246,16 @@ class Failure:
         Return the annual commercial risk of the failure mode
         """
         return self.probability * self.cost
+    
+    def export_data(self):
+        data = {}
+        data['ident'] = self.ident
+        data['description'] = self.description
+        data['consequences'] = self.consequences if self.consequences else None
+        data['consequence'] = self.consequence
+        data['cost'] = self.cost
+        data['mttf'] = self.mttf
+        return data
 
 
 app = Flask(__name__)
