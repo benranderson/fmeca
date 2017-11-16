@@ -8,10 +8,38 @@ from exceptions import ValidationError
 FAILURE_MODES = json.load(open('core/inputs/failure_modes.json'))
 AREA = json.load(open('core/inputs/area1.json'))
 
+from flask import Flask, jsonify, request
+
+
+class FMECA:
+    def __init__(self):
+        self.facilities = []
+
+    def add_facility(self, name):
+        self.facilities.append(Facility(name))
+
+
+class Facility:
+    def __init__(self, name):
+        self.name = name
+
 
 class Area:
     def __init__(self, risk_cut_off):
         self.risk_cut_off
+
+
+class Consequence:
+    def __init__(self, name):
+        self.name = name
+        # self.mttr = mttr
+        self.vessel_trips = []
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.name}>'
+
+    def add_vessel_trip(self, vessel_trip):
+        self.vessel_trips.append(vessel_trip)
 
 
 class Component:
@@ -53,9 +81,7 @@ class Component:
                             self._total_risk += 0.5 * failure.risk
                         else:
                             self._total_risk += failure.risk
-                    print(failure, failure.risk)
-        else:
-            return print('RBI already ran.')
+        return self._total_risk
 
 
 class SubComponent:
@@ -115,5 +141,41 @@ class Failure:
         return self.probability * self.cost
 
 
-if __name__ == "__main__":
-    pass
+app = Flask(__name__)
+
+
+# Instantiate the FMECA
+fmeca = FMECA()
+
+
+@app.route('/', methods=['GET'])
+def index():
+    return "FMECA Homepage"
+
+
+@app.route('/facilities/new', methods=['POST'])
+def new__facility():
+    values = request.get_json()
+
+    # Check that the required fields are in the POST'ed data
+    required = ['name']
+    if not all(k in values for k in required):
+        return 'Missing values', 400
+
+    # Create a new Facility
+    index = fmeca.add_facility(values['name'])
+
+    response = {'message': f'Facility will be added to FMECA {index}'}
+    return jsonify(response), 201
+
+
+@app.route('/facilities/', methods=['GET'])
+def facilities():
+    response = {'facilities': []}
+    for facility in fmeca.facilities:
+        response['facilities'].append(facility.name)
+    return jsonify(response), 200
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)

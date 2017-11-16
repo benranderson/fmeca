@@ -2,6 +2,11 @@
     "M1": {
         "Equipment Class": "Manifold",
         "Service Type": "Production",
+        "Consequences": {
+            "Change in operation": {
+                "Mean Time to Repair": 60,
+                "Cost": 100000
+            },
         "Subcomponents": [
             {
                 "description": "Actuated Process Valve",

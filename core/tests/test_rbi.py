@@ -2,7 +2,7 @@ import pytest
 import json
 
 from .context import rbi
-from .context import Failure, SubComponent, Component
+from .context import Failure, SubComponent, Component, Consequence
 
 # tolerance
 tol_pc = 0.001
@@ -64,18 +64,7 @@ def test_subcomponent(consequences):
     assert 'V1' in repr(sc)
     assert any(failure.description ==
                'Loss of Function due to Failure to Open on demand' for failure in sc.failures)
-    for failure in sc.failures:
-        print(failure.description)
-        print(failure.risk)
-        print(FAILURE_MODES['Actuated Process Valve']
-              ['Failure Modes'][failure.description]["BP Ored MTTF"])
-        print(FAILURE_MODES['Actuated Process Valve']
-              ['Failure Modes'][failure.description]["Detectable by Inspection"])
-        print(FAILURE_MODES['Actuated Process Valve']
-              ['Failure Modes'][failure.description]["Type of Inspection"])
-        print(FAILURE_MODES['Actuated Process Valve']
-              ['Failure Modes'][failure.description]["Random/Time Dependant"])
-        print('')
+
 
 # Components
 # -------------
@@ -116,10 +105,15 @@ def test_component_risk_before_run_rbi(loaded_component):
     assert loaded_component.total_risk == 'Run component RBI.'
 
 
-# def test_component_run_rbi(loaded_component):
-#     for sc in loaded_component.subcomponents:
-#         print(FAILURE_MODES[sc.description]['Failure Modes']
-#               ['Loss of Function due to Mechanical Failure']['Failure Causes'])
-#         loaded_component.run_rbi()
-#         expected = 292.4071582
-#         assert abs(loaded_component.total_risk - expected) <= tol_pc * expected
+def test_component_run_rbi(loaded_component):
+    loaded_component.run_rbi()
+    expected = 251.7950529
+    assert abs(loaded_component.total_risk - expected) <= tol_pc * expected
+
+# Consequences
+# ------------
+
+
+def test_consequence():
+    c = Consequence('Major Intervention')
+    assert 'Major Intervention' in repr(c)

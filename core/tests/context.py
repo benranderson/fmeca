@@ -5,4 +5,4 @@ sys.path.insert(0, os.path.abspath(
 
 import core
 import core.rbi as rbi
-from core.rbi import Component, SubComponent, Failure
+from core.rbi import Component, SubComponent, Failure, Consequence
