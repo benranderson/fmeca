@@ -4,77 +4,77 @@
     "Vessels": {
         "Anchor Handling Tug": {
             "Vessel Abbreviation": "AHT",
-            "Gross Cost (\u00a3/day)": "22,000.00",
+            "Gross Cost (GBP/day)": "22,000.00",
             "Mobilisation Time (days)": "5"
         },
         "Derrick Lay barge": {
             "Vessel Abbreviation": "DLB",
-            "Gross Cost (\u00a3/day)": "560,000.00",
+            "Gross Cost (GBP/day)": "560,000.00",
             "Mobilisation Time (days)": "5"
         },
         "Dive Support Vessel": {
             "Vessel Abbreviation": "DSV",
-            "Gross Cost (\u00a3/day)": "120,000.00",
+            "Gross Cost (GBP/day)": "120,000.00",
             "Mobilisation Time (days)": "7"
         },
         "Field Support Vessel": {
             "Vessel Abbreviation": "FSV",
-            "Gross Cost (\u00a3/day)": "300,000.00",
+            "Gross Cost (GBP/day)": "300,000.00",
             "Mobilisation Time (days)": "7"
         },
         "Guard Vessel": {
             "Vessel Abbreviation": "GV",
-            "Gross Cost (\u00a3/day)": "10,000.00",
+            "Gross Cost (GBP/day)": "10,000.00",
             "Mobilisation Time (days)": "2"
         },
         "Heavy Lift Vessel": {
             "Vessel Abbreviation": "HLV",
-            "Gross Cost (\u00a3/day)": "300,000.00",
+            "Gross Cost (GBP/day)": "300,000.00",
             "Mobilisation Time (days)": "14"
         },
         "Light Well Intervention Vessel": {
             "Vessel Abbreviation": "LWIV",
-            "Gross Cost (\u00a3/day)": "160,000.00",
+            "Gross Cost (GBP/day)": "160,000.00",
             "Mobilisation Time (days)": "14"
         },
         "Mobile Offshore Drilling Unit": {
             "Vessel Abbreviation": "MODU",
-            "Gross Cost (\u00a3/day)": "600,000.00",
+            "Gross Cost (GBP/day)": "600,000.00",
             "Mobilisation Time (days)": "14"
         },
         "Multi Service Vessel": {
             "Vessel Abbreviation": "MSV",
-            "Gross Cost (\u00a3/day)": "160,000.00",
+            "Gross Cost (GBP/day)": "160,000.00",
             "Mobilisation Time (days)": "14"
         },
         "Pipe Lay Vessel": {
             "Vessel Abbreviation": "PLV",
-            "Gross Cost (\u00a3/day)": "300,000.00",
+            "Gross Cost (GBP/day)": "300,000.00",
             "Mobilisation Time (days)": "60"
         },
         "Reel Lay Vessel": {
             "Vessel Abbreviation": "RLV",
-            "Gross Cost (\u00a3/day)": "300,000.00",
+            "Gross Cost (GBP/day)": "300,000.00",
             "Mobilisation Time (days)": "14"
         },
         "Rock Dump Vessel": {
             "Vessel Abbreviation": "RDV",
-            "Gross Cost (\u00a3/day)": "120,000.00",
+            "Gross Cost (GBP/day)": "120,000.00",
             "Mobilisation Time (days)": "7"
         },
         "ROV Support Vessel": {
             "Vessel Abbreviation": "ROVSV",
-            "Gross Cost (\u00a3/day)": "85,000.00",
+            "Gross Cost (GBP/day)": "85,000.00",
             "Mobilisation Time (days)": "7"
         },
         "Topsides Resource": {
             "Vessel Abbreviation": "TR",
-            "Gross Cost (\u00a3/day)": "7,000.00",
+            "Gross Cost (GBP/day)": "7,000.00",
             "Mobilisation Time (days)": "1"
         },
         "No Vessel Required": {
             "Vessel Abbreviation": "-",
-            "Gross Cost (\u00a3/day)": "-",
+            "Gross Cost (GBP/day)": "-",
             "Mobilisation Time (days)": "-"
         }
     }
