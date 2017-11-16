@@ -153,7 +153,7 @@ from flask import Flask, jsonify, request
 class RiskCalculator(RiskCalculatorObject):
     
     def __init__(self, filename=''):
-        super(type(self), self).__init__('0')
+        super(type(self), self).__init__('risk calculator')
         if filename == '':
             self.facilities = {}
             self.filename = ''
@@ -332,13 +332,13 @@ app = Flask(__name__)
 
 # Instantiate the Facility Risk Class
 rc = RiskCalculator()
-f = {'facilities': { 'Fac 1': { 'name': 'Fac 1',
-                                    'operator': 'Me' },
-                         'Fac 2': { 'name': 'Fac 1',
-                                    'operator': 'You' } } }
+f = {'facilities': { 'f1': { 'name': 'f1',
+                             'operator': 'Me' },
+                     'f2': { 'name': 'f1',
+                             'operator': 'You' } } }
 rc.import_data(f)
 a = { 'areas': { 'area1': {'name': 'area1'}}}
-f = rc.facilities['Fac 1']
+f = rc.facilities['f1']
 f.import_data(a)
 c = { 'components': { 'comp1': {'ident': 'comp1'} } }
 a = f.areas['area1']
@@ -386,6 +386,12 @@ def facilities():
     print(r)
     return jsonify(r), 200
 
+@app.route('/facilities/<ident>/', methods=['GET'])
+def get_facility(ident):
+    if ident in rc.facilities.keys():
+        return jsonify(rc.facilities[ident].export_data()), 200
+    else:
+        return 'Unknown ident', 400
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
