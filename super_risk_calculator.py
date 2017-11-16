@@ -2,9 +2,9 @@ import copy
 import json
 from collections import namedtuple
 import math
-from exceptions import ValidationError
-from fmeca import FMECA
-from rbi import RBI
+from app.exceptions import ValidationError
+from core.fmeca import FMECA
+from core.rbi import RBI
 
 class SuperFMECAType():
     
@@ -29,10 +29,16 @@ class SuperFMECAType():
         for a in data:
             if type(data[a]) == type({}):
                 c = _format_class_name(a)
-                for l in data[a].keys():
-                    o = eval(c)(l)
-                    o.import_data(data[a][l])
-                    getattr(self, a)[l] = o
+                if type(getattr(self, a)) == type({}):
+                    for l in data[a].keys():
+                        o = eval(c)(l)
+                        o.import_data(data[a][l])
+                        getattr(self, a)[l] = o
+                else:
+                    for l in data[a]:
+                        o = eval(c)(l)
+                        o.import_data(data[a][l])
+                        getattr(self, a).append(o)
             else:
                 setattr(self, a, data[a])
     
@@ -77,54 +83,47 @@ class RiskCalculator(SuperFMECAType):
         self.import_data(Facility(name, operator).export_data())
 
 
-class Facility():
+class Facility(SuperFMECAType):
 
     def __init__(self, name, operator):
-        self.ident = self.name = name
+        super(type(self), self).__init__(name)
+        self.name = name
         self.operator = operator
         self.vessels = {}
         self.areas = []
         # read in default lists i.e. FAILUREMODES above
 
     def add_area(self, area):
-        self.areas.append(area)
+        self.import_data(area.export_data())
 
     def read_vessels(self, json_filename):
         with open(json_filename, 'r') as j:
             d = json.load(j)
             self.vessels = d["Vessels"]
 
-class Area:
+class Area(SuperFMECAType):
 
     def __init__(self, name):
-        self.ident = self.name = name
+        super(type(self), self).__init__(name)
+        self.name = name
         self.components = []
         self.financial_data = {}
 
     def add_component(self, component):
-        self.components.append(component)
+        self.import_data(component.export_data())
 
     def read_components(self, json_filename):
-        with open(json_filename, 'r') as j:
-            # TODO: define components.json and map to component objects
-            pass
+        self.import_data(open(json_filename, 'r').readlines())
 
     def read_financial_data(self, json_filename):
         with open(json_filename, 'r') as j:
             self.financial_data = json.load(j)
 
-    def export_data(self):
-        data = {}
-        data['ident'] = data['name'] = self.name
-        data['components'] = { k: v for k, v in 
-            [c.ident, c.export_data() for c in self.components]}
-        data['financial_data'] = self.financial_data
-        return data
 
-
-class Consequence:
+class Consequence(SuperFMECAType):
     def __init__(self, name):
-        self.ident = self.name = name
+        super(type(self), self).__init__(name)
+        self.name = name
         # self.mttr = mttr
         self.vessel_trips = []
 
@@ -132,19 +131,11 @@ class Consequence:
         return f'<{self.__class__.__name__} {self.name}>'
 
     def add_vessel_trip(self, vessel_trip):
-        self.vessel_trips.append(vessel_trip)
+        self.import_data(vessel_trip.export_data())
 
-    def export_data(self):
-        data = {}
-        data['ident'] = data['name'] = self.name
-        data['vessel trips'] = { k: v for k, v in 
-            [vt.ident, vt.export_data() for vt in self.vessel_trips]}
-        return data
-
-
-class Component:
+class Component(SuperFMECAType):
     def __init__(self, ident):
-        self.ident = ident
+        super(type(self), self).__init__(ident)
         self.fmeca = None
         self.rbi = None
         self.subcomponents = []
@@ -157,10 +148,10 @@ class Component:
     def add_subcomponent(self, description, ident):
         # provide subcomponent with component consequence dict
         subcomponent = SubComponent(description, ident, self.consequences)
-        self.subcomponents.append(subcomponent)
+        self.import_data(subcomponent.export_data())
 
     def add_consequence(self, name, cost):
-        self.consequences[name] = cost
+        self.import_data({consequences: {name: cost}})
 
     @property
     def total_risk(self):
@@ -185,27 +176,16 @@ class Component:
                             self._total_risk += failure.risk
         return self._total_risk
     
-    def export_data(self):
-        data = {}
-        data['ident'] = self.ident
-        data['fmeca'] = self.fmeca.export_data() if self.fmeca else None
-        data['rbi'] = self.rbi.export_data() if self.rbi else None
-        data['subcomponents'] = { k: v for k, v in 
-             [sc.ident, sc.export_data() for sc in self.subcomponents]}
-        data['consequences'] = self.consequences
-        data['total risk'] = self._total_risk
-        return data
-    
     def compile_rbi(self, fmeca):
         self.rbi = RBI(fmeca)
 
     def compile_base_fmeca(self):
         self.fmeca = FMECA(self.subcomponents)
 
-class SubComponent:
+class SubComponent(SuperFMECAType):
     def __init__(self, description, ident, consequences=None):
+        super(type(self), self).__init__(ident)
         self.description = description
-        self.ident = ident
         self.consequences = consequences
         self._failures = []
         self.failure_modes = FAILURE_MODES[self.description]['Failure Modes']
@@ -221,21 +201,12 @@ class SubComponent:
                 f = Failure(failure_mode, self.description, self.consequences)
                 self._failures.append(f)
         return self._failures
-    
-    def export_data(self):
-        data = {}
-        data['ident'] = self.ident
-        data['description'] = self.description
-        data['consequences'] = self.consequences if self.consequences else None
-        data['failures'] = { k: v for k, v in 
-             [f.ident, f.export_data() for f in self.failures]}
-        data['failure modes'] = self.failure_modes
-        return data
 
 
-class Failure:
+class Failure(SuperFMECAType):
     def __init__(self, description, subcomponent, consequences=None):
-        self.ident = self.description = description
+        super(type(self), self).__init__(name)
+        self.description = description
         self.consequences = consequences
         self.consequence = FAILURE_MODES[subcomponent]['Failure Modes'][self.description]['Global Consequences']
         self.cost = self.consequences[self.consequence]
@@ -267,17 +238,6 @@ class Failure:
         Return the annual commercial risk of the failure mode
         """
         return self.probability * self.cost
-    
-    def export_data(self):
-        data = {}
-        data['ident'] = self.ident
-        data['description'] = self.description
-        data['consequences'] = self.consequences if self.consequences else None
-        data['consequence'] = self.consequence
-        data['cost'] = self.cost
-        data['mttf'] = self.mttf
-        return data
-
 
 app = Flask(__name__)
 
