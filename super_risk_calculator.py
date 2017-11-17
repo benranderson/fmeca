@@ -83,13 +83,12 @@ class RiskCalculatorObject():
                     try:
                         o = eval(c)()
                     except:
-                        raise KeyError(f'{a} does not map to valid class \
-                                           name.')
+                        raise KeyError(f'{a} does not map to valid class ' +
+                                       F'name.')
                     o.import_data(data[a][k])
                     getattr(self, att)[k] = o
             elif isinstance(data[a], list):
-                for v in data[a]:
-                    getattr(self, att).append(v)
+                [getattr(self, att).append(v) for v in data[a]]
             else:
                 setattr(self, att, data[a])
         
