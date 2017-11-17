@@ -143,6 +143,9 @@ class RiskCalculatorObject():
         else:
             s = s[:-1]
         return s
+    
+    def jsonify(self):
+        return jsonify(self.export_data())
 
 # load input data
 FAILURE_MODES = json.load(open('core/inputs/failure_modes.json'))
@@ -169,10 +172,6 @@ class RiskCalculator(RiskCalculatorObject):
             with open(self.filename, 'w') as o:
                 json.dump(self.export_data(), o)
         
-    def add_facility(self, name, operator):
-        self.import_data(Facility(name, operator).export_data())
-
-
 class Facility(RiskCalculatorObject):
 
     def __init__(self, name, operator=''):
@@ -182,9 +181,6 @@ class Facility(RiskCalculatorObject):
         self.vessels = {}
         self.areas = {}
         # read in default lists i.e. FAILUREMODES above
-
-    def add_area(self, area):
-        self.import_data(area.export_data())
 
     def read_vessels(self, json_filename):
         with open(json_filename, 'r') as j:
@@ -198,16 +194,6 @@ class Area(RiskCalculatorObject):
         self.name = name
         self.components = {}
         self.financial_data = {}
-
-    def add_component(self, component):
-        self.import_data(component.export_data())
-
-    def read_components(self, json_filename):
-        self.import_data(open(json_filename, 'r').readlines())
-
-    def read_financial_data(self, json_filename):
-        self.import_data(open(json_filename, 'r').readlines())
-
 
 class Consequence(RiskCalculatorObject):
     def __init__(self, name):
@@ -347,35 +333,19 @@ sc = { 'subcomponents': { 'sc1': { 'description': 'test component',
                                    'ident': 'sc1' } } }
 c = a.components['comp1']
 c.import_data(sc)
-r = {}
-f = rc.facilities.keys()
-for k in f:
-    r[k] = rc.facilities[k].export_data()
-print(r)
 
 @app.route('/', methods=['GET'])
 def index():
-    return "FMECA Homepag se"
-
+    return "FMECA Homepage"
 
 @app.route('/facilities/new', methods=['POST'])
-def new__facility():
-    values = request.get_json()
-
-    # Check that the required fields are in the POST'ed data
-    required = ['name']
-    if not all(k in values for k in required):
-        return 'Missing values', 400
-
-    # Create a new Facility
+def new_facility():
     rc.import_data(request.get_json())
-
-    response = {'message': f'Facility will be added to FMECA'}
-    return jsonify(response), 201
+    return 'Facility added.', 201
 
 @app.route('/riskcalculator/', methods=['GET'])
 def riskcalculators():
-    return jsonify(rc.export_data())
+    return rc.jsonify()
 
 @app.route('/facilities/', methods=['GET'])
 def facilities():
@@ -383,39 +353,14 @@ def facilities():
     f = rc.facilities.keys()
     for k in f:
         r[k] = rc.facilities[k].export_data()
-    print(r)
     return jsonify(r), 200
 
 @app.route('/facilities/<ident>/', methods=['GET'])
 def get_facility(ident):
     if ident in rc.facilities.keys():
-        return jsonify(rc.facilities[ident].export_data()), 200
+        return rc.facilities[ident].jsonify(), 200
     else:
         return 'Unknown ident', 400
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-    rc = RiskCalculator()
-    f = {'facilities': { 'Fac 1': { 'name': 'Fac 1',
-                                    'operator': 'Me' },
-                         'Fac 2': { 'name': 'Fac 1',
-                                    'operator': 'You' } } }
-    rc.import_data(f)
-    for f in rc.facilities:
-        print(f.export_data())
-
-    a = { 'areas': { 'area1': {'name': 'area1'}}}
-    f = rc.facilities[0]
-    f.import_data(a)
-    print(f.export_data())
-    
-    c = { 'components': { 'comp1': {'ident': 'comp1'} } }
-    a = f.areas['area1']
-    a.import_data(c)
-    print(a.export_data())
-
-    sc = { 'subcomponents': { 'sc1': { 'description': 'test component',
-                                       'ident': 'sc1' } } }
-    c = a.components['comp1']
-    c.import_data(sc)
-    print(c.export_data())

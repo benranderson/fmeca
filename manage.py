@@ -56,7 +56,7 @@ def seeddb():
 
 @manager.command
 def test_obj(html=False):
-
+    pass
 
 @manager.command
 def test(html=False):
