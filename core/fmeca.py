@@ -8,8 +8,4 @@ class FMECA:
         self.fmeca_rows = {}
         
     def _compile_fmeca():
-        for sc in self.cubcomponents:
-            
-            for fm in sc.failure_modes:
-            
         pass

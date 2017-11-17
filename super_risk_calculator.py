@@ -7,28 +7,11 @@ class RiskCalculatorObject():
     
     '''Base class for all objects used in the Risk Calculator.
     
-    This provides common funcctionality for all classes and should be
+    This provides common functionality for all classes and should be
     inhereted by each class using database persistance or containing 
     attributes accessed by the REST API.
     
-    Attributes:
-        ident (str): Alphanumeric object unique identifier.
-        
     '''
-    
-    def __init__(self, ident):
-        '''Base constructor to assign the "ident" attribute.
-        
-        I don't think there's a definite need for this constructor or the 
-        "ident" attribute because it can be assigned at the Parent class 
-        level. However, this way we're forced to assign an "ident" attribute
-        as required for the "export_data" and "import_data" methods to
-        operate correctly.
-        
-        Args:
-            ident (str): Alphanumeric object unique identifier.
-        '''
-        self.ident = ident
     
     def export_data(self):
         '''Generate JSON representation of an object.
@@ -60,13 +43,10 @@ class RiskCalculatorObject():
         data = {}
         for a in self.__dict__:
             if a[0] != '_':
-                if type(self.__dict__[a]) == type({}):
+                if isinstance(self.__dict__[a], dict):
                     data[a] = {k: v for k, v in
                         [(b, self.__dict__[a][b].export_data()) for b in 
                               self.__dict__[a].keys()]}
-                elif type(self.__dict__[a]) == type([]):
-                    data[a] = { k: v for k, v in 
-                        [(b.ident, b.export_data()) for b in self.__dict__[a]]}
                 else:
                     data[a] = self.__dict__[a]
         return data
@@ -95,30 +75,24 @@ class RiskCalculatorObject():
         for a in data:
             att = self._format_attribute_name(a)
             if att not in self.__dict__:
-                raise KeyError(f'{type(self)} object {self.ident} does not \
-                                  contain attriute {a}. Error in {data[a]}.')
-            if type(data[a]) == type({}):
+                raise KeyError(f'{type(self)} object does not contain ' +
+                               f'attriute {a}. Error in {data[a]}.')
+            if isinstance(data[a], dict):
                 c = self._format_class_name(att)
-                if type(getattr(self, att)) == type({}):
-                    for l in data[a].keys():
-                        try:
-                            o = eval(c)(l)
-                        except:
-                            raise KeyError(f'{a} does not map to valid class \
+                for k in data[a].keys():
+                    try:
+                        o = eval(c)()
+                    except:
+                        raise KeyError(f'{a} does not map to valid class \
                                            name.')
-                        o.import_data(data[a][l])
-                        getattr(self, att)[l] = o
-                elif type(getattr(self, a)) == type([]):
-                    for l in data[a]:
-                        o = eval(c)(l)
-                        o.import_data(data[a][l])
-                        getattr(self, att).append(o)
-                else:
-                    raise TypeError(f'{type(getattr(self, a))} is not \
-                                    iterable')
+                    o.import_data(data[a][k])
+                    getattr(self, att)[k] = o
+            elif isinstance(data[a], list):
+                for v in data[a]:
+                    getattr(self, att).append(v)
             else:
                 setattr(self, att, data[a])
-    
+        
     def _format_attribute_name(self, s):
         bad_chars = [r' ', r'(', r')', r'/']
         for c in bad_chars:
@@ -170,30 +144,29 @@ from flask import Flask, jsonify, request
 class RiskCalculator(RiskCalculatorObject):
     
     def __init__(self, filename=''):
-        super(type(self), self).__init__('risk calculator')
-        if filename == '':
-            self.facilities = {}
-            self.filename = ''
-        else:
-            self.facilities = self.import_data(open(filename, 'r').readlines())
+        self._filename = filename
+        self.facilities = {}
+        self.vessels = {}
+        self.fmeca = {}
+        if self._filename != '':
+            self.import_data(json.loads(open(self._filename, 'r').read()))
             
-    def save(self, filename=''):
-        if filename == self.filename == '':
+    def save(self):
+        if self._filename == '':
             raise ValueError('Enter valid filename for save.')
         else:
-            if not '.json' in self.filename:
-                self.filename = self.filename + '.json'
-            with open(self.filename, 'w') as o:
-                json.dump(self.export_data(), o)
+            if not '.json' in self._filename:
+                self.filename = self._filename + '.json'
+            with open(self._filename, 'w') as o:
+                json.dump(self.export_data(), o, indent = 4)
         
 class Facility(RiskCalculatorObject):
 
-    def __init__(self, name, operator=''):
-        super(type(self), self).__init__(name)
-        self.name = name
-        self.operator = operator
-        self.vessels = {}
-        self.areas = {}
+    def __init__(self):
+        self.name = ''
+        self.operator = ''
+        self.vessels = []
+        self.areas = []
         
 class Area(RiskCalculatorObject):
 
@@ -275,10 +248,9 @@ class Subcomponent(RiskCalculatorObject):
         return self._failures
 
 class Vessel(RiskCalculatorObject):
-    def __init__(self, ident):
-        super(type(self), self).__init__(ident)
-        self.vessel_abbreviation = ''
-        self.gross_cost_gbp_day = ''
+    def __init__(self):
+        self.name = ''
+        self.abbreviation = ''
         self.mobilisation_time_days = ''
         
     
@@ -320,24 +292,6 @@ class Failure(RiskCalculatorObject):
 
 app = Flask(__name__)
 
-# Instantiate the Facility Risk Class
-rc = RiskCalculator()
-f = {'facilities': { 'f1': { 'name': 'f1',
-                             'operator': 'Me' },
-                     'f2': { 'name': 'f1',
-                             'operator': 'You' } } }
-rc.import_data(f)
-a = { 'areas': { 'area1': {'name': 'area1'}}}
-f = rc.facilities['f1']
-f.import_data(a)
-f.import_data(json.loads(open('core/inputs/facility_assumptions.json', 'r').read()))
-c = { 'components': { 'comp1': {'ident': 'comp1'} } }
-a = f.areas['area1']
-a.import_data(c)
-sc = { 'subcomponents': { 'sc1': { 'description': 'test component',
-                                   'ident': 'sc1' } } }
-c = a.components['comp1']
-c.import_data(sc)
 
 @app.route('/', methods=['GET'])
 def index():
@@ -368,5 +322,6 @@ def get_facility(ident):
         return 'Unknown ident', 400
 
 if __name__ == '__main__':
-    print(c)
+    rc = RiskCalculator(filename='super_input.json')
+    rc.save()
     #app.run(host='0.0.0.0', port=5000, debug=True)
