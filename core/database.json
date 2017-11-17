@@ -1,0 +1,27 @@
+{
+    "filename": "input",
+    "facilities": {
+        "foin": {
+            "name": "Foinaven",
+            "operator": "BP",
+            "vessels": ["HLV", "DSV"]
+        },
+        "and": {
+            "name": "Andrew",
+            "operator": "BP",
+            "vessels": ["HLV", "DSV"]
+        }
+    },
+    "vessels": {
+        "HLV": {
+            "name": "Heavy Lift Vessel",
+            "day_rate": 100000,
+            "mob_time": 7
+        },
+        "DSV": {
+            "name": "Dive Support Vessel",
+            "day_rate": 50000,
+            "mob_time": 5
+        }
+    }  
+}
