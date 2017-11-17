@@ -42,7 +42,6 @@ class Facility:
         self.operator = None
         self.vessels = []
         self.areas = []
-        # read in default lists i.e. FAILUREMODES above
 
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.name}>'
@@ -99,4 +98,10 @@ if __name__ == "__main__":
         for vessel in facility.vessels:
             print(vessel)
 
-    rc.save()
+    f = Facility()
+    f.ident = 'Andrew'
+    rc.facilities.append(f)
+    v = Vessel(f)
+    f.vessels.append(v)
+
+    rc.save('output')
