@@ -12,20 +12,24 @@ AREA = json.load(open('core/inputs/area1.json'))
 
 from flask import Flask, jsonify, request
 
+
 class RiskCalculator:
-    
+
     def __init__(self, filename=''):
         if filename == '':
             self.facilities = []
             self.filename = ''
         else:
-            self.facilities = _read_existing_rc(filename)
-        
+            self.facilities = self._read_existing_rc(filename)
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.filename}>'
+
     def _read_existing_rc(self, filename):
         # TODO: write function to open existing json file from previous
         #       RiskCalculator and create model in memory
         pass
-    
+
     def save(self, filename=''):
         if filename == self.filename == '':
             raise ValueError('Enter valid filename for save.')
@@ -34,16 +38,36 @@ class RiskCalculator:
                 self.filename = self.filename + '.json'
             with open(self.filename, 'w') as o:
                 json.dump(self.export_data(), o)
-        
+
     def add_facility(self, name, operator):
         self.facilities.append(Facility(name, operator))
 
     def export_data(self):
         data = {}
         data['filename'] = self.filename
-        data['facilities'] = { k: v for k, v in 
-            [f.ident, f.export_data() for f in self.facilites]}
+        data['facilities'] = {k: v for k, v in
+                              [f.ident, f.export_data() for f in self.facilites]}
         return data
+
+
+class Vessel:
+
+    def __init__(self, name, abbr, day_rate, mob_time):
+        self.name = name
+        self.abbr = abbr
+        self.day_rate = day_rate
+        self.mob_time = mob_time
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.abbr}>'
+
+    def export_data(self):
+        return {
+            'name': self.name,
+            'abbr': self.abbr,
+            'day_rate': self.day_rate,
+            'mob_time': self.mob_time
+        }
 
 
 class Facility():
@@ -54,6 +78,19 @@ class Facility():
         self.vessels = {}
         self.areas = []
         # read in default lists i.e. FAILUREMODES above
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.name}>'
+
+    def export_data(self):
+        return {
+            'name': self.name,
+            'operator': self.operator,
+            'vessels': [self.vessels[vessel].export_data() for vessel in self.vessels]
+        }
+
+    def import_data(self, data):
+        pass
 
     def add_area(self, area):
         self.areas.append(area)
@@ -68,8 +105,8 @@ class Facility():
         data['ident'] = data['name'] = self.name
         data['operator'] = self.operator
         data['vessels'] = self.vessels
-        data['areas'] = { k: v for k, v in 
-            [a.ident, a.export_data() for a in self.areas]}
+        data['areas'] = {k: v for k, v in
+                         [a.ident, a.export_data() for a in self.areas]}
         return data
 
 
@@ -79,6 +116,9 @@ class Area:
         self.ident = self.name = name
         self.components = []
         self.financial_data = {}
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.name}>'
 
     def add_component(self, component):
         self.components.append(component)
@@ -95,8 +135,8 @@ class Area:
     def export_data(self):
         data = {}
         data['ident'] = data['name'] = self.name
-        data['components'] = { k: v for k, v in 
-            [c.ident, c.export_data() for c in self.components]}
+        data['components'] = {k: v for k, v in
+                              [c.ident, c.export_data() for c in self.components]}
         data['financial_data'] = self.financial_data
         return data
 
@@ -116,8 +156,8 @@ class Consequence:
     def export_data(self):
         data = {}
         data['ident'] = data['name'] = self.name
-        data['vessel trips'] = { k: v for k, v in 
-            [vt.ident, vt.export_data() for vt in self.vessel_trips]}
+        data['vessel trips'] = {k: v for k, v in
+                                [vt.ident, vt.export_data() for vt in self.vessel_trips]}
         return data
 
 
@@ -163,23 +203,24 @@ class Component:
                         else:
                             self._total_risk += failure.risk
         return self._total_risk
-    
+
     def export_data(self):
         data = {}
         data['ident'] = self.ident
         data['fmeca'] = self.fmeca.export_data() if self.fmeca else None
         data['rbi'] = self.rbi.export_data() if self.rbi else None
-        data['subcomponents'] = { k: v for k, v in 
-             [sc.ident, sc.export_data() for sc in self.subcomponents]}
+        data['subcomponents'] = {k: v for k, v in
+                                 [sc.ident, sc.export_data() for sc in self.subcomponents]}
         data['consequences'] = self.consequences
         data['total risk'] = self._total_risk
         return data
-    
+
     def compile_rbi(self, fmeca):
         self.rbi = RBI(fmeca)
 
     def compile_base_fmeca(self):
         self.fmeca = FMECA(self.subcomponents)
+
 
 class SubComponent:
     def __init__(self, description, ident, consequences=None):
@@ -200,14 +241,14 @@ class SubComponent:
                 f = Failure(failure_mode, self.description, self.consequences)
                 self._failures.append(f)
         return self._failures
-    
+
     def export_data(self):
         data = {}
         data['ident'] = self.ident
         data['description'] = self.description
         data['consequences'] = self.consequences if self.consequences else None
-        data['failures'] = { k: v for k, v in 
-             [f.ident, f.export_data() for f in self.failures]}
+        data['failures'] = {k: v for k, v in
+                            [f.ident, f.export_data() for f in self.failures]}
         data['failure modes'] = self.failure_modes
         return data
 
@@ -246,7 +287,7 @@ class Failure:
         Return the annual commercial risk of the failure mode
         """
         return self.probability * self.cost
-    
+
     def export_data(self):
         data = {}
         data['ident'] = self.ident
@@ -262,7 +303,7 @@ app = Flask(__name__)
 
 
 # Instantiate the Facility Risk Class
-fmeca = RiskCalculator()
+risk_calculator = RiskCalculator()
 
 
 @app.route('/', methods=['GET'])
@@ -271,25 +312,25 @@ def index():
 
 
 @app.route('/facilities/new', methods=['POST'])
-def new__facility():
+def new_facility():
     values = request.get_json()
 
     # Check that the required fields are in the POST'ed data
-    required = ['name']
+    required = ['name', 'operator']
     if not all(k in values for k in required):
         return 'Missing values', 400
 
     # Create a new Facility
-    index = fmeca.add_facility(values['name'])
+    index = risk_calculator.add_facility(values['name'], values['operator'])
 
-    response = {'message': f'Facility will be added to FMECA {index}'}
+    response = {'message': f'Facility will be added to Risk Calculator {index}'}
     return jsonify(response), 201
 
 
 @app.route('/facilities/', methods=['GET'])
 def facilities():
     response = {'facilities': []}
-    for facility in fmeca.facilities:
+    for facility in risk_calculator.facilities:
         response['facilities'].append(facility.name)
     return jsonify(response), 200
 
