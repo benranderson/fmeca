@@ -118,6 +118,9 @@ class RiskCalculatorObject():
             else:
                 setattr(self, a, data[a])
 
+    def jsonify(self):
+        return jsonify(self.export_data())
+
     def _format_class_name(self, s):
         '''Determine class name from dictionary key.
 
@@ -325,10 +328,7 @@ app = Flask(__name__)
 
 # Instantiate the Facility Risk Class
 rc = RiskCalculator()
-f = {'facilities': {'f1': {'name': 'f1',
-                           'operator': 'Me'},
-                    'f2': {'name': 'f1',
-                           'operator': 'You'}}}
+f = {'facilities': {'f2': {'name': 'cuntz'}}}
 rc.import_data(f)
 a = {'areas': {'area1': {'name': 'area1'}}}
 f = rc.facilities['f1']
@@ -340,11 +340,6 @@ sc = {'subcomponents': {'sc1': {'description': 'test component',
                                 'ident': 'sc1'}}}
 c = a.components['comp1']
 c.import_data(sc)
-r = {}
-f = rc.facilities.keys()
-for k in f:
-    r[k] = rc.facilities[k].export_data()
-print(r)
 
 
 @app.route('/', methods=['GET'])
@@ -370,7 +365,7 @@ def new__facility():
 
 @app.route('/riskcalculator/', methods=['GET'])
 def riskcalculators():
-    return jsonify(rc.export_data())
+    return rc.jsonify()
 
 
 @app.route('/facilities/', methods=['GET'])
