@@ -25,6 +25,41 @@ class RiskCalculator:
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.filename}>'
 
+    def import_data(self, data):
+
+        try:
+            self.name = data['name']
+            self.remaining_life = data['remaining_life']
+            self.equity_share = data['equity_share']
+        except KeyError as e:
+            raise ValidationError('Invalid area: missing ' + e.args[0])
+        return self
+
+        for a in data:
+            if a not in self.__dict__:
+                raise KeyError(f'{type(self)} does not contain attriute {a}')
+            if type(data[a]) == type({}):
+                c = self._format_class_name(a)
+                if type(getattr(self, a)) == type({}):
+                    for l in data[a].keys():
+                        try:
+                            o = eval(c)(l)
+                        except:
+                            raise KeyError(f'{a} does not map to valid class \
+                                           name.')
+                        o.import_data(data[a][l])
+                        getattr(self, a)[l] = o
+                elif type(getattr(self, a)) == type([]):
+                    for l in data[a]:
+                        o = eval(c)(l)
+                        o.import_data(data[a][l])
+                        getattr(self, a).append(o)
+                else:
+                    raise TypeError(f'{type(getattr(self, a))} is not \
+                                    iterable')
+            else:
+                setattr(self, a, data[a])
+
     def _read_existing_rc(self, filename):
         # TODO: write function to open existing json file from previous
         #       RiskCalculator and create model in memory
@@ -48,26 +83,6 @@ class RiskCalculator:
         data['facilities'] = {k: v for k, v in
                               [f.ident, f.export_data() for f in self.facilites]}
         return data
-
-
-class Vessel:
-
-    def __init__(self, name, abbr, day_rate, mob_time):
-        self.name = name
-        self.abbr = abbr
-        self.day_rate = day_rate
-        self.mob_time = mob_time
-
-    def __repr__(self):
-        return f'<{self.__class__.__name__} {self.abbr}>'
-
-    def export_data(self):
-        return {
-            'name': self.name,
-            'abbr': self.abbr,
-            'day_rate': self.day_rate,
-            'mob_time': self.mob_time
-        }
 
 
 class Facility():
@@ -108,6 +123,26 @@ class Facility():
         data['areas'] = {k: v for k, v in
                          [a.ident, a.export_data() for a in self.areas]}
         return data
+
+
+class Vessel:
+
+    def __init__(self, name, abbr, day_rate, mob_time):
+        self.name = name
+        self.abbr = abbr
+        self.day_rate = day_rate
+        self.mob_time = mob_time
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} {self.abbr}>'
+
+    def export_data(self):
+        return {
+            'name': self.name,
+            'abbr': self.abbr,
+            'day_rate': self.day_rate,
+            'mob_time': self.mob_time
+        }
 
 
 class Area:
@@ -303,12 +338,30 @@ app = Flask(__name__)
 
 
 # Instantiate the Facility Risk Class
-risk_calculator = RiskCalculator()
+risk_calculator = RiskCalculator('core/inputs/facilites.json')
 
 
 @app.route('/', methods=['GET'])
 def index():
     return "FMECA Homepage"
+
+
+@app.route('/facilities/<ident>/area/new', methods=['POST'])
+def new_area():
+    facility = risk_calculator.facilities['ident']
+
+    values = request.get_json()
+
+    # Check that the required fields are in the POST'ed data
+    required = ['name', 'operator']
+    if not all(k in values for k in required):
+        return 'Missing values', 400
+
+    # Create a new Facility
+    index = risk_calculator.add_facility(values['name'], values['operator'])
+
+    response = {'message': f'Facility will be added to Risk Calculator {index}'}
+    return jsonify(response), 201
 
 
 @app.route('/facilities/new', methods=['POST'])
