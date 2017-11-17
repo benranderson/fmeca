@@ -1,0 +1,46 @@
+{
+    "filename": "input",
+    "facilities": [
+        {
+            "ident": 1,
+            "name": "Foinaven",
+            "operator": "BP",
+            "vessels": [
+                {
+                    "name": "HEavy Lift",
+                    "abbr": "HLV"
+                },
+                {
+                    "name": "Dive Support",
+                    "abbr": "DSV"
+                }
+            ]
+        },
+        {
+            "ident": 2,
+            "name": "Foinaven",
+            "operator": "BP",
+            "vessels": [
+                {
+                    "name": "HEavy Lift",
+                    "abbr": "HLV"
+                },
+                {
+                    "name": "Dive Support",
+                    "abbr": "HLV"
+                }
+            ]
+        },
+        {
+            "ident": "Andrew",
+            "name": null,
+            "operator": null,
+            "vessels": [
+                {
+                    "name": null,
+                    "abbr": null
+                }
+            ]
+        }
+    ]
+}

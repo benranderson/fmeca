@@ -1,8 +1,8 @@
 import pytest
 import json
 
-from .context import rbi
-from .context import Failure, SubComponent, Component, Consequence
+from .context import risk_calculator
+from .context import Vessel, Failure, SubComponent, Component, Consequence
 
 # tolerance
 tol_pc = 0.001
@@ -15,6 +15,17 @@ FACILITY = json.load(
 FAILURE_MODES = json.load(
     open('core/tests/test_inputs/failure_modes.json')
 )
+
+
+def test_vessel():
+    v = Vessel('ROV Support Vessel', 'ROVSV', 100000, 7)
+    assert 'ROVSV' in repr(v)
+    assert v.export_data() == {
+        'name': 'ROV Support Vessel',
+        'abbr': 'ROVSV',
+        'day_rate': 100000,
+        'mob_time': 7
+    }
 
 
 @pytest.fixture()
