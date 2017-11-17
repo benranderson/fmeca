@@ -93,11 +93,13 @@ class RiskCalculatorObject():
         
         '''
         for a in data:
-            if a not in self.__dict__:
-                raise KeyError(f'{type(self)} does not contain attriute {a}')
+            att = self._format_attribute_name(a)
+            if att not in self.__dict__:
+                raise KeyError(f'{type(self)} object {self.ident} does not \
+                                  contain attriute {a}. Error in {data[a]}.')
             if type(data[a]) == type({}):
-                c = self._format_class_name(a)
-                if type(getattr(self, a)) == type({}):
+                c = self._format_class_name(att)
+                if type(getattr(self, att)) == type({}):
                     for l in data[a].keys():
                         try:
                             o = eval(c)(l)
@@ -105,17 +107,29 @@ class RiskCalculatorObject():
                             raise KeyError(f'{a} does not map to valid class \
                                            name.')
                         o.import_data(data[a][l])
-                        getattr(self, a)[l] = o
+                        getattr(self, att)[l] = o
                 elif type(getattr(self, a)) == type([]):
                     for l in data[a]:
                         o = eval(c)(l)
                         o.import_data(data[a][l])
-                        getattr(self, a).append(o)
+                        getattr(self, att).append(o)
                 else:
                     raise TypeError(f'{type(getattr(self, a))} is not \
                                     iterable')
             else:
-                setattr(self, a, data[a])
+                setattr(self, att, data[a])
+    
+    def _format_attribute_name(self, s):
+        bad_chars = [r' ', r'(', r')', r'/']
+        for c in bad_chars:
+            s = s.replace(c, '_')
+        if s[0] == '_':
+            s = s[1:]
+        if s[-1] == '_':
+            s = s[:-1]
+        while '__' in s:
+            s = s.replace('__', '_')
+        return s.lower()
     
     def _format_class_name(self, s):
         '''Determine class name from dictionary key.
@@ -180,13 +194,7 @@ class Facility(RiskCalculatorObject):
         self.operator = operator
         self.vessels = {}
         self.areas = {}
-        # read in default lists i.e. FAILUREMODES above
-
-    def read_vessels(self, json_filename):
-        with open(json_filename, 'r') as j:
-            d = json.load(j)
-            self.vessels = d["Vessels"]
-
+        
 class Area(RiskCalculatorObject):
 
     def __init__(self, name):
@@ -205,9 +213,6 @@ class Consequence(RiskCalculatorObject):
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.name}>'
 
-    def add_vessel_trip(self, vessel_trip):
-        self.import_data(vessel_trip.export_data())
-
 class Component(RiskCalculatorObject):
     def __init__(self, ident):
         super(type(self), self).__init__(ident)
@@ -219,14 +224,6 @@ class Component(RiskCalculatorObject):
 
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.ident}>'
-
-    def add_subcomponent(self, description, ident):
-        # provide subcomponent with component consequence dict
-        subcomponent = SubComponent(description, ident, self.consequences)
-        self.import_data(subcomponent.export_data())
-
-    def add_consequence(self, name, cost):
-        self.import_data({ "consequences": { name: cost } })
 
     @property
     def total_risk(self):
@@ -277,7 +274,14 @@ class Subcomponent(RiskCalculatorObject):
                 self._failures.append(f)
         return self._failures
 
-
+class Vessel(RiskCalculatorObject):
+    def __init__(self, ident):
+        super(type(self), self).__init__(ident)
+        self.vessel_abbreviation = ''
+        self.gross_cost_gbp_day = ''
+        self.mobilisation_time_days = ''
+        
+    
 class Failure(RiskCalculatorObject):
     def __init__(self, description, subcomponent, consequences=None):
         super(type(self), self).__init__(description)
@@ -326,6 +330,7 @@ rc.import_data(f)
 a = { 'areas': { 'area1': {'name': 'area1'}}}
 f = rc.facilities['f1']
 f.import_data(a)
+f.import_data(json.loads(open('core/inputs/facility_assumptions.json', 'r').read()))
 c = { 'components': { 'comp1': {'ident': 'comp1'} } }
 a = f.areas['area1']
 a.import_data(c)
@@ -363,4 +368,5 @@ def get_facility(ident):
         return 'Unknown ident', 400
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    print(c)
+    #app.run(host='0.0.0.0', port=5000, debug=True)

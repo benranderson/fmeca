@@ -1,6 +1,6 @@
 {
     "name": "Foinaven",
-    "client": "BP",
+    "operator": "BP",
     "Vessels": {
         "Anchor Handling Tug": {
             "Vessel Abbreviation": "AHT",

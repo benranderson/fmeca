@@ -269,7 +269,6 @@ fmeca = RiskCalculator()
 def index():
     return "FMECA Homepage"
 
-
 @app.route('/facilities/new', methods=['POST'])
 def new__facility():
     values = request.get_json()
@@ -284,7 +283,6 @@ def new__facility():
 
     response = {'message': f'Facility will be added to FMECA {index}'}
     return jsonify(response), 201
-
 
 @app.route('/facilities/', methods=['GET'])
 def facilities():
