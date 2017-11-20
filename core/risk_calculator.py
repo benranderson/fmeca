@@ -345,7 +345,6 @@ risk_calculator = RiskCalculator('core/inputs/facilites.json')
 def index():
     return "FMECA Homepage"
 
-
 @app.route('/facilities/<ident>/area/new', methods=['POST'])
 def new_area():
     facility = risk_calculator.facilities['ident']
@@ -363,7 +362,6 @@ def new_area():
     response = {'message': f'Facility will be added to Risk Calculator {index}'}
     return jsonify(response), 201
 
-
 @app.route('/facilities/new', methods=['POST'])
 def new_facility():
     values = request.get_json()
@@ -378,7 +376,6 @@ def new_facility():
 
     response = {'message': f'Facility will be added to Risk Calculator {index}'}
     return jsonify(response), 201
-
 
 @app.route('/facilities/', methods=['GET'])
 def facilities():
