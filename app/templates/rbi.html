@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}RBI - {{ rbi.fmeca.component.ident }}{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <p><a href="{{ url_for('main.fmeca', id=rbi.fmeca.component.id) }}"><button type="button" class="btn btn-default">Back</button></a></p>
+        <h1>RBI - {{ rbi.fmeca.component.ident }}</h1>
+        <h3>Summary</h3>
+        <table class="table table-hover">
+            <tr>
+                <td>Inspection Type</td>
+                <td>{{ rbi.inspection_type }}</td>
+            </tr>
+            <tr>
+                <td>Total Commercial Risk Cut Off [£]</td>
+                <td>{{ rbi.fmeca.component.area.facility.risk_cut_off }}</td>
+            </tr>
+            <tr>
+                <td>Total Annual Commercial Risk [£]</td>
+                <td>{{ rbi.risk }}</td>
+            </tr>
+            <tr>
+                <td>Inspection Interval [yrs]</td>
+                <td>{{ rbi.inspection_interval }}</td>
+            </tr>
+        </table>
+        <p>Total Number of Failures: {{ rbi.failures.count() }}</p>
+        <h2>Chart</h2>
+        <img src="{{ url_for('main.fig', id=rbi.fmeca.component.id) }}" alt="Image Placeholder">
+        {% if rbi.failures %}
+            <h3>Failures</h3>
+            <table class="table table-hover">
+                <thead><tr>
+                    <th>Sub-Component Category</th>
+                    <th>Sub-Component Ident</th>
+                    <th>Failure Mode</th>
+                    <th>Global Consequence</th>
+                    <th>Detectable</th>
+                    <th>Time Dependant</th>
+                    <th>Annual Probability of Failure</th>
+                    <th>Total Cost [£]</th>
+                    <th>Annual Commercial Risk [£]</th>    
+                </tr></thead>
+                {% for failure in rbi.failures %}
+                    <tr>
+                        <td>{{ failure.subcomponent.category }}</td>
+                        <td>{{ failure.subcomponent.ident }}</td>
+                        <td>{{ failure.failure_mode.description }}</td>
+                        <td>{{ failure.failure_mode.consequence }}</td>
+                        <td>{{ failure.failure_mode.detectable }}</td>
+                        <td>{{ failure.failure_mode.time_dependant }}</td>
+                        <td>{{ failure.probability }}</td>
+                        <td>{{ failure.total_cost }}</td>
+                        <td>{{ failure.risk }}</td>   
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %} 
+    </div>
+{%- endblock %}

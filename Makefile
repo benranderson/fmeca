@@ -27,5 +27,5 @@ deploy:
 	heroku maintenance:off
 
 resetdb:
-	python manage.py createdb -d
-	python manage.py seeddb
+	flask createdb --drop_first=True
+	flask seeddb

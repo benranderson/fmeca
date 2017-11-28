@@ -7,16 +7,21 @@
     </div>            
     <div class="container">
         <a href="{{ url_for('api.index') }}"><button type="button" class="btn btn-default">API</button></a>
-        <h1>Facilities</h1>
+        <h1>FMECA</h1>
+        <a href="{{ url_for('main.failure_modes') }}"><button type="button" class="btn btn-default">Failure Modes</button></a>
         <h3>Add a new facility</h3>
         <div>{{ wtf.quick_form(form) }}</div>
         <br>
         {% if facilities %}
+            <h3>Facilities</h3>
             <table class="table table-hover">
-                <thead><tr><th>Facility</th></tr></thead>
+                <thead><tr><th>Name</th><th>Remaining Life [yrs]</th><th>Deferrred Production Cost [£]</th><th>Risk Cut Off [£]</th></tr></thead>
                 {% for facility in facilities %}
                     <tr>
-                        <td>{{ facility.name }}</td>
+                        <td><a href="{{ url_for('.facility', id=facility.id) }}"><button type="button" class="btn btn-primary">{{ facility.name }}</button></a></td> 
+                        <td>{{ facility.remaining_life }}</td>
+                        <td>{{ facility.deferred_prod_cost }}</td>
+                        <td>{{ facility.risk_cut_off }}</td>
                     </tr>
                 {% endfor %}
             </table>

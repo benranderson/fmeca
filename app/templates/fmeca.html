@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}FMECA - {{ fmeca.component.ident }}{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <p><a href="{{ url_for('main.component', id=fmeca.component.id) }}"><button type="button" class="btn btn-default">Back</button></a></p>
+        <p><a href="{{ url_for('main.rbi', id=fmeca.component.id) }}"><button type="button" class="btn btn-default">Run RBI</button></a></p>
+        <h1>FEMCA - {{ fmeca.component.ident }}</h1>
+        <p>Total Number of Failures: {{ fmeca.failures.count() }}</p>
+        {% if fmeca.failures %}
+            <h3>Failures</h3>
+            <table class="table table-hover">
+                <thead><tr>
+                    <th>Sub-Component Category</th>
+                    <th>Sub-Component Ident</th>
+                    <th>Failure Mode</th>
+                    <th>Time Dependant</th>
+                    <th>Mean Time to Failure [yrs]</th>
+                    <th>Detectable</th>
+                    <th>Inpsection Type</th>
+                    <th>Global Consequence</th>
+                    <th>Annual Probability of Failure</th>
+                </tr></thead>
+                {% for failure in fmeca.failures %}
+                    <tr>
+                        <td>{{ failure.subcomponent.category }}</td>
+                        <td>{{ failure.subcomponent.ident }}</td>
+                        <td>{{ failure.failure_mode.description }}</td>
+                        <td>{{ failure.failure_mode.time_dependant }}</td>
+                        <td>{{ failure.failure_mode.mean_time_to_failure }}</td>
+                        <td>{{ failure.failure_mode.detectable }}</td>
+                        <td>{{ failure.failure_mode.inspection_type }}</td>
+                        <td>{{ failure.failure_mode.consequence }}</td>
+                        <td>{{ failure.probability }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %} 
+    </div>
+{%- endblock %}

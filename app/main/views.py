@@ -5,17 +5,20 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from . import main
 from app import db
-from ..models import Facility, Component, SubComponent, Vessel, Consequence, \
-    VesselTrip, FailureMode
-from .forms import FacilityForm, VesselForm, ComponentForm, SubComponentForm, \
-    ConsequenceForm, VesselTripForm, FailureModeForm
+from ..models import Facility, Area, Component, SubComponent, Vessel, Consequence, \
+    VesselTrip, FailureMode, FMECA, RBI
+from .forms import FacilityForm, AreaForm, VesselForm, ComponentForm, \
+    SubComponentForm, ConsequenceForm, VesselTripForm, FailureModeForm
 
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
     form = FacilityForm()
     if form.validate_on_submit():
-        facility = Facility(name=form.name.data)
+        facility = Facility(name=form.name.data,
+                            remaining_life=form.remaining_life.data,
+                            deferred_prod_cost=form.deferred_prod_cost.data,
+                            risk_cut_off=form.risk_cut_off.data)
         db.session.add(facility)
         db.session.commit()
         flash('Facility added.')
@@ -24,122 +27,116 @@ def index():
     return render_template('index.html', form=form, facilities=facilities)
 
 
-@main.route('/vessel/add', methods=['GET', 'POST'])
-def vessel_add():
-    form = VesselForm()
-    if form.validate_on_submit():
-        vessel = Vessel(name=form.name.data,
-                        abbr=form.abbr.data,
-                        rate=form.rate.data,
-                        mob_time=form.mob_time.data)
+@main.route('/failure_modes', methods=['GET'])
+def failure_modes():
+    failure_modes = FailureMode.query.all()
+    return render_template('failure_mode.html', failure_modes=failure_modes)
+
+
+@main.route('/facility/<int:id>', methods=['GET', 'POST'])
+def facility(id):
+    facility = Facility.query.get_or_404(id)
+    a_form = AreaForm()
+    if a_form.validate_on_submit():
+        area = Area(facility=facility,
+                    name=a_form.name.data,
+                    equity_share=a_form.equity_share.data)
+        db.session.add(area)
+        db.session.commit()
+        flash('Area added.')
+        return redirect(url_for('.facility', id=id))
+    v_form = VesselForm()
+    if v_form.validate_on_submit():
+        vessel = Vessel(facility=facility,
+                        abbr=v_form.abbr.data,
+                        name=v_form.name.data,
+                        day_rate=v_form.day_rate.data,
+                        mob_time=v_form.mob_time.data)
         db.session.add(vessel)
         db.session.commit()
         flash('Vessel added.')
-        return redirect(url_for('.index'))
-    heading = "Add a new Vessel"
-    return render_template('form.html', form=form, heading=heading)
+        return redirect(url_for('.facility', id=id))
+    return render_template('facility.html', a_form=a_form, v_form=v_form,
+                           facility=facility)
+
+
+@main.route('/area/<int:id>', methods=['GET', 'POST'])
+def area(id):
+    area = Area.query.get_or_404(id)
+    form = ComponentForm()
+    if form.validate_on_submit():
+        component = Component(area=area,
+                              ident=form.ident.data,
+                              category=form.category.data,
+                              service_type=form.service_type.data)
+        db.session.add(component)
+        db.session.commit()
+        flash('Component added.')
+        return redirect(url_for('.area', id=id))
+    return render_template('area.html', form=form, area=area)
 
 
 @main.route('/component/<int:id>', methods=['GET', 'POST'])
 def component(id):
     component = Component.query.get_or_404(id)
-    return render_template("component.html", component=component)
-
-
-@main.route('/component/add', methods=['GET', 'POST'])
-def component_add():
-    form = ComponentForm()
-    if form.validate_on_submit():
-        component = Component(ident=form.ident.data,
-                              annual_risk=form.annual_risk.data,
-                              inspect_int=form.inspect_int.data)
-        db.session.add(component)
+    c_form = ConsequenceForm()
+    if c_form.validate_on_submit():
+        c = Consequence(component=component,
+                        name=c_form.name.data,
+                        mean_time_to_repair=c_form.mean_time_to_repair.data,
+                        replacement_cost=c_form.replacement_cost.data,
+                        deferred_prod_rate=c_form.deferred_prod_rate.data)
+        db.session.add(c)
         db.session.commit()
-        flash('Component added.')
-        return redirect(url_for('.index'))
-    heading = "Add a new Component"
-    return render_template('form.html', form=form, heading=heading)
+        flash('Consequence added.')
+        return redirect(url_for('.component', id=id))
+    sc_form = SubComponentForm()
+    if sc_form.validate_on_submit():
+        sc = SubComponent(component=component,
+                          ident=sc_form.ident.data,
+                          category=sc_form.category.data)
+        db.session.add(sc)
+        db.session.commit()
+        flash('Sub-Component added.')
+        return redirect(url_for('.component', id=id))
+    return render_template('component.html', c_form=c_form, sc_form=sc_form,
+                           component=component)
 
 
-@main.route('/component/<int:component_id>/consequence/<int:consequence_id>', methods=['GET', 'POST'])
-def consequence(component_id, consequence_id):
-    consequence = Consequence.query.get_or_404(consequence_id)
-    return render_template("consequence.html", consequence=consequence,
-                           component_id=component_id)
-
-
-@main.route('/component/<int:id>/consequence/add', methods=['GET', 'POST'])
-def consequence_add(id):
-    component = Component.query.get_or_404(id)
-    form = ConsequenceForm()
-    if form.validate_on_submit():
-        consequence = Consequence(name=form.name.data,
-                                  hydro_release=form.hydro_release.data)
-        consequence.component_id = component.id
-        db.session.add(consequence)
-        flash('Global Consequence added.')
-        return redirect(url_for('.component', id=component.id))
-    heading = "Add a new Global Consequence"
-    return render_template('form.html', form=form, heading=heading)
-
-
-@main.route('/component/<int:component_id>/consequence/<int:consequence_id>/vessel_trip/add', methods=['GET', 'POST'])
-def vessel_trip_add(component_id, consequence_id):
-    consequence = Consequence.query.get_or_404(consequence_id)
+@main.route('/consequence/<int:id>', methods=['GET', 'POST'])
+def consequence(id):
+    consequence = Consequence.query.get_or_404(id)
     form = VesselTripForm()
     form.vessel_id.choices = [(vessel.id, vessel.name)
-                              for vessel in Vessel.query.order_by('name')]
-    component = Component.query.get_or_404(component_id)
+                              for vessel in Vessel.query.filter_by(facility_id=consequence.component.area.facility.id).order_by('name')]
     if form.validate_on_submit():
-        vessel_trip = VesselTrip(active_time=form.active_time.data,
-                                 vessel_id=form.vessel_id.data)
-        vessel_trip.consequence_id = consequence.id
-        db.session.add(vessel_trip)
+        vt = VesselTrip(vessel_id=form.vessel_id.data,
+                        active_repair_time=form.active_repair_time.data,
+                        consequence=consequence)
+        db.session.add(vt)
+        db.session.commit()
         flash('Vessel Trip added.')
-        return redirect(url_for('.component', id=component_id))
-    heading = "Add a new Vessel Trip"
-    return render_template('form.html', form=form, heading=heading)
+        return redirect(url_for('.consequence', id=id))
+    return render_template('consequence.html', form=form,
+                           consequence=consequence)
 
 
-@main.route('/component/<int:component_id>/subcomponent/<int:subcomponent_id>', methods=['GET', 'POST'])
-def subcomponent(component_id, subcomponent_id):
-    subcomponent = SubComponent.query.get_or_404(subcomponent_id)
-    return render_template("subcomponent.html", subcomponent=subcomponent,
-                           component_id=component_id)
-
-
-@main.route('/component/<int:id>/subcomponent/add', methods=['GET', 'POST'])
-def subcomponent_add(id):
+@main.route('/component/<int:id>/fmeca', methods=['GET', 'POST'])
+def fmeca(id):
     component = Component.query.get_or_404(id)
-    form = SubComponentForm()
-    if form.validate_on_submit():
-        subcomponent = SubComponent(ident=form.ident.data,
-                                    category=form.category.data)
-        subcomponent.component_id = component.id
-        db.session.add(subcomponent)
-        flash('Sub-Component added.')
-        return redirect(url_for('.component', id=component.id))
-    heading = "Add a new Sub-Component"
-    return render_template('form.html', form=form, heading=heading)
+    fmeca = FMECA(component=component)
+    fmeca.create()
+    flash('FMECA created.')
+    return render_template('fmeca.html', fmeca=fmeca)
 
 
-@main.route('/component/<int:component_id>/subcomponent/<int:subcomponent_id>/failure_mode/add', methods=['GET', 'POST'])
-def failure_mode_add(component_id, subcomponent_id):
-    subcomponent = SubComponent.query.get_or_404(subcomponent_id)
-    form = FailureModeForm()
-    form.consequence_id.choices = [(consequence.id, consequence.name)
-                                   for consequence in Consequence.query.order_by('name')]
-    if form.validate_on_submit():
-        failure_mode = FailureMode(description=form.description.data,
-                                   mttf=form.mttf.data,
-                                   consequence_id=form.consequence_id.data)
-        failure_mode.subcomponent_id = subcomponent.id
-        db.session.add(failure_mode)
-        flash('Failure Mode added.')
-        return redirect(url_for('.subcomponent', component_id=component_id,
-                                subcomponent_id=subcomponent.id))
-    heading = "Add a new Failure Mode"
-    return render_template('form.html', form=form, heading=heading)
+@main.route('/component/<int:id>/rbi', methods=['GET', 'POST'])
+def rbi(id):
+    fmeca = FMECA.query.filter_by(component_id=id).first()
+    rbi = RBI(fmeca=fmeca, inspection_type='ROV Inspection')
+    rbi.run()
+    flash('RBI ran.')
+    return render_template('rbi.html', rbi=rbi)
 
 
 @main.route('/component/<int:id>/fig', methods=['GET'])

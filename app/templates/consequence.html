@@ -1,20 +1,26 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Consequence{% endblock %}
+{% block title %}Consequence - {{ consequence.name }}{% endblock %}
 
-{% block page_content %}
+{% block page_content %}           
     <div class="container">
-        <h1>Consequences</h1>
-        <h2>Global Consequence</h2>
-        <table class="table table-hover">
-            <thead><tr><th>Active Time</th></tr></thead>    
-            {% for vessel_trip in consequence.vessel_trips %}
-                <tr>
-                    <td>{{ vessel_trip.active_time }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-        <a href="{{ url_for('.vessel_trip_add', component_id=component_id, consequence_id=consequence.id) }}"><button type="button" class="btn btn-success">Add a new Vessel Trip</button></a>        
+        <p><a href="{{ url_for('main.component', id=consequence.component.id) }}"><button type="button" class="btn btn-default">Back</button></a></p>    
+        <h1>{{ consequence.name }}</h1>
+        <h3>Add a new vessel trip</h3>
+        <div>{{ wtf.quick_form(form) }}</div>
+        <br>
+        {% if consequence.vessel_trips %}
+            <h3>Vessel Trips</h3>
+            <table class="table table-hover">
+                <thead><tr><th>Vessel</th><th>Active Time</th></tr></thead>
+                {% for vessel_trip in consequence.vessel_trips %}
+                    <tr>
+                        <td>{{ vessel_trip.vessel.abbr }}</td>
+                        <td>{{ vessel_trip.active_repair_time }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}           
     </div>
 {%- endblock %}
