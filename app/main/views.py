@@ -35,29 +35,45 @@ def failure_modes():
 
 @main.route('/facility/<int:id>', methods=['GET', 'POST'])
 def facility(id):
+    # logic split into two views, add_vessel and add_area, to allow two forms
+    # on facility page
     facility = Facility.query.get_or_404(id)
-    a_form = AreaForm()
-    if a_form.validate_on_submit():
-        area = Area(facility=facility,
-                    name=a_form.name.data,
-                    equity_share=a_form.equity_share.data)
-        db.session.add(area)
-        db.session.commit()
-        flash('Area added.')
-        return redirect(url_for('.facility', id=id))
-    v_form = VesselForm()
-    if v_form.validate_on_submit():
+    area_form = AreaForm()
+    vessel_form = VesselForm()
+    return render_template('facility.html', area_form=area_form, vessel_form=vessel_form,
+                           facility=facility)
+
+
+@main.route('/facility/<int:id>/add_vessel', methods=['GET', 'POST'])
+def add_vessel(id):
+    facility = Facility.query.get_or_404(id)
+    form = VesselForm()
+    if form.validate_on_submit():
         vessel = Vessel(facility=facility,
-                        abbr=v_form.abbr.data,
-                        name=v_form.name.data,
-                        day_rate=v_form.day_rate.data,
-                        mob_time=v_form.mob_time.data)
+                        abbr=form.abbr.data,
+                        name=form.name.data,
+                        day_rate=form.day_rate.data,
+                        mob_time=form.mob_time.data)
         db.session.add(vessel)
         db.session.commit()
         flash('Vessel added.')
         return redirect(url_for('.facility', id=id))
-    return render_template('facility.html', a_form=a_form, v_form=v_form,
-                           facility=facility)
+    return render_template('facility.html', form=form, facility=facility)
+
+
+@main.route('/facility/<int:id>/add_area', methods=['GET', 'POST'])
+def add_area(id):
+    facility = Facility.query.get_or_404(id)
+    form = AreaForm()
+    if form.validate_on_submit():
+        area = Area(facility=facility,
+                    name=form.name.data,
+                    equity_share=form.equity_share.data)
+        db.session.add(area)
+        db.session.commit()
+        flash('Area added.')
+        return redirect(url_for('.facility', id=id))
+    return render_template('facility.html', form=form, facility=facility)
 
 
 @main.route('/area/<int:id>', methods=['GET', 'POST'])
@@ -85,12 +101,16 @@ def component(id):
                         name=c_form.name.data,
                         mean_time_to_repair=c_form.mean_time_to_repair.data,
                         replacement_cost=c_form.replacement_cost.data,
-                        deferred_prod_rate=c_form.deferred_prod_rate.data)
+                        deferred_prod_rate=c_form.deferred_prod_rate.data,
+                        facility=component.area.facility)
         db.session.add(c)
         db.session.commit()
         flash('Consequence added.')
         return redirect(url_for('.component', id=id))
     sc_form = SubComponentForm()
+    # assign list of unique subcomponent categories
+    sc_form.category.choices = [(failure_mode.subcomponent_category, failure_mode.subcomponent_category)
+                                for failure_mode in FailureMode.query.with_entities(FailureMode.subcomponent_category).distinct()]
     if sc_form.validate_on_submit():
         sc = SubComponent(component=component,
                           ident=sc_form.ident.data,
@@ -139,13 +159,13 @@ def rbi(id):
     return render_template('rbi.html', rbi=rbi)
 
 
-@main.route('/component/<int:id>/fig', methods=['GET'])
+@main.route('/component/<int:id>/rbi/fig', methods=['GET'])
 def fig(id):
-    component = Component.query.get_or_404(id)
-    risk = component.annual_risk
-    interval = component.inspect_int
-    ident = component.ident
-    fig = draw_figure(ident, risk, interval)
+    fmeca = FMECA.query.filter_by(component_id=id).first()
+    rbi = RBI.query.filter_by(fmeca_id=fmeca.id).first()
+    risk = rbi.risk
+    inspection_interval = rbi.inspection_interval
+    fig = draw_figure(fmeca.component.ident, risk, inspection_interval)
     img = BytesIO()
     fig.savefig(img)
     img.seek(0)

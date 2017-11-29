@@ -4,7 +4,7 @@
 {% block title %}{{ area.name }}{% endblock %}
 
 {% block page_content %}           
-    <div class="container">
+    <div>
         <p><a href="{{ url_for('main.facility', id=area.facility.id) }}"><button type="button" class="btn btn-default">Back</button></a></p>
         <h1>{{ area.name }}</h1>
         <h3>Add a new component</h3>

@@ -1,0 +1,2178 @@
+{
+    "Acoustic Sand Detector": {
+        "Loss of Function due to Impact": {
+            "time_dependent": false,
+            "mean_time_to_failure": 183.034,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Actuated Process Valve": {
+        "Loss of Function due to Failure to Open on demand": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1193.6,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Failure to Close on demand": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1193.6,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 149.2,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Internal Leakage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 596.8,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to External Leakage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 16558.0,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Mechanical Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 16558.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Loss of Redundancy"
+        }
+    },
+    "Actuator": {
+        "Loss of Function due to Failure to open after hydraulic pressure has been supplied via SCM": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Failure to close after hydraulic pressure from SCM is dumped from open side": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Bend restrictor": {
+        "Loss of Function due to Excessive Loading": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to Design/Material/Manufacturing defects": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of function due to impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Bend Stiffener": {
+        "Structural Failure due to Design/Material/Manufacturing defects": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Excessive Loading": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to Corrosion of Steel Components": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Chemical Injection Coupling": {
+        "Loss of Containment due to Leakage across couplers": {
+            "time_dependent": false,
+            "mean_time_to_failure": 8426.0,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Structural Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 8426.0,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Chemical Injection Metering Valve": {
+        "Loss of Function due to CIMV Harness Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Leakage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Fitting Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Tubing Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Chemical Injection Piping": {
+        "Loss of containment due to Design/Material/Manufacturing defects": {
+            "time_dependent": false,
+            "mean_time_to_failure": 3077.4,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Containment due to External Corrosion": {
+            "time_dependent": false,
+            "mean_time_to_failure": 3077.4,
+            "detectable": "Leading",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Containment due to Structural Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 3077.4,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 3077.4,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Loss of Redundancy"
+        }
+    },
+    "Chemical Flying Lead": {
+        "Loss of Function due to Leakage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Fitting Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Choke Valve": {
+        "Loss of Function due to Loss of flow control": {
+            "time_dependent": true,
+            "mean_time_to_failure": 206.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Loss of automated control": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1854.3,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Structural Failure due to Impact": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1854.3,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to External Leakage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1854.3,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 142.6,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Plug & Cage Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 206.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Stuck on end stops": {
+            "time_dependent": false,
+            "mean_time_to_failure": 206.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "FTA/ILT Clamp": {
+        "Loss of Function due to External Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Subsea Connector": {
+        "Loss of Containment due to Structural Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Gasket Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to External Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Failure to Unlock": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containmentdue to Failure to Remain Locked": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "CP System": {
+        "Loss of Containment due to excessive CP": {
+            "time_dependent": false,
+            "mean_time_to_failure": 18216.8,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of function due to inactive anode": {
+            "time_dependent": false,
+            "mean_time_to_failure": 18216.8,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to insufficient CP": {
+            "time_dependent": true,
+            "mean_time_to_failure": 18216.8,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Diver Activated Valve": {
+        "Loss of Function due to Failure to Open on demand": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Failure to Close on demand": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Failure of diver interface": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Internal Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Containment due to External Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Umbilical Tensile Armour": {
+        "Loss of Function due to Partial Protective Armour Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Change in operation"
+        },
+        "Loss of function due to Systemic Protective Armour Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Dynamic Hydraulic/Chemical Core": {
+        "Loss of Containment due to Leakage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Containment due to Blockage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Containment due to Excessive Loading": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Containment due to Impact Load": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Containment due to Overpressurisation": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Containment due to Fitting Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Loss of Redundancy"
+        }
+    },
+    "Electric Flying Lead": {
+        "Loss of Function due to Material defect/external interaction": {
+            "time_dependent": false,
+            "mean_time_to_failure": 102.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Water ingress/short-circuit": {
+            "time_dependent": false,
+            "mean_time_to_failure": 102.7,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Planned Intervention"
+        }
+    },
+    "Electric Power Unit (EPU)": {
+        "Loss of Function due to UPS Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Subsea Controller Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Input Isolators Failed": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Power Module Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Input Monitor/Isolators Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "End Fittings": {
+        "Loss of Containment due to Seal failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to External Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Anchoring failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Excessive Loading": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Erosion Probe": {
+        "Loss of Containment due to Seal failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Fibre Optic Cable": {
+        "Loss of Function due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Fibre Optic Flying Lead": {
+        "Loss of Function due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Static Flexible Pipework": {
+        "Loss of Containment due to Overpressure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Internal Erosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Internal Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to External Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Fatigue Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Buckling": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Pipeline Walking": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Tensile Armour Instability (Deepwater)": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Flowmeter": {
+        "Loss of Function due to Impact": {
+            "time_dependent": false,
+            "mean_time_to_failure": 187.5,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Change in operation"
+        }
+    },
+    "Outer Sheath (Flexible Pipe)": {
+        "Loss of Function due to Impact load / External interaction": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Function due to Material Degradation": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Planned Intervention"
+        }
+    },
+    "Outer Sheath (Umbilical)": {
+        "Loss of Function due to Material Degradation": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Function due to Impact load / External interaction": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Planned Intervention"
+        }
+    },
+    "HDPE Liner": {
+        "Loss of Function due to Collapse of liner": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Design/Material/Manufacturing Defect": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Overstressing": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Hot Stab": {
+        "Loss of Function due to Corrosion": {
+            "time_dependent": false,
+            "mean_time_to_failure": 2708.2,
+            "detectable": "Leading",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Seal failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 2708.2,
+            "detectable": "Leading",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Impact": {
+            "time_dependent": false,
+            "mean_time_to_failure": 2708.2,
+            "detectable": "Leading",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "HP cap": {
+        "Loss of Functiondue to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor intervention"
+        },
+        "Loss of Function due to Design/Material/Manufacturing Defect": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor intervention"
+        }
+    },
+    "Hydraulic Coupling": {
+        "Loss of Containment due to Leakage across couplers": {
+            "time_dependent": false,
+            "mean_time_to_failure": 8426.0,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Hydraulic Flying Lead": {
+        "Loss of Containment due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Design/Material/Manufacturing Defects": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containmennt due to Excessively Loading": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Hydraulic piping": {
+        "Loss of Containment due to Impact": {
+            "time_dependent": false,
+            "mean_time_to_failure": 3077.4,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Containment due to External Corrosion": {
+            "time_dependent": false,
+            "mean_time_to_failure": 3077.4,
+            "detectable": "Leading",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Containment due to Design/Material/Manufacturing Defects": {
+            "time_dependent": false,
+            "mean_time_to_failure": 3077.4,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 3077.4,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Loss of Redundancy"
+        }
+    },
+    "Hydraulic Power Unit (HPU)": {
+        "Loss of Function due to Catastrophic Damage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Valve/Seal Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Component Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Catastrophic Tank Damage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Tank Valve/Seal Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Insulation": {
+        "Loss of Functiondue to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Design/Material/Manufacturing defects": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Manifold Module": {
+        "Loss of Containment due to Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to External Damage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Structural Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Mechanical Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Fatigue Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Master Control Station (MCS)": {
+        "Loss of Function due to Communication Port Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to KVM Switch Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Hardware Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Cabling or Electrical Supply Fault": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Software Issue": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Check Valve": {
+        "Loss of Function due to Failure to Open on Demand": {
+            "time_dependent": false,
+            "mean_time_to_failure": 2360.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor intervention"
+        },
+        "Loss of Function due to Failure to Close on Demand": {
+            "time_dependent": false,
+            "mean_time_to_failure": 2360.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor intervention"
+        },
+        "Loss of Containment due to Seal failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 2360.0,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "MPFM (Hardware Integrity)": {
+        "Loss of Containment due to External Corrosion": {
+            "time_dependent": true,
+            "mean_time_to_failure": 655.7,
+            "detectable": "Leading",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Internal Corrosion": {
+            "time_dependent": true,
+            "mean_time_to_failure": 655.7,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 655.7,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Impact": {
+            "time_dependent": false,
+            "mean_time_to_failure": 655.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Fatigue Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 655.7,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "MPFM (Functionality)": {
+        "Loss of Function due to Electrical Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 655.7,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Mechanical Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 655.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Mudmat": {
+        "Loss of Functiondue to Skirt over/undereven-penetration": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Permanent Guide Base": {
+        "Loss of Function due to External Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Design/Material/Manufacturing Defect": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Pig Launcher": {
+        "Loss of Containment due to External Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Design/Material/Manufacturing defects": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Mechanical Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Fatigue Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Power/Signal Coupling": {
+        "Loss of Containment due to Leakage across couplers": {
+            "time_dependent": false,
+            "mean_time_to_failure": 8426.0,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Power/Signal Flying Lead": {
+        "Loss of Function due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Stab plate failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Design/Material/Manufacturing defects": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Common cause failure of cores": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Water ingress/short-circuit": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "PTT (Hardware Integrity)": {
+        "Loss of Containment due to Seal failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 4147.5,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to External Corrosion": {
+            "time_dependent": true,
+            "mean_time_to_failure": 4147.5,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Impact": {
+            "time_dependent": false,
+            "mean_time_to_failure": 4147.5,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "PTT (Functionality)": {
+        "Loss of Function due to Electrical Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Change in operation"
+        },
+        "Loss of Function due to Mechanical Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Change in operation"
+        }
+    },
+    "Protective Structure": {
+        "Loss of Function due to dropped object on protection covers": {
+            "time_dependent": false,
+            "mean_time_to_failure": 2719.8,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "ROV Frame": {
+        "Loss of Function due to Design/Material/Manufacturing Defect": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to External Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "ROV Activated Valve": {
+        "Loss of Function due to Failure to Open on demand": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Failure to Close on demand": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Failure of ROV drive/interface": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Internal Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Containment due to External Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 11434.0,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Subsea Control Module (SCM)": {
+        "Loss of Function due to SEM Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 101296.0,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Loss of Redundancy"
+        },
+        "Loss of Function due to Leaks": {
+            "time_dependent": false,
+            "mean_time_to_failure": 691.3,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 691.3,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Mechanical Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 27.3,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Hardware Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 691.3,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Change in operation"
+        },
+        "Loss of Function due to Electrical Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 296.3,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "SCMMB couplers": {
+        "Loss of Function due to Leakage across couplers": {
+            "time_dependent": false,
+            "mean_time_to_failure": 842.6,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Shuttle Valve": {
+        "Loss of Function due to Valve Sticking": {
+            "time_dependent": false,
+            "mean_time_to_failure": 286.3,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Seal failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 286.3,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 286.3,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Fitting Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 286.3,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Tubing Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 286.3,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Sliding System": {
+        "Loss of Containmentdue to Reduced sliding ability": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Functiondue to Under extension of sliding system": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containmentdue to Over extension of sliding system (in contraction or extension)": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Static Umb/UET Electrical Connector": {
+        "Loss of Function due to Short/Open Circuit": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Static Chemical Core": {
+        "Loss of Containment due to External Corrosion": {
+            "time_dependent": true,
+            "mean_time_to_failure": 864.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to Blockage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 864.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to Design/Material/Manufacturing defects": {
+            "time_dependent": false,
+            "mean_time_to_failure": 864.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to Fatigue Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 864.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to Fitting Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 864.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to Excessive Loading": {
+            "time_dependent": false,
+            "mean_time_to_failure": 864.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        }
+    },
+    "Static Electric Core": {
+        "Loss of Function due to Low Insulation Resistance (IR)": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1533.3,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Function due to Impact": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1533.3,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Function due to Fatigue Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1533.3,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Function due to Excessive Loading": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1533.3,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Function due Design/Material/Manufacturing Defect": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1533.3,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Planned Intervention"
+        }
+    },
+    "Static Hydraulic Core": {
+        "Loss of Containment due to Leakage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 864.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to External Corrosion": {
+            "time_dependent": true,
+            "mean_time_to_failure": 864.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to Blockage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 864.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to Fatigue": {
+            "time_dependent": false,
+            "mean_time_to_failure": 864.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to Design/Material/Manufacturing defects": {
+            "time_dependent": false,
+            "mean_time_to_failure": 864.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Planned Intervention"
+        },
+        "Loss of Containment due to Excessive Loading": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Planned Intervention"
+        }
+    },
+    "Structural Frame": {
+        "Structural Failure due to Design/Material/Manufacturing defects": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to External Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Subsea Accumulator": {
+        "Loss of Function due to Bladder Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 53.7,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Connection Leakage": {
+            "time_dependent": false,
+            "mean_time_to_failure": 53.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Subsea Data Acquisition Module": {
+        "Loss of Function due to Dual SEM Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Power Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Water ingress": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Suction Pile": {
+        "Loss of Containment due to Sinking / Tilting of Manifold": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to Overstressing": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to External Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Support structure": {
+        "Structural Failure due to External Corrosion": {
+            "time_dependent": true,
+            "mean_time_to_failure": 4226.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to Overstressing": {
+            "time_dependent": false,
+            "mean_time_to_failure": 4226.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to Impact": {
+            "time_dependent": false,
+            "mean_time_to_failure": 4226.7,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Topside Umbilical Termination Unit (TUTU)": {
+        "Loss of Function due to Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Cracking": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Funnction due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Design/Material/Manufacturing Defect": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Fatigue": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Umbilical Subsea Termination": {
+        "Loss of Function due to Connector Failure due to Impact": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1235.5,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Failure of Electrical Harness": {
+            "time_dependent": true,
+            "mean_time_to_failure": 1235.5,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Corrosion": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1235.5,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Funnction due to Excessive Loading": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1235.5,
+            "detectable": "Lagging",
+            "inspection_type": "ROV Inspection",
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Design/Material/Manufacturing Defect": {
+            "time_dependent": true,
+            "mean_time_to_failure": 1235.5,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Fatigue": {
+            "time_dependent": true,
+            "mean_time_to_failure": 1235.5,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Umbilical J-Tube": {
+        "Structural Failure due to Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to External Damage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to Support Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to Cracking": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to Mechanical Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Structural Failure due to Bolt Fatigue Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Umbilical Junction Box": {
+        "Loss of Function due to Actuator Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Valve Failure (Stuck Closed)": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Cracking": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Damage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Mechanical Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Fatigue Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Vent Valve": {
+        "Loss of Function due to Failure to Open": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Failure to Close": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Leakage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Internal Tree cap plug": {
+        "Loss of Containment due to Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Structural Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Mechanical Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Fatigue Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Erosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Seal failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "XT Flowbase": {
+        "Loss of Containment due to Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to External Damage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Structural Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Cracking": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Mechanical Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Fatigue Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Erosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Seal failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Valve Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "XT Tree Cap": {
+        "Loss of Containment due to Structural Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Containment due to Excessive Loading": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Tubing Hanger": {
+        "Loss of Containment due to Design/Material/Manufacturing Defect": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Failure of Locking Mechanism": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Integrity due to Thread Connection Leak": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Buoyancy Module": {
+        "Loss of Containment due to Damage to the Buoyancy Module": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        }
+    },
+    "Tether Clamp": {
+        "Loss of Function due to External Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Fatigue Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Structural Failure due to Design/Material/Manufacturing Defect": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Structural Failure due to Impact": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Excessive Loading": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "ZT Position Indicator": {
+        "Loss of accuracy due to incorrect reporting data": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1018.48,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Change in operation"
+        },
+        "Loss of function due to Signal Failure": {
+            "time_dependent": false,
+            "mean_time_to_failure": 1018.48,
+            "detectable": "Not Detectable",
+            "inspection_type": "",
+            "consequence_description": "Change in operation"
+        }
+    },
+    "Pig Indicator (intrusive)": {
+        "Loss of Function due to Mechanical Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Change in operation"
+        },
+        "Loss of function due to Signal Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Change in operation"
+        }
+    },
+    "Pig Indicator (non-intrusive)": {
+        "Loss of function due to Signal Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Change in operation"
+        }
+    },
+    "Hydrocarbon Leak Detector": {
+        "Loss of function due to loss of signal or inaccurate data": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Change in operation"
+        }
+    },
+    "Tether": {
+        "Loss of Function due to Design/Material/Manufacturing Defect": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Excessive Loading": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Material Degradation": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Uraduct": {
+        "Loss of Function due to Design/Material/Manufacturing Defect": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        },
+        "Loss of Function due to Excessive Loading": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    },
+    "Rigid Process Pipework": {
+        "Loss of Containment due to Internal Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to External Corrosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to External Damage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Structural Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Cracking": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Mechanical Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Fatigue Failure": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Containment due to Erosion": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Major Intervention"
+        },
+        "Loss of Function due to Blockage": {
+            "time_dependent": null,
+            "mean_time_to_failure": null,
+            "detectable": null,
+            "inspection_type": null,
+            "consequence_description": "Minor Intervention"
+        }
+    }
+}

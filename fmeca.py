@@ -7,7 +7,8 @@ import json
 from flask_migrate import Migrate
 
 from app import create_app, db
-from app.models import FailureMode, Facility, Area, Component, SubComponent, Vessel
+from app.models import FailureMode, Facility, Area, Component, Consequence, \
+    SubComponent, Vessel
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
@@ -72,24 +73,21 @@ def createdb(drop_first):
 def seeddb():
     """Seeds the database."""
 
-    fms_json = json.load(open('failure_modes.json'))
+    fms_json = json.load(open('fms.json'))
     for sc in fms_json:
         for fm_json in fms_json[sc]:
-            if fms_json[sc][fm_json]["Random/Time Dependant"] == "T.D.":
-                time_dependant = True
-            else:
-                time_dependant = False
             fm = FailureMode(subcomponent_category=sc,
                              description=fm_json,
-                             time_dependant=time_dependant,
-                             mean_time_to_failure=fms_json[sc][fm_json]["BP Ored MTTF"],
-                             detectable=fms_json[sc][fm_json]["Detectable by Inspection"],
-                             inspection_type=fms_json[sc][fm_json]["Type of Inspection"],
-                             consequence=fms_json[sc][fm_json]["Consequence"])
+                             time_dependant=fms_json[sc][fm_json]["time_dependent"],
+                             mean_time_to_failure=fms_json[sc][fm_json]["mean_time_to_failure"],
+                             detectable=fms_json[sc][fm_json]["detectable"],
+                             inspection_type=fms_json[sc][fm_json]["inspection_type"],
+                             consequence_description=fms_json[sc][fm_json]["consequence_description"])
             db.session.add(fm)
 
     for i in range(5):
-        f = Facility(name='facility-{}'.format(i), risk_cut_off=302500)
+        f = Facility(name='facility-{}'.format(i), risk_cut_off=302500,
+                     deferred_prod_cost=18)
         db.session.add(f)
         v = Vessel(name='Heavy Lift Vessel',
                    abbr='HLV', day_rate=300000, mob_time=7, facility=f)
@@ -103,10 +101,45 @@ def seeddb():
                               category='Manifold', service_type='Production',
                               area=a)
                 db.session.add(c)
+
+                # consequences
+                cons1 = Consequence(name='Change in operation',
+                                    mean_time_to_repair=60,
+                                    replacement_cost=100000,
+                                    deferred_prod_rate=1000,
+                                    component=c,
+                                    facility=f)
+                cons2 = Consequence(name='Loss of redundancy',
+                                    mean_time_to_repair=60,
+                                    replacement_cost=100000,
+                                    deferred_prod_rate=1000,
+                                    component=c,
+                                    facility=f)
+                cons3 = Consequence(name='Major Intervention',
+                                    mean_time_to_repair=60,
+                                    replacement_cost=100000,
+                                    deferred_prod_rate=1000,
+                                    component=c,
+                                    facility=f)
+                cons4 = Consequence(name='Minor Intervention',
+                                    mean_time_to_repair=60,
+                                    replacement_cost=100000,
+                                    deferred_prod_rate=1000,
+                                    component=c,
+                                    facility=f)
+                cons5 = Consequence(name='Planned Intervention',
+                                    mean_time_to_repair=60,
+                                    replacement_cost=100000,
+                                    deferred_prod_rate=1000,
+                                    component=c,
+                                    facility=f)
+                db.session.add_all([cons1, cons2, cons3, cons4, cons5])
+
                 for m in range(5):
                     sc = SubComponent(ident='sc-{}-{}-{}-{}'.format(m, k, j, i),
-                                      category='Chemical Injection Piping',
+                                      category='Acoustic Sand Detector',
                                       component=c)
+                    db.session.add(sc)
 
     db.session.commit()
 

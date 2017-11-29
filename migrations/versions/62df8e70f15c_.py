@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 7db4e14bc4fc
+Revision ID: 62df8e70f15c
 Revises: 
-Create Date: 2017-11-28 18:08:16.974341
+Create Date: 2017-11-29 12:27:45.384292
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '7db4e14bc4fc'
+revision = '62df8e70f15c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -34,7 +34,7 @@ def upgrade():
     sa.Column('mean_time_to_failure', sa.Float(), nullable=True),
     sa.Column('detectable', sa.String(length=64), nullable=True),
     sa.Column('inspection_type', sa.String(length=64), nullable=True),
-    sa.Column('consequence', sa.String(length=64), nullable=True),
+    sa.Column('consequence_description', sa.String(length=64), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('areas',

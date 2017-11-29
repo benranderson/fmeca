@@ -4,12 +4,14 @@
 {% block title %}{{ facility.name }}{% endblock %}
 
 {% block page_content %}           
-    <div class="container">
+    <div>
         <p><a href="{{ url_for('main.index') }}"><button type="button" class="btn btn-default">Back</button></a></p>
         <h1>{{ facility.name }}</h1>
         <h2>Vessels</h2>
         <h3>Add a new vessel</h3>
-        <div>{{ wtf.quick_form(v_form) }}</div>
+        <form action="{{ url_for('.add_vessel', id=facility.id) }}" method="post">
+            {{ wtf.quick_form(vessel_form) }}
+        </form>
         <br>
         {% if facility.vessels %}
             <table class="table table-hover">
@@ -18,7 +20,7 @@
                     <tr>
                         <td>{{ vessel.abbr }}</td>
                         <td>{{ vessel.name }}</td>
-                        <td>{{ vessel.day_rate }}</td>
+                        <td>{{ '£{:,.2f}'.format(vessel.day_rate) }}</td>
                         <td>{{ vessel.mob_time }}</td>
                     </tr>
                 {% endfor %}
@@ -26,7 +28,9 @@
         {% endif %}  
         <h2>Areas</h2> 
         <h3>Add a new area</h3>
-        <div>{{ wtf.quick_form(a_form) }}</div>
+        <form action="{{ url_for('.add_area', id=facility.id) }}" method="post">
+            {{ wtf.quick_form(area_form) }}
+        </form>
         <br>
         {% if facility.areas %}
             <table class="table table-hover">
@@ -34,7 +38,7 @@
                 {% for area in facility.areas %}
                     <tr>
                         <td><a href="{{ url_for('.area', id=area.id) }}"><button type="button" class="btn btn-primary">{{ area.name }}</button></a></td> 
-                        <td>{{ area.equity_share }}</td>
+                        <td>{{ "{0:.1f}%".format(area.equity_share * 100) }}</td>
                     </tr>
                 {% endfor %}
             </table>

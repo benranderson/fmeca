@@ -1,9 +1,10 @@
+import math
+import logging
 from flask import url_for
 from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from . import db, admin
 from .exceptions import ValidationError
-import math
 
 
 class Facility(db.Model):
@@ -21,6 +22,8 @@ class Facility(db.Model):
     areas = db.relationship('Area', backref='facility',
                             lazy='dynamic',
                             cascade='all, delete-orphan')
+    consequences = db.relationship('Consequence', backref='facility',
+                                   lazy='dynamic')
 
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.name}>'
@@ -220,7 +223,7 @@ class Consequence(db.Model):
         equipment_cost = self.replacement_cost
         for vessel_trip in self.vessel_trips:
             equipment_cost += vessel_trip.total_cost
-        return equipment_cost
+        return self.component.area.equity_share * equipment_cost
 
     @property
     def total_cost(self):
@@ -282,10 +285,24 @@ class FMECA(db.Model):
     # TODO: Add caching
     def create(self):
         for subcomponent in self.component.subcomponents:
-            for failure_mode in FailureMode.query.filter_by(subcomponent_category=subcomponent.category).all():
+
+            for failure_mode in FailureMode.query.\
+                    filter_by(subcomponent_category=subcomponent.category).all():
+
+                try:
+                    consequence = Consequence.query.\
+                        filter_by(component=self.component, name=failure_mode.consequence_description).\
+                        first()
+                    if consequence is None:
+                        raise ValidationError('No consequences found')
+                except ValidationError as e:
+                    logging.info('No consequences found')
+
                 failure = Failure(fmeca=self,
                                   subcomponent=subcomponent,
-                                  failure_mode=failure_mode)
+                                  failure_mode=failure_mode,
+                                  consequence=consequence)
+
                 db.session.add(failure)
         db.session.commit()
 
@@ -311,13 +328,14 @@ class RBI(db.Model):
     @property
     def risk(self):
         risk = 0
-        for failure in self.failures:
-            risk += failure.risk
+        for failure in self.fmeca.failures:
+            if failure.rbi == self:
+                risk += failure.risk
         return risk
 
     @property
     def inspection_interval(self):
-        return self.risk_cut_off / self.risk
+        return self.fmeca.component.area.facility.risk_cut_off / self.risk
 
 
 class FailureMode(db.Model):
@@ -331,7 +349,7 @@ class FailureMode(db.Model):
     mean_time_to_failure = db.Column(db.Float)
     detectable = db.Column(db.String(64))
     inspection_type = db.Column(db.String(64))
-    consequence = db.Column(db.String(64))
+    consequence_description = db.Column(db.String(64))
     failures = db.relationship('Failure', backref='failure_mode',
                                lazy='dynamic')
 
@@ -385,9 +403,7 @@ class Failure(db.Model):
         """
         Return the total cost of the failure.
         """
-        consequence = Consequence.query.filter_by(
-            name=self.failure_mode.consequence).first()
-        return consequence.total_cost
+        return self.consequence.total_cost
 
     @property
     def risk(self):
@@ -406,11 +422,9 @@ class MyView(BaseView):
 admin.add_view(ModelView(Facility, db.session))
 admin.add_view(ModelView(Area, db.session))
 admin.add_view(ModelView(Component, db.session))
-admin.add_view(ModelView(SubComponent, db.session))
+
 admin.add_view(ModelView(FailureMode, db.session))
 admin.add_view(ModelView(Consequence, db.session))
 admin.add_view(ModelView(Vessel, db.session))
 admin.add_view(ModelView(VesselTrip, db.session))
-
-admin.add_view(MyView(name='Test View', menu_icon_type='glyph',
-                      menu_icon_value='glyphicon-home'))
+admin.add_view(ModelView(Failure, db.session))

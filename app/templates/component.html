@@ -4,7 +4,7 @@
 {% block title %}Component - {{ component.ident }}{% endblock %}
 
 {% block page_content %}
-    <div class="container">
+    <div>
         <p><a href="{{ url_for('main.area', id=component.area.id) }}"><button type="button" class="btn btn-default">Back</button></a></p>
         <h1>{{ component.ident }}</h1>
         <h2>Global Consequences</h2>
@@ -13,12 +13,15 @@
         <br>
         {% if component.consequences %}
             <table class="table table-hover">
-                <thead><tr><th>Name</th><th>Mean Time to Repair [days]</th><th>Replacement Cost [£]</th></tr></thead>    
+                <thead><tr><th>Name</th><th>Mean Time to Repair [days]</th><th>Replacement Cost [£]</th><th>Net Production Impact [£]</th><th>Equipment Cost [£]</th><th>Total Cost [£]</th></tr></thead>    
                 {% for consequence in component.consequences %}
                     <tr>
                         <td><a href="{{ url_for('.consequence', id=consequence.id) }}"><button type="button" class="btn btn-primary">{{ consequence.name }}</button></a></td> 
                         <td>{{ consequence.mean_time_to_repair }}</td>
-                        <td>{{ consequence.replacement_cost }}</td>
+                        <td>{{ '£{:,.2f}'.format(consequence.replacement_cost) }}</td>
+                        <td>{{ '£{:,.2f}'.format(consequence.production_impact) }}</td>
+                        <td>{{ '£{:,.2f}'.format(consequence.equipment_cost) }}</td>
+                        <td>{{ '£{:,.2f}'.format(consequence.total_cost) }}</td>
                     </tr>
                 {% endfor %}
             </table>

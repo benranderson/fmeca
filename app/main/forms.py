@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, DecimalField, IntegerField, \
-    SelectField
+    SelectField, FormField, FieldList
 from wtforms.validators import Required
 
 
@@ -35,11 +35,11 @@ class ComponentForm(FlaskForm):
 
 class ConsequenceForm(FlaskForm):
     name = SelectField('Name', validators=[Required()], choices=[
-                       ('change', 'Change in operation'),
-                       ('loss', 'Loss of redundancy'),
-                       ('major', 'Major Intervention'),
-                       ('minor', 'Minor Intervention'),
-                       ('planned', 'Planned Intervention'),
+                       ('Change in operation', 'Change in operation'),
+                       ('Loss of redundancy', 'Loss of redundancy'),
+                       ('Major Intervention', 'Major Intervention'),
+                       ('Minor Intervention', 'Minor Intervention'),
+                       ('Planned Intervention', 'Planned Intervention'),
                        ])
     mean_time_to_repair = DecimalField('Mean Time to Repair [days]')
     replacement_cost = IntegerField('Replacement Cost [£]')
@@ -48,8 +48,15 @@ class ConsequenceForm(FlaskForm):
 
 
 class SubComponentForm(FlaskForm):
-    ident = StringField('Identifier', validators=[Required()])
-    category = StringField('Category', validators=[Required()])
+    ident = StringField('Identifier')
+    # TODO: make selectfield
+    category = SelectField('Category')
+    submit = SubmitField('Submit')
+
+
+class MultiSubComponentForm(FlaskForm):
+    subcomponents = FieldList(
+        FormField(SubComponentForm), min_entries=7, max_entries=7)
     submit = SubmitField('Submit')
 
 
@@ -65,7 +72,7 @@ class VesselForm(FlaskForm):
     name = StringField('Name')
     day_rate = IntegerField('Day Rate [$/day]', validators=[Required()])
     mob_time = DecimalField('Mobilisation Time [days]')
-    submit = SubmitField('Submit')
+    submit1 = SubmitField('Submit')
 
 
 class VesselTripForm(FlaskForm):
