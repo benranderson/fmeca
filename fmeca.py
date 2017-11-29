@@ -155,9 +155,9 @@ def clean():
                 print('Removing {}'.format(full_pathname))
                 os.remove(full_pathname)
 
-# @manager.command
-# def deploy():
-#     """Run deployment tasks."""
-#     from flask_migrate import upgrade
-#     # migrate database to latest revision
-#     upgrade()
+
+@app.cli.command()
+def deploy():
+    """Run deployment tasks."""
+    # migrate database to latest revision
+    upgrade()

@@ -22,7 +22,7 @@ deploy:
 	git push origin master
 	heroku maintenance:on
 	git push heroku master
-	heroku run python manage.py deploy
+	heroku run flask deploy
 	heroku restart
 	heroku maintenance:off
 
