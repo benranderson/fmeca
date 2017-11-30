@@ -34,13 +34,7 @@ class ComponentForm(FlaskForm):
 
 
 class ConsequenceForm(FlaskForm):
-    name = SelectField('Name', validators=[Required()], choices=[
-                       ('Change in operation', 'Change in operation'),
-                       ('Loss of redundancy', 'Loss of redundancy'),
-                       ('Major Intervention', 'Major Intervention'),
-                       ('Minor Intervention', 'Minor Intervention'),
-                       ('Planned Intervention', 'Planned Intervention'),
-                       ])
+    name = SelectField('Name')
     mean_time_to_repair = DecimalField('Mean Time to Repair [days]')
     replacement_cost = IntegerField('Replacement Cost [£]')
     deferred_prod_rate = DecimalField('Deferred Production Rate [barrels/day]')

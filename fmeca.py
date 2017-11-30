@@ -103,13 +103,13 @@ def seeddb():
                 db.session.add(c)
 
                 # consequences
-                cons1 = Consequence(name='Change in operation',
+                cons1 = Consequence(name='Change in Operation',
                                     mean_time_to_repair=60,
                                     replacement_cost=100000,
                                     deferred_prod_rate=1000,
                                     component=c,
                                     facility=f)
-                cons2 = Consequence(name='Loss of redundancy',
+                cons2 = Consequence(name='Loss of Redundancy',
                                     mean_time_to_repair=60,
                                     replacement_cost=100000,
                                     deferred_prod_rate=1000,

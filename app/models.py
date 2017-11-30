@@ -291,7 +291,8 @@ class FMECA(db.Model):
 
                 try:
                     consequence = Consequence.query.\
-                        filter_by(component=self.component, name=failure_mode.consequence_description).\
+                        filter_by(component=self.component,
+                                  name=failure_mode.consequence_description).\
                         first()
                     if consequence is None:
                         raise ValidationError('No consequences found')
@@ -403,7 +404,10 @@ class Failure(db.Model):
         """
         Return the total cost of the failure.
         """
-        return self.consequence.total_cost
+        if self.consequence:
+            return self.consequence.total_cost
+        else:
+            return 0
 
     @property
     def risk(self):
@@ -422,7 +426,7 @@ class MyView(BaseView):
 admin.add_view(ModelView(Facility, db.session))
 admin.add_view(ModelView(Area, db.session))
 admin.add_view(ModelView(Component, db.session))
-
+admin.add_view(ModelView(SubComponent, db.session))
 admin.add_view(ModelView(FailureMode, db.session))
 admin.add_view(ModelView(Consequence, db.session))
 admin.add_view(ModelView(Vessel, db.session))

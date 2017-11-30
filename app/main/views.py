@@ -96,6 +96,8 @@ def area(id):
 def component(id):
     component = Component.query.get_or_404(id)
     c_form = ConsequenceForm()
+    c_form.name.choices = [(failure_mode.consequence_description, failure_mode.consequence_description)
+                           for failure_mode in FailureMode.query.with_entities(FailureMode.consequence_description).distinct()]
     if c_form.validate_on_submit():
         c = Consequence(component=component,
                         name=c_form.name.data,

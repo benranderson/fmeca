@@ -30,7 +30,7 @@
                         <td>{{ failure.subcomponent.ident }}</td>
                         <td>{{ failure.failure_mode.description }}</td>
                         <td>{{ failure.failure_mode.time_dependant }}</td>
-                        <td>{{ '{:,}'.format(failure.failure_mode.mean_time_to_failure) }}</td>
+                        <td>{{ '{:,.1f}'.format(failure.failure_mode.mean_time_to_failure) }}</td>
                         <td>{{ failure.failure_mode.detectable }}</td>
                         <td>{{ failure.failure_mode.inspection_type }}</td>
                         <td>{{ failure.consequence.name }}</td>
