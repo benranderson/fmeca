@@ -7,7 +7,7 @@ from wtforms.validators import Required
 class FacilityForm(FlaskForm):
     name = StringField('Name', validators=[Required()])
     remaining_life = DecimalField('Remaining Life [yrs]')
-    deferred_prod_cost = IntegerField('Deferred Production Cost [£]')
+    deferred_prod_cost = IntegerField('Deferred Production Cost [£/barrel]')
     risk_cut_off = IntegerField('Risk Cut Off [£]')
     submit = SubmitField('Submit')
 

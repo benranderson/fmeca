@@ -142,7 +142,7 @@ def component(id):
 def consequence(id):
     consequence = Consequence.query.get_or_404(id)
     form = VesselTripForm()
-    form.vessel_id.choices = [(vessel.id, vessel.name)
+    form.vessel_id.choices = [(vessel.id, vessel.abbr)
                               for vessel in Vessel.query.filter_by(facility_id=consequence.component.area.facility.id).order_by('name')]
     if form.validate_on_submit():
         vt = VesselTrip(vessel_id=form.vessel_id.data,
