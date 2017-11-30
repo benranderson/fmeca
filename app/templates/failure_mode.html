@@ -6,8 +6,10 @@
 {% block page_content %}           
     <div>
         <p><a href="{{ url_for('main.index') }}"><button type="button" class="btn btn-default">Back</button></a></p>
-        <h1>Failure Modes</h1>
+        <h2>Add a new failure mode</h2>
+        <div>{{ wtf.quick_form(form) }}</div>
         {% if failure_modes %}
+            <h2>Failure Modes</h2>
             <table class="table table-hover">
                 <thead><tr><th>Sub-Component</th><th>Description</th><th>Time Dependant</th><th>Mean Time to Failure [yrs]</th><th>Detectable by Inspection</th><th>Inspection Type</th><th>Global Consequence</th></tr></thead>
                 {% for failure_mode in failure_modes %}

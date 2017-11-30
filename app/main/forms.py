@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, DecimalField, IntegerField, \
-    SelectField, FormField, FieldList
+    SelectField, FormField, FieldList, BooleanField
 from wtforms.validators import Required
 
 
@@ -55,9 +55,27 @@ class MultiSubComponentForm(FlaskForm):
 
 
 class FailureModeForm(FlaskForm):
-    description = StringField('Description', validators=[Required()])
-    mttf = DecimalField('Mean Time to Failure (MTTF) [yrs]')
-    consequence_id = SelectField('Global Consequence', coerce=int)
+    subcomponent_category = StringField(
+        'Subcomponent Category', validators=[Required()])
+    description = StringField('Description')
+    time_dependant = BooleanField('Time Dependant')
+    mean_time_to_failure = DecimalField('Mean Time to Failure (MTTF) [yrs]')
+    detectable = SelectField('Detectable by Inspection', choices=[
+        ('Lagging', 'Lagging'),
+        ('Leading', 'Leading'),
+        ('Not Detectable', 'Not Detectable'),
+    ])
+    inspection_type = SelectField('Inspection Type', choices=[
+        ('ROV Inspection', 'ROV Inspection'),
+        ('Diver Inspection', 'Diver Inspection'),
+    ])
+    consequence_description = SelectField('Global Consequence', choices=[
+        ('Loss of Redundancy', 'Loss of Redundancy'),
+        ('Change in Operation', 'Change in Operation'),
+        ('Minor Intervention', 'Minor Intervention'),
+        ('Major Intervention', 'Major Intervention'),
+        ('Planned Intervention', 'Planned Intervention'),
+    ])
     submit = SubmitField('Submit')
 
 

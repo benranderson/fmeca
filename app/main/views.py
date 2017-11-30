@@ -5,9 +5,9 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from . import main
 from app import db
-from ..models import Facility, Area, Component, SubComponent, Vessel, Consequence, \
+from ..models import FailureMode, Facility, Area, Component, SubComponent, Vessel, Consequence, \
     VesselTrip, FailureMode, FMECA, RBI
-from .forms import FacilityForm, AreaForm, VesselForm, ComponentForm, \
+from .forms import FailureModeForm, FacilityForm, AreaForm, VesselForm, ComponentForm, \
     SubComponentForm, ConsequenceForm, VesselTripForm, FailureModeForm
 
 
@@ -27,10 +27,23 @@ def index():
     return render_template('index.html', form=form, facilities=facilities)
 
 
-@main.route('/failure_modes', methods=['GET'])
+@main.route('/failure_modes', methods=['GET', 'POST'])
 def failure_modes():
+    form = FailureModeForm()
+    if form.validate_on_submit():
+        failure_mode = FailureMode(subcomponent_category=form.subcomponent_category.data,
+                                   description=form.description.data,
+                                   time_dependant=form.time_dependant.data,
+                                   mean_time_to_failure=form.mean_time_to_failure.data,
+                                   detectable=form.detectable.data,
+                                   inspection_type=form.inspection_type.data,
+                                   consequence_description=form.consequence_description.data)
+        db.session.add(failure_mode)
+        db.session.commit()
+        flash('Failure Mode added.')
+        return redirect(url_for('.failure_modes'))
     failure_modes = FailureMode.query.all()
-    return render_template('failure_mode.html', failure_modes=failure_modes)
+    return render_template('failure_mode.html', form=form, failure_modes=failure_modes)
 
 
 @main.route('/facility/<int:id>', methods=['GET', 'POST'])
