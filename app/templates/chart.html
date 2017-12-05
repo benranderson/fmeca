@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block page_content %}
+<html>
+  <head>
+    <title>Bar charts with Bokeh!</title>
+  </head>
+  <body>
+    <h1>Bugs found over the past {{ bars_count }} days</h1>
+    {{ the_div|safe }}
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"></script>
+    {{ the_script|safe }}
+  </body>
+</html>
+{%- endblock %}
