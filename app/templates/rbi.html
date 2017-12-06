@@ -1,65 +1,73 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}RBI - {{ rbi.fmeca.component.ident }}{% endblock %}
+{% block title %}RBI - {{ fmeca.component.ident }}{% endblock %}
 
 {% block page_content %}
     <div>
-        <p><a href="{{ url_for('main.fmeca', id=rbi.fmeca.component.id) }}"><button type="button" class="btn btn-default">Back</button></a></p>
-        <h1>RBI - {{ rbi.fmeca.component.ident }}</h1>
-        <h3>Summary</h3>
-        <table class="table table-hover">
-            <tr>
-                <td>Inspection Type</td>
-                <td>{{ rbi.inspection_type }}</td>
-            </tr>
-            <tr>
-                <td>Total Commercial Risk Cut Off [£]</td>
-                <td>{{ '£{:,.2f}'.format(rbi.fmeca.component.area.facility.risk_cut_off) }}</td>
-            </tr>
-            <tr>
-                <td>Total Annual Commercial Risk [£]</td>
-                <td>{{ '£{:,.2f}'.format(rbi.risk) }}</td>
-            </tr>
-            <tr>
-                <td>Inspection Interval [yrs]</td>
-                <td>{{ '{:,.1f}'.format(rbi.inspection_interval) }}</td>
-            </tr>
-        </table>
-        <p>Total Number of Failures: {{ rbi.failures.count() }}</p>
-        <h2>Chart</h2>
-        {{ div|safe }}
-        <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
-        <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"></script>
-        {{ script|safe }}
-        {% if rbi.failures %}
-            <h3>Failures</h3>
+        <p><a href="{{ url_for('main.fmeca', id=fmeca.component.id) }}"><button type="button" class="btn btn-default">Back</button></a></p>
+        <h1>RBI - {{ fmeca.component.ident }}</h1>
+        {% if rbi is none %}
+            <p><a href="{{ url_for('main.rbi_create', id=fmeca.component.id) }}"><button type="button" class="btn btn-success btn-block">Create RBI</button></a></p>
+        {% else %}
+            <p><a href="{{ url_for('main.rbi_update', id=fmeca.component.id) }}"><button type="button" class="btn btn-info btn-block">Update RBI</button></a></p>
+            <h2>Summary</h2>
             <table class="table table-hover">
-                <thead><tr>
-                    <th>Sub-Component Category</th>
-                    <th>Sub-Component Ident</th>
-                    <th>Failure Mode</th>
-                    <th>Global Consequence</th>
-                    <th>Detectable</th>
-                    <th>Time Dependant</th>
-                    <th>Annual Probability of Failure</th>
-                    <th>Total Cost [£]</th>
-                    <th>Annual Commercial Risk [£]</th>    
-                </tr></thead>
-                {% for failure in rbi.failures %}
-                    <tr>
-                        <td>{{ failure.subcomponent.category }}</td>
-                        <td>{{ failure.subcomponent.ident }}</td>
-                        <td>{{ failure.failure_mode.description }}</td>
-                        <td>{{ failure.consequence.name }}</td>
-                        <td>{{ failure.failure_mode.detectable }}</td>
-                        <td>{{ failure.failure_mode.time_dependant }}</td>
-                        <td>{{ '{0:0.2E}'.format(failure.probability) }}</td>
-                        <td>{{ '£{:,.2f}'.format(failure.total_cost) }}</td>
-                        <td>{{ '£{:,.2f}'.format(failure.risk) }}</td>   
-                    </tr>
-                {% endfor %}
+                <tr>
+                    <td>Inspection Type</td>
+                    <td>{{ rbi.inspection_type }}</td>
+                </tr>
+                <tr>
+                    <td>Total Commercial Risk Cut Off [£]</td>
+                    <td>{{ '£{:,.2f}'.format(rbi.fmeca.component.area.facility.risk_cut_off) }}</td>
+                </tr>
+                <tr>
+                    <td>Total Annual Commercial Risk [£]</td>
+                    <td>{{ '£{:,.2f}'.format(rbi.risk) }}</td>
+                </tr>
+                <tr>
+                    <td>Inspection Interval [yrs]</td>
+                    <td>{{ '{:,.2f}'.format(rbi.inspection_interval) }}</td>
+                </tr>
+                <tr>
+                    <td>Total Number of Failures</td>
+                    <td>{{ rbi.failures.count() }}</td>
+                </tr>
             </table>
-        {% endif %} 
+            <h2>Chart</h2>
+            {{ div|safe }}
+            <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
+            <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"></script>
+            {{ script|safe }}
+            {% if rbi.failures %}
+                <h2>Failures</h2>
+                <table class="table table-hover">
+                    <thead><tr>
+                        <th>Sub-Component Category</th>
+                        <th>Sub-Component Ident</th>
+                        <th>Failure Mode</th>
+                        <th>Global Consequence</th>
+                        <th>Detectable</th>
+                        <th>Time Dependant</th>
+                        <th>Annual Probability of Failure</th>
+                        <th>Total Cost [£]</th>
+                        <th>Annual Commercial Risk [£]</th>    
+                    </tr></thead>
+                    {% for failure in rbi.failures %}
+                        <tr>
+                            <td>{{ failure.subcomponent.category }}</td>
+                            <td>{{ failure.subcomponent.ident }}</td>
+                            <td>{{ failure.failure_mode.description }}</td>
+                            <td>{{ failure.consequence.name }}</td>
+                            <td>{{ failure.failure_mode.detectable }}</td>
+                            <td>{{ failure.failure_mode.time_dependant }}</td>
+                            <td>{{ '{0:0.2E}'.format(failure.probability) }}</td>
+                            <td>{{ '£{:,.2f}'.format(failure.total_cost) }}</td>
+                            <td>{{ '£{:,.2f}'.format(failure.risk) }}</td>   
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        {% endif %}
     </div>
 {%- endblock %}

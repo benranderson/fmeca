@@ -6,19 +6,23 @@
 {% block page_content %}
     <div>
         <p><a href="{{ url_for('main.area', id=component.area.id) }}"><button type="button" class="btn btn-default">Back</button></a></p>
-        <h1>{{ component.ident }}</h1>
+        <h1>Component - {{ component.ident }}</h1>
+        <br>
+        <p><a href="{{ url_for('main.fmeca', id=component.id) }}"><button type="button" class="btn btn-default btn-block">FMECA</button></a></p>
+        <br>
         <h2>Global Consequences</h2>
         <h3>Add a new consequence</h3>
         <div>{{ wtf.quick_form(c_form) }}</div>
         <br>
         {% if component.consequences %}
             <table class="table table-hover">
-                <thead><tr><th>Name</th><th>Mean Time to Repair [days]</th><th>Replacement Cost [£]</th><th>Net Production Impact [£]</th><th>Equipment Cost [£]</th><th>Total Cost [£]</th></tr></thead>    
+                <thead><tr><th>Name</th><th>Mean Time to Repair [days]</th><th>Replacement Cost [£]</th><th>Deferred Prodcution Rate [barrels/day]</th><th>Net Production Impact [£]</th><th>Equipment Cost [£]</th><th>Total Cost [£]</th></tr></thead>    
                 {% for consequence in component.consequences %}
                     <tr>
                         <td><a href="{{ url_for('.consequence', id=consequence.id) }}"><button type="button" class="btn btn-primary">{{ consequence.name }}</button></a></td> 
                         <td>{{ consequence.mean_time_to_repair }}</td>
                         <td>{{ '£{:,.2f}'.format(consequence.replacement_cost) }}</td>
+                        <td>{{ '{:,.0f}'.format(consequence.deferred_prod_rate) }}</td>
                         <td>{{ '£{:,.2f}'.format(consequence.production_impact) }}</td>
                         <td>{{ '£{:,.2f}'.format(consequence.equipment_cost) }}</td>
                         <td>{{ '£{:,.2f}'.format(consequence.total_cost) }}</td>
@@ -42,7 +46,5 @@
                 {% endfor %}
             </table>
         {% endif %}
-        <h2>FMECA</h2>
-        <p><a href="{{ url_for('main.fmeca', id=component.id) }}"><button type="button" class="btn btn-default">Create FMECA</button></a></p>
     </div>
 {%- endblock %}

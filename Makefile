@@ -28,4 +28,5 @@ deploy:
 
 resetdb:
 	flask createdb --drop_first=True
-	flask seeddb
+	flask load_fms
+	flask example

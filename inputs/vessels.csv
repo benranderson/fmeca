@@ -1,0 +1,15 @@
+Anchor Handling Tug,AHT,22000,5
+Derrick Lay barge ,DLB,560000,5
+Dive Support Vessel,DSV,120000,7
+Field Support Vessel,FSV,300000,7
+Guard Vessel,GV,10000,2
+Heavy Lift Vessel ,HLV,300000,45
+Light Well Intervention Vessel ,LWIV,160000,30
+Mobile Offshore Drilling Unit ,MODU,600000,14
+Multi Service Vessel,MSV,160000,14
+Pipe Lay Vessel,PLV,300000,60
+Reel Lay Vessel,RLV,300000,14
+Rock Dump Vessel,RDV,120000,7
+ROV Support Vessel,ROVSV,85000,14
+Topsides Resource,TR,7000,1
+No Vessel Required,-,0,0

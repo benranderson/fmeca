@@ -1,0 +1,70 @@
+Chemical Injection Piping,
+Hydraulic piping,
+Hydraulic Coupling,S-D1
+Hydraulic Coupling,S-D2
+Hydraulic Coupling,S-D3
+Hydraulic Coupling,S-D4
+Power/Signal Coupling,S-D5
+Power/Signal Coupling,S-D6
+Chemical Injection Coupling,M-D1
+Hydraulic Coupling,M-D2
+Chemical Injection Coupling,M-D3
+Chemical Injection Coupling,M-D4
+Hydraulic Coupling,M-D5
+Chemical Injection Coupling,M-D6
+Hydraulic Coupling,M-D7
+Hydraulic Coupling,M-D8
+Chemical Injection Coupling,D-D1
+Hydraulic Coupling,D-D2
+Chemical Injection Coupling,D-D3
+Chemical Injection Coupling,D-D4
+Hydraulic Coupling,D-D5
+Chemical Injection Coupling,D-D6
+Hydraulic Coupling,D-D7
+Hydraulic Coupling,D-D8
+Shuttle Valve,D-SV1
+Shuttle Valve,D-SV2
+Actuated Process Valve,SCSSV
+Actuated Process Valve,UPMV
+Actuated Process Valve,AMV
+Actuated Process Valve,PWV
+Actuated Process Valve,AWV
+Actuated Process Valve,PSV
+Actuated Process Valve,ASV
+Actuated Process Valve,XOV
+Actuated Process Valve,PCV
+Actuated Process Valve,ACV
+Actuated Process Valve,CIV1
+Actuated Process Valve,CIV2
+Actuated Process Valve,CIV3
+Actuated Process Valve,CIV4
+Actuated Process Valve,FV
+Flowmeter,FE1
+Flowmeter,FE2
+PTT (Hardware Integrity),PDT1
+PTT (Hardware Integrity),PDT2
+PTT (Hardware Integrity),PTT1
+PTT (Hardware Integrity),PTT2
+PTT (Hardware Integrity),PTT3
+PTT (Hardware Integrity),PTT4
+PTT (Hardware Integrity),PTT5
+PTT (Hardware Integrity),PT6A
+PTT (Hardware Integrity),PT6B
+PTT (Hardware Integrity),PT7A
+PTT (Hardware Integrity),PT7B
+ZT Position Indicator,ZTP
+ZT Position Indicator,ZTA
+Acoustic Sand Detector,AT
+ROV Activated Valve,LPMV
+ROV Activated Valve,TRSCSSV
+ROV Activated Valve,V1
+ROV Activated Valve,V2
+ROV Activated Valve,B1
+ROV Activated Valve,B2
+ROV Activated Valve,B3
+ROV Activated Valve,B4
+ROV Activated Valve,B5
+ROV Activated Valve,B6
+ROV Activated Valve,TCV
+ROV Activated Valve,TCT
+ROV Activated Valve,AX

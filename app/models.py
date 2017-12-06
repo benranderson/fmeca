@@ -138,7 +138,7 @@ class SubComponent(db.Model):
     component_id = db.Column(
         db.Integer, db.ForeignKey('components.id'), index=True)
     failures = db.relationship('Failure', backref='subcomponent',
-                               lazy='dynamic')
+                               lazy='dynamic', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.ident}>'
@@ -285,7 +285,6 @@ class FMECA(db.Model):
     # TODO: Add caching
     def create(self):
         for subcomponent in self.component.subcomponents:
-
             for failure_mode in FailureMode.query.\
                     filter_by(subcomponent_category=subcomponent.category).all():
 
@@ -304,9 +303,6 @@ class FMECA(db.Model):
                                   failure_mode=failure_mode,
                                   consequence=consequence)
 
-                db.session.add(failure)
-        db.session.commit()
-
 
 class RBI(db.Model):
 
@@ -324,7 +320,6 @@ class RBI(db.Model):
         for failure in self.fmeca.failures:
             if failure.failure_mode.inspection_type == self.inspection_type and not failure.failure_mode.time_dependant:
                 failure.rbi = self
-        db.session.commit()
 
     @property
     def risk(self):

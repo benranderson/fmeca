@@ -1,0 +1,5 @@
+Change in Operation,0,ROV Support Vessel,85000,14,5,Topsides Resource,7000,1,1,30,50000,0,2700,0,0
+Loss of Redundancy,0,ROV Support Vessel,85000,14,5,Topsides Resource,7000,1,5,30,75000,0,2700,0,0
+Major Intervention,0,Light Well Intervention Vessel ,160000,30,14,ROV Support Vessel,85000,14,7,720,6200000,0,2700,0,0
+Minor Intervention,0,ROV Support Vessel,85000,14,5,Topsides Resource,7000,1,1,180,300000,0,2700,0,0
+Planned Intervention,0,ROV Support Vessel,85000,14,3,Topsides Resource,7000,1,5,60,500000,0,2700,0,0

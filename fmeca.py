@@ -8,7 +8,7 @@ from flask_migrate import Migrate, upgrade
 
 from app import create_app, db
 from app.models import FailureMode, Facility, Area, Component, Consequence, \
-    SubComponent, Vessel
+    SubComponent, Vessel, VesselTrip
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
@@ -67,6 +67,74 @@ def createdb(drop_first):
     if drop_first:
         db.drop_all()
     db.create_all()
+
+
+@app.cli.command()
+def load_fms():
+    """Seeds the database."""
+
+    fms_json = json.load(open('fms.json'))
+    for sc in fms_json:
+        for fm_json in fms_json[sc]:
+            fm = FailureMode(subcomponent_category=sc,
+                             description=fm_json,
+                             time_dependant=fms_json[sc][fm_json]["time_dependent"],
+                             mean_time_to_failure=fms_json[sc][fm_json]["mean_time_to_failure"],
+                             detectable=fms_json[sc][fm_json]["detectable"],
+                             inspection_type=fms_json[sc][fm_json]["inspection_type"],
+                             consequence_description=fms_json[sc][fm_json]["consequence_description"])
+            db.session.add(fm)
+    db.session.commit()
+
+
+@app.cli.command()
+def example():
+    import csv
+
+    f = Facility(name='Foinaven', risk_cut_off=302500,
+                 deferred_prod_cost=18)
+    db.session.add(f)
+
+    vessels_file = open('inputs/vessels.csv')
+    vessels = csv.reader(vessels_file)
+
+    for vessel in vessels:
+        v = Vessel(name=vessel[0], abbr=vessel[1], day_rate=vessel[2],
+                   mob_time=vessel[3], facility=f)
+        db.session.add(v)
+
+    a = Area(name='DC1', equity_share=0.72, facility=f)
+    db.session.add(a)
+
+    c = Component(ident='P11', category='Tree',
+                  service_type='Production', area=a)
+    db.session.add(a)
+
+    consequences_file = open('inputs/consequences.csv')
+    consequences = csv.reader(consequences_file)
+
+    for consequence in consequences:
+        cons = Consequence(name=consequence[0], mean_time_to_repair=consequence[10],
+                           replacement_cost=consequence[11],
+                           deferred_prod_rate=consequence[13],
+                           component=c, facility=f)
+        v1 = Vessel.query.filter_by(name=consequence[2]).first()
+        vt1 = VesselTrip(vessel=v1, active_repair_time=consequence[5],
+                         consequence=cons)
+        v2 = Vessel.query.filter_by(name=consequence[6]).first()
+        vt2 = VesselTrip(vessel=v2, active_repair_time=consequence[9],
+                         consequence=cons)
+        db.session.add(cons)
+
+    subcomponents_file = open('inputs/subcomponents.csv')
+    subcomponents = csv.reader(subcomponents_file)
+
+    for subcomponent in subcomponents:
+        s = SubComponent(category=subcomponent[0], ident=subcomponent[1],
+                         component=c)
+        db.session.add(s)
+
+    db.session.commit()
 
 
 @app.cli.command()

@@ -1,16 +1,4 @@
 from flask import Flask, render_template, send_file, url_for, redirect, flash
-from io import BytesIO
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from . import main
-from app import db
-from ..models import FailureMode, Facility, Area, Component, SubComponent, Vessel, Consequence, \
-    VesselTrip, FailureMode, FMECA, RBI
-from .forms import FailureModeForm, FacilityForm, AreaForm, VesselForm, ComponentForm, \
-    SubComponentForm, ConsequenceForm, VesselTripForm, FailureModeForm
-
-import random
 from bokeh.models import (HoverTool, FactorRange, Plot, LinearAxis, Grid,
                           Range1d)
 from bokeh.models import Range1d
@@ -18,7 +6,13 @@ from bokeh.plotting import figure
 from bokeh.charts import Line
 from bokeh.embed import components
 from bokeh.models.sources import ColumnDataSource
-from flask import Flask, render_template
+from . import main
+from app import db
+from ..models import FailureMode, Facility, Area, Component, SubComponent, \
+    Vessel, Consequence, VesselTrip, FailureMode, FMECA, RBI
+from .forms import FailureModeForm, FacilityForm, AreaForm, VesselForm, \
+    ComponentForm, SubComponentForm, ConsequenceForm, VesselTripForm, \
+    FailureModeForm
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -169,80 +163,97 @@ def consequence(id):
 @main.route('/component/<int:id>/fmeca', methods=['GET', 'POST'])
 def fmeca(id):
     component = Component.query.get_or_404(id)
+    fmeca = component.fmeca
+    return render_template('fmeca.html', component=component, fmeca=fmeca)
+
+
+@main.route('/component/<int:id>/fmeca/create', methods=['GET', 'POST'])
+def fmeca_create(id):
+    component = Component.query.get_or_404(id)
     fmeca = FMECA(component=component)
     fmeca.create()
+    db.session.add(fmeca)
+    db.session.commit()
     flash('FMECA created.')
-    return render_template('fmeca.html', fmeca=fmeca)
+    return redirect(url_for('.fmeca', id=component.id))
+
+
+@main.route('/component/<int:id>/fmeca/update', methods=['GET', 'POST'])
+def fmeca_update(id):
+    component = Component.query.get_or_404(id)
+    fmeca = FMECA.query.filter_by(component_id=id).first()
+    db.session.delete(fmeca)
+    db.session.commit()
+    fmeca = FMECA(component=component)
+    fmeca.create()
+    db.session.add(fmeca)
+    db.session.commit()
+    flash('FMECA updated.')
+    return redirect(url_for('.fmeca', id=component.id))
 
 
 @main.route('/component/<int:id>/rbi', methods=['GET', 'POST'])
 def rbi(id):
     fmeca = FMECA.query.filter_by(component_id=id).first()
+    rbi = fmeca.rbi
+
+    if rbi is not None:
+        # generate chart
+        data = {'risk': rbi.risk, 'interval': rbi.inspection_interval}
+        # hover = create_hover_tool()
+        title = fmeca.component.ident
+        plot = create_rbi_chart(data=data, title=title, x_name='Time [yrs]',
+                                y_name='Commercial Risk [£]')  # , hover_tool=hover)
+        script, div = components(plot)
+    else:
+        script, div = None, None
+
+    return render_template('rbi.html', fmeca=fmeca, rbi=rbi, div=div, script=script)
+
+
+@main.route('/component/<int:id>/rbi/create', methods=['GET', 'POST'])
+def rbi_create(id):
+    fmeca = FMECA.query.filter_by(component_id=id).first()
     rbi = RBI(fmeca=fmeca, inspection_type='ROV Inspection')
     rbi.run()
-    flash('RBI ran.')
-
-    # generate chart
-    data = {'risk': rbi.risk, 'interval': rbi.inspection_interval}
-    hover = create_hover_tool()
-    title = fmeca.component.ident
-    plot = create_rbi_chart(data=data, title=title, x_name='Time [yrs]',
-                            y_name='Commercial Risk [£]', hover_tool=hover)
-    script, div = components(plot)
-
-    return render_template('rbi.html', rbi=rbi, div=div, script=script)
+    db.session.add(rbi)
+    db.session.commit()
+    flash('RBI created.')
+    return redirect(url_for('.rbi', id=fmeca.component.id))
 
 
-# @main.route('/component/<int:id>/rbi/fig', methods=['GET'])
-# def fig(id):
-#     fmeca = FMECA.query.filter_by(component_id=id).first()
-#     rbi = RBI.query.filter_by(fmeca_id=fmeca.id).first()
-#     risk = rbi.risk
-#     inspection_interval = rbi.inspection_interval
-#     fig = draw_figure(fmeca.component.ident, risk, inspection_interval)
-#     img = BytesIO()
-#     fig.savefig(img)
-#     img.seek(0)
-#     return send_file(img, mimetype='image/png')
+@main.route('/component/<int:id>/rbi/update', methods=['GET', 'POST'])
+def rbi_update(id):
+    fmeca = FMECA.query.filter_by(component_id=id).first()
+    rbi = RBI.query.filter_by(fmeca=fmeca).first()
+    db.session.delete(rbi)
+    db.session.commit()
+    rbi = RBI(fmeca=fmeca, inspection_type='ROV Inspection')
+    rbi.run()
+    db.session.add(rbi)
+    db.session.commit()
+    flash('RBI updated.')
+    return redirect(url_for('.rbi', id=id))
 
 
-# def draw_figure(ident, risk, interval):
-#     x = [0, interval, interval]
-#     y = [0, risk, 0]
-#     fig = plt.figure()
-#     # left, bottom, width, height (range 0 to 1)
-#     axes = fig.add_axes([0.1, 0.1, 0.8, 0.8])
-#     axes.plot([0, interval + 0.1 * interval], [risk, risk], color='r', ls='--',
-#               label='Risk Cut Off')
-#     axes.plot(x, y, color='blue', label='Calculated RBI')
-#     axes.set_xlim([0, interval + 0.1 * interval])
-#     axes.set_ylim([0, risk + 0.1 * risk])
-#     axes.legend()
-#     axes.grid(True)
-#     axes.set_xlabel('Inspection Interval [yrs]')
-#     axes.set_ylabel('Commercial Risk [£]')
-#     axes.set_title(ident)
-#     return fig
-
-
-def create_hover_tool():
-    """Generates the HTML for the Bokeh's hover data tool on our graph."""
-    hover_html = """
-      <div>
-        <span class="hover-tooltip">$x</span>
-      </div>
-      <div>
-        <span class="hover-tooltip">@interval interval</span>
-      </div>
-      <div>
-        <span class="hover-tooltip">$@costs{0.00}</span>
-      </div>
-    """
-    return HoverTool(tooltips=hover_html)
+# def create_hover_tool():
+#     """Generates the HTML for the Bokeh's hover data tool on our graph."""
+#     hover_html = """
+#       <div>
+#         <span class="hover-tooltip">$x</span>
+#       </div>
+#       <div>
+#         <span class="hover-tooltip">@interval interval</span>
+#       </div>
+#       <div>
+#         <span class="hover-tooltip">$@costs{0.00}</span>
+#       </div>
+#     """
+#     return HoverTool(tooltips=hover_html)
 
 
 def create_rbi_chart(data, title, x_name, y_name, hover_tool=None,
-                     width=1200, height=400):
+                     width=1200, height=500):
     """Creates a line chart plot. Pass in data as a dictionary, desired plot title,
        name of x axis, y axis and the hover tool HTML.
     """

@@ -1,44 +1,49 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}FMECA - {{ fmeca.component.ident }}{% endblock %}
+{% block title %}FMECA - {{ component.ident }}{% endblock %}
 
 {% block page_content %}
     <div>
-        <p><a href="{{ url_for('main.component', id=fmeca.component.id) }}"><button type="button" class="btn btn-default">Back</button></a></p>
-        <p><a href="{{ url_for('main.rbi', id=fmeca.component.id) }}"><button type="button" class="btn btn-default">Run RBI</button></a></p>
-        <h1>FMECA - {{ fmeca.component.ident }}</h1>
-        <p>Total Number of Failures: {{ fmeca.failures.count() }}</p>
-        {% if fmeca.failures %}
-            <h3>Failures</h3>
-            <table class="table table-hover">
-                <thead><tr>
-                    <th>Sub-Component Category</th>
-                    <th>Sub-Component Ident</th>
-                    <th>Failure Mode</th>
-                    <th>Time Dependant</th>
-                    <th>Mean Time to Failure [yrs]</th>
-                    <th>Detectable</th>
-                    <th>Inpsection Type</th>
-                    <th>Global Consequence</th>
-                    <th>Total Cost [£]</th>
-                    <th>Annual Probability of Failure</th>
-                </tr></thead>
-                {% for failure in fmeca.failures %}
-                    <tr>
-                        <td>{{ failure.subcomponent.category }}</td>
-                        <td>{{ failure.subcomponent.ident }}</td>
-                        <td>{{ failure.failure_mode.description }}</td>
-                        <td>{{ failure.failure_mode.time_dependant }}</td>
-                        <td>{{ '{:,.1f}'.format(failure.failure_mode.mean_time_to_failure) }}</td>
-                        <td>{{ failure.failure_mode.detectable }}</td>
-                        <td>{{ failure.failure_mode.inspection_type }}</td>
-                        <td>{{ failure.consequence.name }}</td>
-                        <td>{{ '£{:,.2f}'.format(failure.total_cost)  }}</td>
-                        <td>{{ '{0:0.2E}'.format(failure.probability) }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% endif %} 
+        <p><a href="{{ url_for('main.component', id=component.id) }}"><button type="button" class="btn btn-default">Back</button></a></p>
+        {% if fmeca is none %}
+            <p><a href="{{ url_for('main.fmeca_create', id=component.id) }}"><button type="button" class="btn btn-success btn-block">Create FMECA</button></a></p>
+        {% else %}
+            <p><a href="{{ url_for('main.rbi', id=component.id) }}"><button type="button" class="btn btn-default btn-block">RBI</button></a></p>
+            <p><a href="{{ url_for('main.fmeca_update', id=component.id) }}"><button type="button" class="btn btn-info btn-block">Update FMECA</button></a></p>
+            <h1>FMECA - {{ fmeca.component.ident }}</h1>
+            <p>Total Number of Failures: {{ fmeca.failures.count() }}</p>
+            {% if fmeca.failures.count() > 0 %}
+                <h3>Failures</h3>
+                <table class="table table-hover">
+                    <thead><tr>
+                        <th>Sub-Component Category</th>
+                        <th>Sub-Component Ident</th>
+                        <th>Failure Mode</th>
+                        <th>Time Dependant</th>
+                        <th>Mean Time to Failure [yrs]</th>
+                        <th>Detectable</th>
+                        <th>Inpsection Type</th>
+                        <th>Global Consequence</th>
+                        <th>Total Cost [£]</th>
+                        <th>Annual Probability of Failure</th>
+                    </tr></thead>
+                    {% for failure in fmeca.failures %}
+                        <tr>
+                            <td>{{ failure.subcomponent.category }}</td>
+                            <td>{{ failure.subcomponent.ident }}</td>
+                            <td>{{ failure.failure_mode.description }}</td>
+                            <td>{{ failure.failure_mode.time_dependant }}</td>
+                            <td>{{ '{:,.1f}'.format(failure.failure_mode.mean_time_to_failure) }}</td>
+                            <td>{{ failure.failure_mode.detectable }}</td>
+                            <td>{{ failure.failure_mode.inspection_type }}</td>
+                            <td>{{ failure.consequence.name }}</td>
+                            <td>{{ '£{:,.2f}'.format(failure.total_cost)  }}</td>
+                            <td>{{ '{0:0.2E}'.format(failure.probability) }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        {% endif %}
     </div>
 {%- endblock %}

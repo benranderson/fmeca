@@ -447,7 +447,7 @@
     "Flowmeter": {
         "Loss of Function due to Impact": {
             "Random/Time Dependant": "R.",
-            "BP Ored MTTF": 187.5,
+            "BP Ored MTTF": 655.7,
             "Detectable by Inspection": "Lagging",
             "Type of Inspection": "ROV Inspection",
             "Consequence": "Minor Intervention"

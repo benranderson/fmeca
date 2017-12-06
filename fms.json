@@ -14,35 +14,35 @@
             "mean_time_to_failure": 1193.6,
             "detectable": "Lagging",
             "inspection_type": "ROV Inspection",
-            "consequence_description": "Minor Intervention"
+            "consequence_description": "Major Intervention"
         },
         "Loss of Function due to Failure to Close on demand": {
             "time_dependent": false,
             "mean_time_to_failure": 1193.6,
             "detectable": "Lagging",
             "inspection_type": "ROV Inspection",
-            "consequence_description": "Minor Intervention"
+            "consequence_description": "Major Intervention"
         },
         "Loss of Function due to Blockage": {
             "time_dependent": false,
             "mean_time_to_failure": 149.2,
             "detectable": "Not Detectable",
             "inspection_type": "",
-            "consequence_description": "Minor Intervention"
+            "consequence_description": "Major Intervention"
         },
         "Loss of Containment due to Internal Leakage": {
             "time_dependent": false,
             "mean_time_to_failure": 596.8,
             "detectable": "Not Detectable",
             "inspection_type": "",
-            "consequence_description": "Minor Intervention"
+            "consequence_description": "Major Intervention"
         },
         "Loss of Containment due to External Leakage": {
             "time_dependent": false,
             "mean_time_to_failure": 16558.0,
             "detectable": "Lagging",
             "inspection_type": "ROV Inspection",
-            "consequence_description": "Minor Intervention"
+            "consequence_description": "Major Intervention"
         },
         "Loss of Function due to Mechanical Failure": {
             "time_dependent": false,
@@ -643,10 +643,10 @@
     "Flowmeter": {
         "Loss of Function due to Impact": {
             "time_dependent": false,
-            "mean_time_to_failure": 187.5,
+            "mean_time_to_failure": 655.7,
             "detectable": "Lagging",
             "inspection_type": "ROV Inspection",
-            "consequence_description": "Change in operation"
+            "consequence_description": "Change in Operation"
         }
     },
     "Outer Sheath (Flexible Pipe)": {
@@ -2027,14 +2027,14 @@
             "mean_time_to_failure": 1018.48,
             "detectable": "Not Detectable",
             "inspection_type": "",
-            "consequence_description": "Change in operation"
+            "consequence_description": "Change in Operation"
         },
         "Loss of function due to Signal Failure": {
             "time_dependent": false,
             "mean_time_to_failure": 1018.48,
             "detectable": "Not Detectable",
             "inspection_type": "",
-            "consequence_description": "Change in operation"
+            "consequence_description": "Change in Operation"
         }
     },
     "Pig Indicator (intrusive)": {

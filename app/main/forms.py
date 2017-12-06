@@ -92,3 +92,7 @@ class VesselTripForm(FlaskForm):
     active_repair_time = DecimalField('Active Repair Time [days]',
                                       validators=[Required()])
     submit = SubmitField('Submit')
+
+
+class RbiIncludeForm(FlaskForm):
+    pass
